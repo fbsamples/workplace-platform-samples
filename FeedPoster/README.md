@@ -9,4 +9,4 @@ An example custom integration that automates posting new articles into a predefi
 4. Modify the `.env` file to include the `ACCESS_TOKEN` for your app, the group ID for your `TARGET_GROUP` and a URL for the RSS feed you want to use, and start the node application by running `node clock.js`
 
 ## Notes on Cron
-This app uses the `node-cron` module. Visit the [chon project page](https://github.com/ncb000gt/node-cron) for details on how to use it for custom scheduling.
+This app uses the `node-cron` module. Visit the [cron project page](https://github.com/ncb000gt/node-cron) for details on how to use it for custom scheduling.
