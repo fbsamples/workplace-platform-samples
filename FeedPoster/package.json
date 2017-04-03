@@ -1,0 +1,24 @@
+{
+  "name": "heroku-clock-example-js",
+  "version": "0.0.1",
+  "description": "An example of a clock process for heroku in javascript for use with node.",
+  "keywords": [
+    "heroku",
+    "clock",
+    "procfile",
+    "cron",
+    "schedule",
+    "example",
+    "js",
+    "javascript",
+    "process"
+  ],
+  "author": "John Henry",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.0.5",
+    "feed-read": "0.0.1",
+    "request": "^2.79.0",
+    "time": "^0.11.0"
+  }
+}
