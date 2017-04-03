@@ -1,4 +1,4 @@
-#FeedPoster Sample
+# FeedPoster Sample
 
 An example custom integration that automates posting new articles into a predefined Workplace group when new content appears on a given RSS feed. 
 
