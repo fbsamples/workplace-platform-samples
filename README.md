@@ -2,6 +2,6 @@
 
 This is a collection of sample applications that show the platform features available to custom integrations in Workplace.
 
-To learn more about building custom integrations for Workplace, check out the developer documentation at [https://developers.facebook.com/docs/workplace/custom-integrations](https://developers.facebook.com/docs/workplace/custom-integrations).
+To learn more about building custom integrations for Workplace, check out the developer documentation at [https://developers.facebook.com/docs/workplace/integrations/custom-integrations](https://developers.facebook.com/docs/workplace/integrations/custom-integrations).
 
-To get started using Workplace, go to [https://workplace.fb.com](https://workplace.fb.com).
+To get started using Workplace, go to [https://www.facebook.com/workplace](https://www.facebook.com/workplace).
