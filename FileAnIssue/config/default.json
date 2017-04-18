@@ -1,0 +1,13 @@
+{
+	"Workplace": {
+		"appSecret": "",
+		"appToken": "",
+		"pageAccessToken": "",
+		"verifyToken": "",
+		"serverURL": ""
+	},
+	"Github": {
+		"token": "",
+		"repo": ""
+	}
+}

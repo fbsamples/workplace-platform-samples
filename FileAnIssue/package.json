@@ -1,0 +1,27 @@
+{
+  "name": "gh-file-an-issue",
+  "version": "0.0.1",
+  "description": "An example of filing a GitHub issue from a Workplace group, with roundtrip replies when the issues close",
+  "keywords": [
+    "heroku",
+    "clock",
+    "procfile",
+    "cron",
+    "schedule",
+    "example",
+    "js",
+    "javascript",
+    "process"
+  ],
+  "author": "Connor Treacy",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "config": "^1.25.1",
+    "crypto": "0.0.3",
+    "express": "^4.14.1",
+    "https": "^1.0.0",
+    "moment": "^2.17.1",
+    "node-schedule": "^1.2.0",
+    "request": "^2.79.0"
+  }
+}
