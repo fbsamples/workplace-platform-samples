@@ -137,7 +137,7 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   process.exit(1);
 }
 
-const GRAPH_API_BASE = 'https://graph.dev.facebook.com/v2.9';
+const GRAPH_API_BASE = 'https://graph.facebook.com/v2.9';
 
 // Enable page subscriptions for this app, using the app-page token
 function enableSubscriptions() {
