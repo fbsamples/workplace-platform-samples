@@ -1,9 +1,30 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var pg = require('pg');
+/*
+ * Copyright 2017-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+const 
+	crypto = require('crypto'),
+	express = require('express'),
+	bodyParser = require('body-parser'),
+	pg = require('pg'),
+	request = require('request');
+
+const
+	VERIFY_TOKEN = process.env.VERIFY_TOKEN,
+	ACCESS_TOKEN = process.env.ACCESS_TOKEN,
+	APP_SECRET = process.env.APP_SECRET,
+	DATABASE_URL = process.env.DATABASE_URL;
+
+if (!(APP_SECRET && VERIFY_TOKEN && ACCESS_TOKEN && DATABASE_URL)) {
+  console.error("Missing environment values.");
+  process.exit(1);
+}
+
 pg.defaults.ssl = true;
-var crypto = require('crypto');
-var request = require('request');
 
 var PAGE_ID = '';
 
@@ -14,8 +35,9 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+// List out all the thanks recorded in the database
 app.get('/', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+  pg.connect(DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM thanks', function(err, result) {
       done();
       if (err)
@@ -26,9 +48,10 @@ app.get('/', function (request, response) {
   });
 });
 
+// Handle the webhook subscription request from Facebook
 app.get('/webhook', function(request, response) {
   if (request.query['hub.mode'] === 'subscribe' &&
-      request.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
+      request.query['hub.verify_token'] === VERIFY_TOKEN) {
     console.log("Validated webhook");
     response.status(200).send(request.query['hub.challenge']);
   } else {
@@ -37,81 +60,67 @@ app.get('/webhook', function(request, response) {
   } 
 });
 
+// Handle webhook payloads from Facebook
 app.post('/webhook', function(request, response) {
 	var data = request.body;
 	if(request.body && request.body.entry) {
-		for(var i in request.body.entry) {
-			var changes = request.body.entry[i].changes;
-			for(var j in changes) {
-				if(changes[j].field && changes[j].field === 'mention') {
-					var mention_id = '';
-					if(changes[j].value && changes[j].value.item && changes[j].value.item == 'comment') {
-						mention_id = changes[j].value.comment_id;
-					} else if(changes[j].value && changes[j].value.item && changes[j].value.item == 'post') {
-						mention_id = changes[j].value.post_id;
-					}
-
-					// Like first
+		request.body.entry.forEach(function(entry){
+			entry.changes.forEach(function(change){
+				if(change.field === 'mention') {
+					let mention_id = (change.value.item === 'comment') ? 
+						change.value.comment_id : change.value.post_id;
+					// Like the post or comment to indicate acknowledgement
 					graphapi({
 						url: '/' + mention_id + '/likes',
 						method: 'POST'
 					}, function(error,res,body) {
 						console.log('Like', mention_id, body);
 					});
-
 					// Get mention text from Graph API
-					// /id?fields=message,message_tags,permalink_url
 					graphapi({
 						url: '/' + mention_id,
 						qs: {
 							fields: 'from,message,message_tags,permalink_url'
 						}
-					},function(error,res,body){
+					}, function(error,res,body){
 						if(body) {
-							body = JSON.parse(body);
-							var query = 'INSERT INTO thanks VALUES ';
-							var inserts = 0;
-							for(var t in body.message_tags) {
-								if(body.message_tags[t].type == 'page') continue;
-								//add a comma after every insert value group
+							let query = 'INSERT INTO thanks VALUES ';
+							let inserts = 0;
+							body.message_tags.forEach(function(message_tag){
+								// Ignore page mentions, as this will include the bot
+								if(message_tag.type === 'page') return;
+								// Add a comma after every insert value group
 								if(inserts++ != 0) query += ',';
-								query += 
-									'(now(),' 
-									+ '\'' + body.permalink_url + '\','
-									+ '\'' + body.message_tags[t].id + '\','
-									+ '\'\'' + ',' // TODO: Add manager
-									+ '\'' + body.from.id + '\','
-									+ '\'' + body.message + '\')';
-							}
+								query += `(now(),'${body.permalink_url}','${message_tag.id}','','${body.from.id}','${body.message}')`;
+							});
 							var interval = '1 week';
-							query += '; SELECT * FROM thanks WHERE create_date > now() - INTERVAL \''+interval+'\';';
-							pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+							query += `; SELECT * FROM thanks WHERE create_date > now() - INTERVAL '${interval}';`;
+							console.log('Query', query);
+							pg.connect(DATABASE_URL, function(err, client, done) {
 								client.query(query, function(err, result) {
 									done();
 									if (err) { 
 										console.error(err); 
 									} else if (result) {
 										var summary = 'Thanks received!\n'
-
 										// iterate through result rows, count number of thanks sent
 										var sender_thanks_sent = 0;
-										for(var r in result.rows){
-											if(result.rows[r].sender == body.from.id) sender_thanks_sent++;
-										}
-										summary += '@[' + body.from.id + '] has sent '+sender_thanks_sent+' thanks in the last ' + interval + '.\n';
+										result.rows.forEach(function(row){
+											if(row.sender == body.from.id) sender_thanks_sent++;
+										});
+										summary += `@[${body.from.id}] has sent ${sender_thanks_sent} thanks in the last ${interval}\n`;
 
-										for(var t in body.message_tags) {
+										body.message_tags.forEach(function(message_tag){
 											// Ignore page mentions
-											if(body.message_tags[t].type == 'page') continue;
-
-											// iterate through result rows, count number of thanks received
-											var recipient_received = 0;
-											for(var r in result.rows){
-												if(result.rows[r].recipient == body.message_tags[t].id) recipient_received++;
-											}
-											summary += '@[' + body.message_tags[t].id + '] has received '+recipient_received+' thanks in the last ' + interval + '.\n';
-										}
-										// Comment reply
+											if(message_tag.type === 'page') return;
+											// Iterate through result rows, count number of thanks received
+											let recipient_thanks_received = 0;
+											result.rows.forEach(function(row){
+												if(row.recipient == message_tag.id) recipient_thanks_received++;
+											});
+											summary += `@[${message_tag.id}] has received ${recipient_thanks_received} thanks in the last ${interval}\n`;
+										});
+										// Comment reply with thanks stat summary
 										graphapi({
 											url: '/' + mention_id + '/comments',
 											method: 'POST',
@@ -128,8 +137,8 @@ app.post('/webhook', function(request, response) {
 						}
 					});
 				}
-			}
-		}
+			});
+		});
 	}
 });
 
@@ -139,8 +148,9 @@ app.listen(app.get('port'), function() {
 
 var graphapi = request.defaults({
     baseUrl: 'https://graph.facebook.com',
+    json: true,
     auth: {
-        'bearer' : process.env.ACCESS_TOKEN
+        'bearer' : ACCESS_TOKEN
     }
 });
 
@@ -164,7 +174,7 @@ function verifyRequestSignature(req, res, buf) {
     var method = elements[0];
     var signatureHash = elements[1];
 
-    var expectedHash = crypto.createHmac('sha1', process.env.APP_SECRET)
+    var expectedHash = crypto.createHmac('sha1', APP_SECRET)
                         .update(buf)
                         .digest('hex');
 
