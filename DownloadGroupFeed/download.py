@@ -8,13 +8,22 @@ import requests
 import json
 import csv
 import datetime
+
 # Modify these to suit your needs
 TOKEN = "YOURTOKEN"
-DAYS = 14# No need to modify these
+DAYS = 14
+
+# No need to modify these
 GRAPH_URL_PREFIX = "https://graph.facebook.com/"
-GROUPS_SUFFIX = "/groups"# Default paging limit for Graph API# No need to modify, unless you're seeing timeouts
-DEFAULT_LIMIT = "100"# Set to true if you like seeing console output
-VERBOSE = True# Calculating a timestamp from DAYS
+GROUPS_SUFFIX = "/groups"
+
+# Default paging limit for Graph API# No need to modify, unless you're seeing timeouts
+DEFAULT_LIMIT = "100"
+
+# Set to true if you like seeing console output
+VERBOSE = True
+
+# Calculating a timestamp from DAYS
 SINCE = datetime.datetime.now() - datetime.timedelta(days=DAYS)
 def getFeed(group, name):
 
