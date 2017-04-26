@@ -83,7 +83,7 @@ function subscribeWebhook() {
     method: 'POST',
     qs: {
       'object': 'page',
-      'fields': 'mention,message_deliveries,messages,messaging_postbacks,messaging_optins',
+      'fields': 'mention,message_deliveries,messages,messaging_postbacks,message_reads',
       'include_values': 'true',
       'verify_token': VALIDATION_TOKEN,
       'callback_url': SERVER_URL + '/webhook'
