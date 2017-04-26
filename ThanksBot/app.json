@@ -1,8 +1,7 @@
 {
-  "name": "Start on Heroku: Node.js",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "name": "Thanks bot for Workplace",
+  "description": "An example bot that allows you to recognise your coworker by mentioning the bot in Workplace groups.",
+  "repository": "https://github.com/fbsamples/workplace-platform-samples",
   "keywords": ["node", "express", "heroku"],
   "image": "heroku/nodejs"
 }
