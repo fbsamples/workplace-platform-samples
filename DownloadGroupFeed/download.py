@@ -10,7 +10,6 @@ import csv
 import datetime
 # Modify these to suit your needs
 TOKEN = "YOURTOKEN"
-COMMUNITY = "YOURCOMMUNITYID"
 DAYS = 14# No need to modify these
 GRAPH_URL_PREFIX = "https://graph.facebook.com/"
 GROUPS_SUFFIX = "/groups"# Default paging limit for Graph API# No need to modify, unless you're seeing timeouts
@@ -72,7 +71,7 @@ def getGroups(after=None):
     if after:
         params += "&amp;after=" + after
 
-    graph_url = GRAPH_URL_PREFIX + COMMUNITY + GROUPS_SUFFIX + params
+    graph_url = GRAPH_URL_PREFIX + "community" + GROUPS_SUFFIX + params
 
     result = requests.get(graph_url, headers=headers)
     result_json = json.loads(result.text, result.encoding)
