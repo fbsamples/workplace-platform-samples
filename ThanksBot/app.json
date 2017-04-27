@@ -1,0 +1,7 @@
+{
+  "name": "Thanks bot for Workplace",
+  "description": "An example bot that allows you to recognise your coworker by mentioning the bot in Workplace groups.",
+  "repository": "https://github.com/fbsamples/workplace-platform-samples",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}
