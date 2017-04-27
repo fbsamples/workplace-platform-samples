@@ -12,7 +12,6 @@
 
 const 
   bodyParser = require('body-parser'),
-  config = require('config'),
   crypto = require('crypto'),
   express = require('express'),
   request = require('request');
@@ -28,69 +27,19 @@ app.use(express.static('public'));
  * set them using environment variables or modifying the config file in /config.
  *
  */
-// App ID can be retrieved from /app with page token
-const APP_ID = (process.env.APP_ID) ? 
-  process.env.APP_ID :
-  config.get('appId');
-
 // App Secret can be retrieved from the App Dashboard
-const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ? 
-  process.env.MESSENGER_APP_SECRET :
-  config.get('appSecret');
+const
+  APP_SECRET = process.env.APP_SECRET,
+  VERIFY_TOKEN = process.env.VERIFY_TOKEN,
+  ACCESS_TOKEN = process.env.ACCESS_TOKEN,
+  SERVER_URL = (process.env.SERVER_URL);
 
-// Arbitrary value used to validate a webhook
-const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
-  (process.env.MESSENGER_VALIDATION_TOKEN) :
-  config.get('validationToken');
-
-// Generate a page access token for your page from the App Dashboard
-const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
-  (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
-  config.get('pageAccessToken');
-
-// URL where the app is running (include protocol). Used to point to scripts and 
-// assets located at this address. 
-const SERVER_URL = (process.env.SERVER_URL) ?
-  (process.env.SERVER_URL) :
-  config.get('serverURL');
-
-if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
-  console.error("Missing config values");
+if (!(APP_SECRET && VERIFY_TOKEN && ACCESS_TOKEN && SERVER_URL)) {
+  console.error("Missing environment variables");
   process.exit(1);
 }
 
 const GRAPH_API_BASE = 'https://graph.facebook.com/v2.6';
-
-// Enable page subscriptions for this app, using the app-page token
-function enableSubscriptions() {
-  request({
-    baseUrl: GRAPH_API_BASE,
-    method: 'POST',
-    url: '/me/subscribed_apps',
-    auth: {'bearer' : PAGE_ACCESS_TOKEN}
-  },function(error,response,body){
-    // This should return with {success:true}, otherwise you've got problems!
-    console.log('enableSubscriptions',body);
-  });
-}
-
-function subscribeWebhook() {
-  request({
-    baseUrl: GRAPH_API_BASE,
-    auth: {'bearer' : APP_ID + '|' + APP_SECRET},
-    url: '/app/subscriptions',
-    method: 'POST',
-    qs: {
-      'object': 'page',
-      'fields': 'mention,message_deliveries,messages,messaging_postbacks,message_reads',
-      'include_values': 'true',
-      'verify_token': VALIDATION_TOKEN,
-      'callback_url': SERVER_URL + '/webhook'
-    },
-  }, function (error, response, body) {
-    console.log('subscribeWebhook',body);
-  });  
-}
 
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 
@@ -134,7 +83,7 @@ app.get('/start/:user', function(req, res) {
  */
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+      req.query['hub.verify_token'] === VERIFY_TOKEN) {
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
@@ -252,7 +201,7 @@ function sendStartSurvey(recipientId) {
     qs: {
     	'fields': 'first_name'
     },
-    auth: {'bearer' : PAGE_ACCESS_TOKEN}
+    auth: {'bearer' : ACCESS_TOKEN}
   },function(error,response,body){
     body = JSON.parse(body);
     var messageData = {
@@ -406,7 +355,7 @@ function callSendAPI(messageData) {
   request({
   	baseUrl: GRAPH_API_BASE,
     url: '/me/messages',
-    qs: { access_token: PAGE_ACCESS_TOKEN },
+    qs: { access_token: ACCESS_TOKEN },
     method: 'POST',
     json: messageData
 
@@ -433,8 +382,6 @@ function callSendAPI(messageData) {
 // certificate authority.
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
-  enableSubscriptions();
-  subscribeWebhook();
 });
 
 module.exports = app;
