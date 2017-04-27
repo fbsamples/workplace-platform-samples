@@ -15,7 +15,6 @@ const
   config = require('config'),
   crypto = require('crypto'),
   express = require('express'),
-  https = require('https'),  
   request = require('request');
 
 var app = express();
@@ -89,7 +88,7 @@ function subscribeWebhook() {
       'callback_url': SERVER_URL + '/webhook'
     },
   }, function (error, response, body) {
-    console.log('subscribeWebhook',response.body);
+    console.log('subscribeWebhook',body);
   });  
 }
 
@@ -110,7 +109,6 @@ function verifyRequestSignature(req, res, buf) {
     console.error("Couldn't validate the signature.");
   } else {
     var elements = signature.split('=');
-    var method = elements[0];
     var signatureHash = elements[1];
 
     var expectedHash = crypto.createHmac('sha1', APP_SECRET)
@@ -160,25 +158,11 @@ app.post('/webhook', function (req, res) {
     // Iterate over each entry
     // There may be multiple if batched
     data.entry.forEach(function(pageEntry) {
-      var pageID = pageEntry.id;
-      var timeOfEvent = pageEntry.time;
 
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
-        if (messagingEvent.optin) {
-          receivedAuthentication(messagingEvent);
-        } else if (messagingEvent.message) {
+        if (messagingEvent.message) {
           receivedMessage(messagingEvent);
-        } else if (messagingEvent.delivery) {
-          receivedDeliveryConfirmation(messagingEvent);
-        } else if (messagingEvent.postback) {
-          receivedPostback(messagingEvent);
-        } else if (messagingEvent.read) {
-          receivedMessageRead(messagingEvent);
-        } else if (messagingEvent.account_linking) {
-          receivedAccountLink(messagingEvent);
-        } else {
-          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
       });
     });
@@ -221,8 +205,6 @@ function receivedMessage(event) {
   var metadata = message.metadata;
 
   // You may get a text or attachment but not both
-  var messageText = message.text;
-  var messageAttachments = message.attachments;
   var quickReply = message.quick_reply;
 
   if (isEcho) {
@@ -236,8 +218,7 @@ function receivedMessage(event) {
       messageId, quickReplyPayload);
 
     var payload_tokens = quickReplyPayload.split(':');
-	var payload_action = payload_tokens[0];
-	var payload_object = payload_tokens[1];
+    var payload_action = payload_tokens[0];
 
     switch (payload_action) {
       case 'DELAY_SURVEY':
@@ -258,24 +239,6 @@ function receivedMessage(event) {
     }
     return;
   }
-}
-
-/*
- * Send a text message using the Send API.
- *
- */
-function sendTextMessage(recipientId, messageText) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: messageText,
-      metadata: "DEVELOPER_DEFINED_METADATA"
-    }
-  };
-
-  callSendAPI(messageData);
 }
 
 /*
