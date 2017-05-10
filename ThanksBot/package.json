@@ -1,6 +1,6 @@
 {
   "name": "thanks-bot",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "A sample bot for Workplace",
   "engines": {
     "node": "6.10.2"
