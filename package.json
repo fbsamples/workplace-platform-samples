@@ -1,0 +1,20 @@
+{
+  "name": "workplace-platform-samples",
+  "version": "1.0.0",
+  "description": "This is a collection of sample applications that show the platform features available to custom integrations in Workplace.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flobauer/workplace-platform-samples.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flobauer/workplace-platform-samples/issues"
+  },
+  "homepage": "https://github.com/flobauer/workplace-platform-samples#readme"
+}

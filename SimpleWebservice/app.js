@@ -92,12 +92,9 @@ function simpleWebserviceCall(event) {
 
       // get response
 			var data = JSON.parse(body);
-
-			// random number between 1 and 10
-			var randomNumber = Math.floor((Math.random() * 10) + 1);
-
-			//give an answer
-			messageData.message.text = data.answers[randomNumber].name;
+			var randomNumber = Math.floor((Math.random() * 7) + 1);
+			var ship = data.results[randomNumber];
+			messageData.message.text = `${ship.name} is a ${ship.model} from ${ship.manufacturer} with max speed ${ship.max_atmosphering_speed}.`;
 			callSendAPI(messageData);
 
 		} else {
