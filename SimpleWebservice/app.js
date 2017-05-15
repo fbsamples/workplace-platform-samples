@@ -45,17 +45,11 @@ if (!(APP_SECRET && VERIFY_TOKEN && ACCESS_TOKEN && SERVER_URL)) {
 const GRAPH_API_BASE = 'https://graph.facebook.com/v2.6';
 
 /*
- * Message Event
+ * Simple Webservice Call
  *
- * This event is called when a message is sent to your page. The 'message' 
- * object format can vary depending on the kind of message that was received.
- * Read more at https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received
+ * This event is called when a message is sent to your Bot.
  *
- * For this example, we're going to echo any text that we get. If we get some 
- * special keywords ('button', 'generic', 'receipt'), then we'll send back
- * examples of those bubbles to illustrate the special message bubbles we've 
- * created. If we receive a message with an attachment (image, video, audio), 
- * then we'll simply confirm that we've received the attachment.
+ * For this example, we're going to send a simple HTTP Request to an Endpoint and display the answer of the Response.
  * 
  */
 function simpleWebserviceCall(event) {
@@ -75,45 +69,48 @@ function simpleWebserviceCall(event) {
 		}
 	};
 
-	// use request repo
-	// https://github.com/request/request
+	// You should send the Text of the User to the Endpoint
+	// http://<your-endpoint>?message=Whatever%20she%20sent
 	// 
 	// request({
 	// 	uri: '',
-	// 	qs: { m: message.text },
-	// 	headers: {
-	// 		'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
-	// 	}
-	// }
+	// 	qs: { message: message.text }
+	// }, function(){});
 
 	request({
+		// starwars example
 		uri: 'http://swapi.co/api/starships',
 	}, function (error, response, body) {
-		if(error) {
-			messageData.message.body = 'Sorry, I\'m not well';
-		} else {
+		
+		// request unsuccessfull
+		if (!error && response.statusCode == 200) {
+			var recipientId = body.recipient_id;
+			var messageId = body.message_id;
 
+			console.log('Successfully sent generic message with id %s to recipient %s', 
+        messageId, recipientId);
+
+      // get response
 			var data = JSON.parse(body);
 
-			console.log('Data came back from Endpoint Backend.');
-			console.log(data);
+			// random number between 1 and 10
+			var randomNumber = Math.floor((Math.random() * 10) + 1);
 
-			if(data.answers.length) {
-				for( var i in data.answers) {
-					messageData.message.text = data.answers[i].slice(0, 640);
-					callSendAPI(messageData);
-				}
-			} else {
-				messageData.message.text = 'Sorry, we dont have a result for you atm';
-				callSendAPI(messageData);
-			}
+			//give an answer
+			messageData.message.text = data.answers[randomNumber].name;
+			callSendAPI(messageData);
+
+		} else {
+			console.error('Unable to send message.');
+			console.error(response);
+			console.error(error);
 		}
 	});
 
 	return;
 }
 
-
+// All the other stuff
 
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 

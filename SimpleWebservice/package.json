@@ -1,7 +1,7 @@
 {
-  "name": "employee-survey",
+  "name": "simple-werbservice",
   "version": "1.0.0",
-  "description": "Employee Survey sample app for Work Chat",
+  "description": "Simple Webservice Call with an Starwars Example for Work Chat",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -12,8 +12,7 @@
     "type": "git",
     "url": "https://github.com/fbsamples/workplace-platform-samples.git"
   },
-  "author": "Facebook",
-  "license": "ISC",
+  "author": "flobauer",
   "dependencies": {
     "body-parser": "^1.15.0",
     "ejs": "^2.4.2",
