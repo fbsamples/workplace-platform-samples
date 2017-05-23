@@ -64,6 +64,9 @@ def getFeed(group, name):
             feed.append(feed_item)
 
     return feed
+
+# Recursively gets groups if pagination exists. In instances with a significant number of groups this
+# may overflow the stack. 
 def getGroups(after=None):
 
     # Token-based auth header
