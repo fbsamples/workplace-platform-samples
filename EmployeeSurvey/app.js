@@ -24,10 +24,11 @@ app.use(express.static('public'));
 
 /*
  * Be sure to setup your config values before running this code. You can 
- * set them using environment variables or modifying the config file in /config.
+ * set them using environment variables.
+ * 
+ * https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps
  *
  */
-// App Secret can be retrieved from the App Dashboard
 const
 	APP_SECRET = process.env.APP_SECRET,
 	VERIFY_TOKEN = process.env.VERIFY_TOKEN,
@@ -43,10 +44,10 @@ const GRAPH_API_BASE = 'https://graph.facebook.com/v2.6';
 
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 
- * the App Dashboard, we can verify the signature that is sent with each 
+ * your custom integration, we can verify the signature that is sent with each 
  * callback in the x-hub-signature field, located in the header.
  *
- * https://developers.facebook.com/docs/graph-api/webhooks#setup
+ * https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps
  *
  */
 function verifyRequestSignature(req, res, buf) {
@@ -75,8 +76,8 @@ app.get('/start/:user', function(req, res) {
 });
 
 /*
- * Use your own validation token. Check that the token used in the Webhook 
- * setup is the same token used here.
+ * Use your own validation token. This can be any string. Check that the 
+ * token used in the Webhook setup is the same token used here.
  *
  */
 app.get('/webhook', function(req, res) {
@@ -91,11 +92,11 @@ app.get('/webhook', function(req, res) {
 });
 
 /*
- * All callbacks for Messenger are POST-ed. They will be sent to the same
- * webhook. Be sure to subscribe your app to your page to receive callbacks
- * for your page. 
- * https://developers.facebook.com/docs/messenger-platform/product-overview/setup#subscribe_app
- *
+ * All callbacks for webhooks are POST-ed. They will be sent to the same
+ * webhook URL. Be sure to subscribe your app to your page to receive callbacks
+ * for your page.
+ * 
+ * https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps
  */
 app.post('/webhook', function (req, res) {
 	var data = req.body;
@@ -128,12 +129,6 @@ app.post('/webhook', function (req, res) {
  * This event is called when a message is sent to your page. The 'message' 
  * object format can vary depending on the kind of message that was received.
  * Read more at https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received
- *
- * For this example, we're going to echo any text that we get. If we get some 
- * special keywords ('button', 'generic', 'receipt'), then we'll send back
- * examples of those bubbles to illustrate the special message bubbles we've 
- * created. If we receive a message with an attachment (image, video, audio), 
- * then we'll simply confirm that we've received the attachment.
  * 
  */
 function receivedMessage(event) {
@@ -167,6 +162,8 @@ function receivedMessage(event) {
 		var payload_tokens = quickReplyPayload.split(':');
 		var payload_action = payload_tokens[0];
 
+		// We're using predefined metadata payloads for the quickreply messages
+		// so let's use these to understand what should happen next
 		switch (payload_action) {
 			case 'DELAY_SURVEY':
 				sendDelaySurvey(senderID);
