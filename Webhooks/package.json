@@ -1,0 +1,18 @@
+{
+  "name": "webhooks",
+  "version": "1.0.0",
+  "description": "A basic webhooks implementation sample",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "crypto": "0.0.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
