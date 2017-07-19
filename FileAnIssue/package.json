@@ -16,12 +16,8 @@
   "author": "Connor Treacy",
   "dependencies": {
     "body-parser": "^1.16.0",
-    "config": "^1.25.1",
     "crypto": "0.0.3",
     "express": "^4.14.1",
-    "https": "^1.0.0",
-    "moment": "^2.17.1",
-    "node-schedule": "^1.2.0",
     "request": "^2.79.0"
   }
 }
