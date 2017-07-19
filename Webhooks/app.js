@@ -11,9 +11,9 @@
 'use strict';
 
 const
-    bodyParser = require('body-parser'),
-    crypto = require('crypto'),
-    express = require('express');
+  bodyParser = require('body-parser'),
+  crypto = require('crypto'),
+  express = require('express');
 // Using dotenv to allow local running with environment variables
 require('dotenv').load();
 
@@ -32,13 +32,13 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
  */
 //
 const
-    APP_SECRET = process.env.APP_SECRET,
-    VERIFY_TOKEN = process.env.VERIFY_TOKEN,
-    ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+  APP_SECRET = process.env.APP_SECRET,
+  VERIFY_TOKEN = process.env.VERIFY_TOKEN,
+  ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 if (!(APP_SECRET && VERIFY_TOKEN && ACCESS_TOKEN)) {
-    console.error('Missing config values');
-    process.exit(1);
+  console.error('Missing config values');
+  process.exit(1);
 }
 
 /*
@@ -47,14 +47,14 @@ if (!(APP_SECRET && VERIFY_TOKEN && ACCESS_TOKEN)) {
  *
  */
 app.get('/', function(req, res) {
-    if (req.query['hub.mode'] === 'subscribe' &&
+  if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === VERIFY_TOKEN) {
-        console.log('Validating webhook');
-        res.status(200).send(req.query['hub.challenge']);
-    } else {
-        console.error('Failed validation. Make sure the validation tokens match.');
-        res.sendStatus(403);
-    }
+    console.log('Validating webhook');
+    res.status(200).send(req.query['hub.challenge']);
+  } else {
+    console.error('Failed validation. Make sure the validation tokens match.');
+    res.sendStatus(403);
+  }
 });
 
 
@@ -78,67 +78,67 @@ app.get('/', function(req, res) {
  *
  */
 app.post('/', function (req, res) {
-    try{
-        var data = req.body;
+  try{
+    var data = req.body;
     // On Workplace, webhooks can be sent for page, group and
 		// workplace_security objects
-        switch (data.object) {
-        case 'page':
-            processPageEvents(data);
-            break;
-        case 'group':
-            processGroupEvents(data);
-            break;
-        case 'workplace_security':
-            processWorkplaceSecurityEvents(data);
-            break;
-        default:
-            console.log('Unhandled Webhook Object', data.object);
-        }
-    } catch (e) {
+    switch (data.object) {
+    case 'page':
+      processPageEvents(data);
+      break;
+    case 'group':
+      processGroupEvents(data);
+      break;
+    case 'workplace_security':
+      processWorkplaceSecurityEvents(data);
+      break;
+    default:
+      console.log('Unhandled Webhook Object', data.object);
+    }
+  } catch (e) {
     // Write out any exceptions for now
-        console.error(e);
-    } finally {
+    console.error(e);
+  } finally {
     // Always respond with a 200 OK for handled webhooks, to avoid retries
 		// from Facebook
-        res.sendStatus(200);
-    }
+    res.sendStatus(200);
+  }
 });
 
 function processPageEvents(data) {
-    data.entry.forEach(function(entry){
-        let page_id = entry.id;
+  data.entry.forEach(function(entry){
+    let page_id = entry.id;
 		// Chat messages sent to the page
-        if(entry.messaging) {
-            entry.messaging.forEach(function(messaging_event){
-                console.log('Page Messaging Event',page_id,messaging_event);
-            });
-        }
+    if(entry.messaging) {
+      entry.messaging.forEach(function(messaging_event){
+        console.log('Page Messaging Event',page_id,messaging_event);
+      });
+    }
 		// Page related changes, or mentions of the page
-        if(entry.changes) {
-            entry.changes.forEach(function(change){
-                console.log('Page Change',page_id,change);
-            });
-        }
-    });
+    if(entry.changes) {
+      entry.changes.forEach(function(change){
+        console.log('Page Change',page_id,change);
+      });
+    }
+  });
 }
 
 function processGroupEvents(data) {
-    data.entry.forEach(function(entry){
-        let group_id = entry.id;
-        entry.changes.forEach(function(change){
-            console.log('Group Change',group_id,change);
-        });
+  data.entry.forEach(function(entry){
+    let group_id = entry.id;
+    entry.changes.forEach(function(change){
+      console.log('Group Change',group_id,change);
     });
+  });
 }
 
 function processWorkplaceSecurityEvents(data) {
-    data.entry.forEach(function(entry){
-        let group_id = entry.id;
-        entry.changes.forEach(function(change){
-            console.log('Workplace Security Change',group_id,change);
-        });
+  data.entry.forEach(function(entry){
+    let group_id = entry.id;
+    entry.changes.forEach(function(change){
+      console.log('Workplace Security Change',group_id,change);
     });
+  });
 }
 
 /*
@@ -150,29 +150,29 @@ function processWorkplaceSecurityEvents(data) {
  *
  */
 function verifyRequestSignature(req, res, buf) {
-    var signature = req.headers['x-hub-signature'];
+  var signature = req.headers['x-hub-signature'];
 
-    if (!signature) {
+  if (!signature) {
     // For testing, let's log an error. In production, you should throw an
     // error.
-        console.error('Couldn\'t validate the signature.');
-    } else {
-        var elements = signature.split('=');
-        var signatureHash = elements[1];
+    console.error('Couldn\'t validate the signature.');
+  } else {
+    var elements = signature.split('=');
+    var signatureHash = elements[1];
 
-        var expectedHash = crypto.createHmac('sha1', APP_SECRET).update(buf).digest('hex');
+    var expectedHash = crypto.createHmac('sha1', APP_SECRET).update(buf).digest('hex');
 
-        if (signatureHash != expectedHash) {
-            throw new Error('Couldn\'t validate the request signature.');
-        }
+    if (signatureHash != expectedHash) {
+      throw new Error('Couldn\'t validate the request signature.');
     }
+  }
 }
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid
 // certificate authority.
 app.listen(app.get('port'), function() {
-    console.log('Node app is running on port', app.get('port'));
+  console.log('Node app is running on port', app.get('port'));
 });
 
 module.exports = app;
