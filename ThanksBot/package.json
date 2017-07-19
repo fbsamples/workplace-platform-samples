@@ -5,9 +5,9 @@
   "engines": {
     "node": "6.10.2"
   },
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "pg": "6.x",
@@ -19,7 +19,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/fbsamples/workplace-platform-samples"
-  },  
+  },
   "author": "Facebook Inc.",
   "license": "See LICENSE file.",
   "private": true
