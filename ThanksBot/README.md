@@ -2,7 +2,7 @@
 
 ## Database Setup
 
-This bot uses a Postgres database for storing previous thanks events. To use the bot, create a database table table with the following fields:
+This bot uses a Postgres database for storing previous thanks events. To use the bot, create a database table with the following fields:
 
 * `create_date` (date)
 * `permalink_url` (text)
