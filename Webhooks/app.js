@@ -80,7 +80,7 @@ app.get('/', function(req, res) {
 app.post('/', function (req, res) {
   try{
     var data = req.body;
-    // On Workplace, webhooks can be sent for page, group and
+    // On Workplace, webhooks can be sent for page, group, user and
 		// workplace_security objects
     switch (data.object) {
     case 'page':
@@ -88,6 +88,9 @@ app.post('/', function (req, res) {
       break;
     case 'group':
       processGroupEvents(data);
+      break;
+    case 'user':
+      processUserEvents(data);
       break;
     case 'workplace_security':
       processWorkplaceSecurityEvents(data);
@@ -128,6 +131,15 @@ function processGroupEvents(data) {
     let group_id = entry.id;
     entry.changes.forEach(function(change){
       console.log('Group Change',group_id,change);
+    });
+  });
+}
+
+function processUserEvents(data) {
+  data.entry.forEach(function(entry){
+    let group_id = entry.id;
+    entry.changes.forEach(function(change){
+      console.log('User Change',group_id,change);
     });
   });
 }
