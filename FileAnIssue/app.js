@@ -35,6 +35,7 @@ app.use('/webhook/github',bodyParser.json());
  * VERIFY_TOKEN can be any arbitrary value used to validate a webhook
  * SERVER_URL is the root URL for your server
  * GITHUB_TOKEN is your access token for accessing the GitHub API
+ * GITHUB_REPO identifies the GitHub repo you want to file issues on, eg fbsamples/workplace-platform-samples
  *
  */
 
