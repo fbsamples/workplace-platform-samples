@@ -251,7 +251,7 @@ var createGithubIssue = function(title, description, origin_id, permalink_url) {
     console.log('Creating Github Issue',title, description, origin_id, permalink_url);
     githubapi({
         method: 'POST',
-        url: '/' + GITHUB_REPO + '/issues',
+        url: 'repos/' + GITHUB_REPO + '/issues',
         body: JSON.stringify({
             title: title,
             body: description + '\n\n[View on Workplace](' + permalink_url + ')'
