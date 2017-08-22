@@ -35,7 +35,6 @@ app.use('/webhook/github',bodyParser.json());
  * VERIFY_TOKEN can be any arbitrary value used to validate a webhook
  * SERVER_URL is the root URL for your server
  * GITHUB_TOKEN is your access token for accessing the GitHub API
- * GITHUB_REPO identifies the GitHub repo you want to file issues on, eg fbsamples/workplace-platform-samples
  *
  */
 
@@ -252,7 +251,7 @@ var createGithubIssue = function(title, description, origin_id, permalink_url) {
     console.log('Creating Github Issue',title, description, origin_id, permalink_url);
     githubapi({
         method: 'POST',
-        url: 'repos/' + GITHUB_REPO + '/issues',
+        url: '/' + GITHUB_REPO + '/issues',
         body: JSON.stringify({
             title: title,
             body: description + '\n\n[View on Workplace](' + permalink_url + ')'
