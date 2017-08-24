@@ -1,5 +1,9 @@
 # Thanks Bot for Workplace
 
+Thanks Bot is a lightweight employee recognition tool for Workplace, which allows people to thank their peers in group posts and comments. Thanks Bot keeps track of recognition and alerts managers with a summary of recent recognition stats.
+
+*Thanks Bot requires **Read group content** and **Manage group content** permissions*
+
 ## Database Setup
 
 This bot uses a Postgres database for storing previous thanks events. To use the bot, create a database table with the following fields:
