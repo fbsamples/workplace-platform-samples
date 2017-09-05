@@ -41,7 +41,7 @@ var postNewArticle = function() {
 
             graphapi({
                 method: 'POST',
-                url: TARGET_GROUP + 'feed',
+                url: '/' + TARGET_GROUP + '/feed',
                 qs: {
                     'message': article.title,
                     'link': article.link
