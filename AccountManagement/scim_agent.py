@@ -70,7 +70,7 @@ FILE_DELIM = ','
 FILE_QUOTE = '"'
 
 #scim url constants for validating SCIM url param
-SCIM_URL_PREFIX = 'https://www.facebook.com/scim/v1/'
+SCIM_URL = 'https://www.facebook.com/scim/v1/'
 
 #command base functions
 def updateUsers(filename, access_token, scim_url):
@@ -224,16 +224,11 @@ def getColumnVal(row, column_name):
 	return None
 
 def getParams(command, filename):
-	access_token =   raw_input(ACCESS_TOKEN_INPUT_PROMPT)
-	scim_url = raw_input(SCIM_URL_INPUT_PROMPT)
+	access_token = raw_input(ACCESS_TOKEN_INPUT_PROMPT)
 	if not access_token:
 		print(ERROR_MISSING_ACCESS_TOKEN)
 		return
-	scim_url_regex = re.compile(re.escape(SCIM_URL_PREFIX))
-	if not scim_url or not scim_url_regex.match(scim_url):
-		print(ERROR_INVALID_SCIM_URL)
-		return
-	func_arg[command](filename, access_token, scim_url)
+	func_arg[command](filename, access_token, SCIM_URL)
 
 
 #MAIN FUNCTION
@@ -244,8 +239,8 @@ func_arg = {UPDATE_COMMAND: updateUsers, CREATE_COMMAND: createUsers, EXPORT_COM
 if __name__ == '__main__':
 	if len(sys.argv) == 3:
 		getParams(sys.argv[1],sys.argv[2])
-	elif len(sys.argv) == 5:
-		func_arg[sys.argv[1]](sys.argv[2], sys.argv[3], sys.argv[4])
+	elif len(sys.argv) == 4:
+		func_arg[sys.argv[1]](sys.argv[2], sys.argv[3], SCIM_URL)
 	else:
 		print(ERROR_INVALID_COMMAND_LINE_USAGE)
 	if ERRORS:
