@@ -70,19 +70,17 @@ FILE_DELIM = ','
 FILE_QUOTE = '"'
 
 #scim url constants for validating SCIM url param
-SCIM_URL_PREFIX = 'https://www.facebook.com/company/'
-SCIM_URL_SUFFIX = '/scim/'
-SCIM_URL_ID_ANY = '\d+'
+SCIM_URL = 'https://www.facebook.com/scim/v1/'
 
 #command base functions
 def updateUsers(filename, access_token, scim_url):
 	# clear errors if any from previous calls
 	del ERRORS[:]
-	print VALIDATING_PROMPT
+	print(VALIDATING_PROMPT)
 	userGroups = validateCSV(filename, csv_header.UPDATE_HEADERS, csv_header.UPDATE_HEADERS)
 	if ERRORS:
 		return ERRORS[:]
-	print UPDATING_USERS_PROMPT
+	print(UPDATING_USERS_PROMPT)
 	for email in userGroups[USERS_KEY]:
 		scim_sdk.updateUser(scim_url, access_token, userGroups[USERS_KEY][email])
 	#update manager
@@ -92,11 +90,11 @@ def updateUsers(filename, access_token, scim_url):
 def createUsers(filename, access_token, scim_url):
 	# clear errors if any from previous calls
 	del ERRORS[:]
-	print VALIDATING_PROMPT
+	print(VALIDATING_PROMPT)
 	userGroups = validateCSV(filename, csv_header.CREATION_HEADERS, csv_header.CREATION_HEADERS)
 	if ERRORS:
 		return ERRORS[:]
-	print CREATE_USERS_PROMPT
+	print(CREATE_USERS_PROMPT)
 	for email in userGroups[USERS_KEY]:
 		result = scim_sdk.createUser(scim_url, access_token, userGroups[USERS_KEY][email])
 		if not result:
@@ -106,7 +104,7 @@ def createUsers(filename, access_token, scim_url):
 	return ERRORS[:]
 
 def updateManagers(access_token, scim_url, managerPairs):
-	print UPDATING_MANAGERS_PROMPT
+	print(UPDATING_MANAGERS_PROMPT)
 	for managerPair in managerPairs:
 		if not scim_sdk.updateManager(scim_url, access_token, managerPair[MANAGER_PAIRS_EMPLOYEE_KEY], managerPair[MANAGER_PAIRS_MANAGER_KEY]):
 			ERRORS.append(ERROR_UPDATE_MANAGER + managerPair[MANAGER_PAIRS_EMPLOYEE_KEY] + ERROR_UPDATE_MANAGER_2 + managerPair[MANAGER_PAIRS_MANAGER_KEY])
@@ -114,18 +112,18 @@ def updateManagers(access_token, scim_url, managerPairs):
 def deleteUsers(filename, access_token, scim_url):
 	# clear errors if any from previous calls
 	del ERRORS[:]
-	print VALIDATING_PROMPT
+	print(VALIDATING_PROMPT)
 	userGroups = validateCSV(filename, csv_header.DELETION_HEADERS, csv_header.DELETION_HEADERS)
 	if ERRORS:
 		return ERRORS[:]
-	print DELETING_USERS_PROMPT
+	print(DELETING_USERS_PROMPT)
 	for email in userGroups[USERS_KEY]:
 		if not scim_sdk.deleteUser(scim_url, access_token, email):
 			ERRORS.append(ERROR_FAILED_DELETE + email)
 	return ERRORS[:]
 
 def exportUsers(filename, access_token, scim_url):
-	print EXPORTING_USERS_PROMPT + filename
+	print(EXPORTING_USERS_PROMPT + filename)
 	userCollection = []
 	userCollection = scim_sdk.getUsers(scim_url, access_token, 1, userCollection)
 	with open(filename, FILE_WRITE_PERMISSION) as csvfile:
@@ -156,11 +154,11 @@ def validateCSV(filename, expected_headers, required_headers):
 	COLUMN_NAME_TO_NUMBER_MAP.clear()
 	f = open(filename)
 	csv_f = csv.reader(f)
-	headers = csv_f.next()
+	headers = next(csv_f)
 	headers_count = len(headers)
 	validateHeaders(headers, expected_headers, required_headers)
 	if ERRORS:
-		print ERRORS
+		print(ERRORS)
 		return
 	users = {}
 	userGroups = {}
@@ -169,7 +167,7 @@ def validateCSV(filename, expected_headers, required_headers):
 	for row in csv_f:
 		validateColumnCount(row, headers_count, str(csv_f.line_num))
 		if ERRORS:
-			print ERRORS
+			print(ERRORS)
 			return
 		user = buildUserObject(row, str(csv_f.line_num), expected_headers)
 		users[user[csv_header.EMAIL_HEADER]] = user
@@ -180,7 +178,7 @@ def validateCSV(filename, expected_headers, required_headers):
 
 	#if valid file then print out some flair
 	if len(ERRORS) == 0:
-		print VALID_FILE
+		print(VALID_FILE)
 	return userGroups
 
 def buildUserObject(row, row_num, expected_headers):
@@ -226,16 +224,11 @@ def getColumnVal(row, column_name):
 	return None
 
 def getParams(command, filename):
-	access_token =   raw_input(ACCESS_TOKEN_INPUT_PROMPT)
-	scim_url = raw_input(SCIM_URL_INPUT_PROMPT)
+	access_token = raw_input(ACCESS_TOKEN_INPUT_PROMPT)
 	if not access_token:
-		print ERROR_MISSING_ACCESS_TOKEN
+		print(ERROR_MISSING_ACCESS_TOKEN)
 		return
-	scim_url_regex = re.compile(re.escape(SCIM_URL_PREFIX) + SCIM_URL_ID_ANY + re.escape(SCIM_URL_SUFFIX))
-	if not scim_url or not scim_url_regex.match(scim_url):
-		print ERROR_INVALID_SCIM_URL
-		return
-	func_arg[command](filename, access_token, scim_url)
+	func_arg[command](filename, access_token, SCIM_URL)
 
 
 #MAIN FUNCTION
@@ -246,12 +239,12 @@ func_arg = {UPDATE_COMMAND: updateUsers, CREATE_COMMAND: createUsers, EXPORT_COM
 if __name__ == '__main__':
 	if len(sys.argv) == 3:
 		getParams(sys.argv[1],sys.argv[2])
-	elif len(sys.argv) == 5:
-		func_arg[sys.argv[1]](sys.argv[2], sys.argv[3], sys.argv[4])
+	elif len(sys.argv) == 4:
+		func_arg[sys.argv[1]](sys.argv[2], sys.argv[3], SCIM_URL)
 	else:
-		print ERROR_INVALID_COMMAND_LINE_USAGE
+		print(ERROR_INVALID_COMMAND_LINE_USAGE)
 	if ERRORS:
-		print START_ERRORS_PROMPT
+		print(START_ERRORS_PROMPT)
 		for error in ERRORS:
-			print error
-		print END_ERRORS_PROMPT
+			print(error)
+		print(END_ERRORS_PROMPT)
