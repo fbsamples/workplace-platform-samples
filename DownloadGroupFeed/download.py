@@ -8,6 +8,7 @@ import requests
 import json
 import csv
 import datetime
+import re
 
 # Modify these to suit your needs
 TOKEN = "YOURTOKEN"
@@ -108,11 +109,23 @@ def getGroups(after=None):
 
     # Return an array of group IDs which have fresh content
     return groups
+def encode(s):
+    def safeStr(obj):
+        try: return str(obj)
+        except UnicodeEncodeError:
+            return obj.encode('ascii', 'ignore').decode('ascii')
+        return ""
+    s = safeStr(s)
+    return s
+
+def strip(s):
+    return re.sub(r'(?u)[^-\w.]', '', s)
+
 for group in getGroups():
     feed = getFeed(group["id"], group["name"])
 
     # Create a new CSV named after the timestamp / group id / group name, to ensure uniqueness
-    csv_filename = SINCE.strftime("%Y-%m-%d %H:%M:%S") + " " + group["id"] + " " + group["name"] + ".csv"
+    csv_filename = SINCE.strftime("%Y-%m-%d %H:%M:%S") + " " + group["id"] + " " + strip(group["name"]) + ".csv"
     if VERBOSE:
         print csv_filename
     else:
@@ -122,11 +135,11 @@ for group in getGroups():
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         # CSV Header
-        header = ["Post ID", "Permalink", "Create Time", "Updated Time", "Author", "Author ID", "Message", "Link", "Likes", "Comments"]
+        header = ["Group","Post ID", "Permalink", "Create Time", "Updated Time", "Author", "Author ID", "Message", "Link", "Likes", "Comments"]
         writer.writerow(header)
 
         for item in feed:
-            row = [item["id"], item["permalink_url"], item["created_time"], item["updated_time"], item["from"]["name"], item["from"]["id"], item["message"].decode("utf-8").strip(), item["link"], item["likes"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
+            row = [strip(group["name"]), item["id"], item["permalink_url"], item["created_time"], item["updated_time"], encode(item["from"]["name"]), item["from"]["id"], encode(item["message"]), encode(item["link"]), item["likes"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
             if VERBOSE:
                 print row
             writer.writerow(row)
