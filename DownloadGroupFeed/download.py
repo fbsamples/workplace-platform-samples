@@ -22,6 +22,7 @@ DEFAULT_LIMIT = "100"
 
 # Set to true if you like seeing console output
 VERBOSE = True
+groups = []
 
 # Calculating a timestamp from DAYS
 SINCE = datetime.datetime.now() - datetime.timedelta(days=DAYS)
@@ -88,7 +89,6 @@ def getGroups(after=None):
     result = requests.get(graph_url, headers=headers)
     result_json = json.loads(result.text, result.encoding)
 
-    groups = []
 
     # Got an error? Ok let's break out
     if "error" in result_json:
