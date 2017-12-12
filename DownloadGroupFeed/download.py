@@ -135,11 +135,11 @@ for group in getGroups():
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         # CSV Header
-        header = ["Group","Post ID", "Permalink", "Create Time", "Updated Time", "Author", "Author ID", "Message", "Link", "Likes", "Comments"]
+        header = ["Post ID", "Permalink", "Create Time", "Updated Time", "Author", "Author ID", "Message", "Link", "Likes", "Comments"]
         writer.writerow(header)
 
         for item in feed:
-            row = [strip(group["name"]), item["id"], item["permalink_url"], item["created_time"], item["updated_time"], encode(item["from"]["name"]), item["from"]["id"], encode(item["message"]), encode(item["link"]), item["likes"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
+            row = [ item["id"], item["permalink_url"], item["created_time"], item["updated_time"], encode(item["from"]["name"]), item["from"]["id"], encode(item["message"]), encode(item["link"]), item["likes"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
             if VERBOSE:
                 print row
             writer.writerow(row)
