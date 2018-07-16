@@ -112,7 +112,7 @@ app.post('/webhook', function(request, response) {
                     });
                     let message = change.value.message,
                         message_tags = change.value.message_tags,
-                        sender = change.value.sender_id,
+                        sender = change.value.from.id,
                         permalink_url = change.value.permalink_url,
                         recipients = [],
                         managers = [],
