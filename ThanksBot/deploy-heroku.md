@@ -52,5 +52,5 @@
     ```
     git push heroku master
     ```
-
+ 
 7. You should be all set and be able to visit your page at the URL that was output by ```$ heroku create```.
