@@ -52,7 +52,7 @@
     ```
 
 10. Set your enviroment variables according to the values set on the Workplace integration
- ![Workplace Integration](/public/img/integration.png)
+ ![Workplace Integration](https://github.com/fbsamples/workplace-platform-samples/blob/master/ThanksBot/public/img/integration.png)
 
     ```
     heroku config:set APP_SECRET=<value for App Secret, 1 on image above>
