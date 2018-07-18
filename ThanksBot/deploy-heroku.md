@@ -60,6 +60,6 @@
     heroku config:set VERIFY_TOKEN=<value for Verify Token, 3 on image above>
     ```
 
-    Also set the permissions (Mention Bot, REad group content and Manage Group Content), the callback URL on Workplace with https://<application name,  e.g.: mystic-wind-83>.herokuapp.com/webhook and "mention" subscription field.
+    Also set the permissions (Mention Bot, Read group content and Manage Group Content), the callback URL on Workplace (https://<application name,  e.g.: mystic-wind-83>.herokuapp.com/webhook) and "mention" subscription field.
 
-11. You should now be able to mention your integration, tag a Workplace member e receive the Thanks mention. A summary of the thanks sent is available at https://<application name,  e.g.: mystic-wind-83>.herokuapp.com
+11. You should now be able to mention your integration, tag a Workplace member and receive the Thanks mention. A summary of the thanks sent is available at https://<application name,  e.g.: mystic-wind-83>.herokuapp.com
