@@ -5,7 +5,7 @@
 
 2. Install the [Heroku toolbelt](https://toolbelt.heroku.com) which will let you launch, monitor and generally control your instances (and other services like databases) from the command line. Also install the [local Postgres tools](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
-3. [Install Node](https://nodejs.org), this will be our server environment. Then open up Terminal (or whatever your CLI might be) and make sure you're running the latest version of npm, installed globally (the ```-g``` switch):
+3. [Install Node](https://nodejs.org), this will be our server environment. Then open up your terminal and make sure you're running the latest version of npm, installed globally (the ```-g``` switch):
 
     ```
     sudo npm install npm -g
@@ -14,7 +14,7 @@
 4. Clone this project and switch into the project directory.
 
     ```
-    git clone https://github.com/eduardogomes/workplace-platform-samples.git
+    git clone https://github.com/fbsamples/workplace-platform-samples.git
     cd ThanksBot
     ```
 
