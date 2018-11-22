@@ -19,7 +19,7 @@ This PowerShell script allows to export the users of a Workplace instance by usi
 * Run the script by passing the `accessToken.js` file as input:
 
    ```powershell
-   ./exportUsersSCIM.ps1 -WPAccessToken accessToken.js -$ParallelGrade 8
+   ./exportUsersSCIM.ps1 -WPAccessToken accessToken.js -ParallelGrade 8
    ```
 
    Here are the details of the passed params:
