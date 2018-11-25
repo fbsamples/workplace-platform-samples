@@ -26,36 +26,43 @@ $defJobs = {
     function Call-SCIM-X-Pages ($startIndex, $pageNumber, $SCIMPageSize, $token, $filename) {
         $pagesResult = @()
         For($i = 0; $i -lt $pageNumber; $i++){
-            try {
-                $offset = $startIndex + $i * $SCIMPageSize
-                #$count = $offset + $SCIMPageSize - 1
-                $next = "https://www.facebook.com/scim/v1/Users?startIndex=$offset&count=$SCIMPageSize"
-                #Write-Host "Calling GET $next"
-                #Write-Host "Getting users from $offset to $count..." 
-                $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $token}
-                #Write-Host $results.itemsPerPage
-                If($results.Resources){
-                    $pageUsers = $results.Resources | ForEach-Object -Process {$_} | `
-                    Select-Object -property `
-                        @{N='Full Name';E={$_.name.formatted}}, `
-                        @{N='Email';E={$_.username}}, `
-                        @{N='User Id';E={$_.id}}, `
-                        @{N='Job Title';E={$_.title}}, `
-                        @{N='Department';E={$_."urn:scim:schemas:extension:enterprise:1.0".department}}, `
-                        @{N='Division';E={$_."urn:scim:schemas:extension:enterprise:1.0".division}}, `
-                        @{N='Status';E={$_ | Get-Status}}, `
-                        @{N='Claimed';E={$_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimed}}, `
-                        @{N='Claimed Date';E={Get-Timestamp $_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimDate $origin}}, `
-                        @{N='Invited';E={$_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".invited}}, `
-                        @{N='Invited Date';E={Get-Timestamp $_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".inviteDate $origin}}, `
-                        @{N='Manager Employee ID';E={$_."urn:scim:schemas:extension:enterprise:1.0".manager.managerID}}, `
-                        @{N='Manager Full Name';E={$_."urn:scim:schemas:extension:enterprise:1.0".manager.displayName}}
+            $offset = $startIndex + $i * $SCIMPageSize
+            #$count = $offset + $SCIMPageSize - 1
+            $next = "https://www.facebook.com/scim/v1/Users?startIndex=$offset&count=$SCIMPageSize"
+            #Write-Host "Calling GET $next"
+            #Write-Host "Getting users from $offset to $count..." 
+            $retries = 2
+            $SCIMSuccess = $False
+            do {
+                try {
+                    $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $token}
+                    $SCIMSuccess = $True
+                    #Write-Host $results.itemsPerPage
+                    If($results.Resources){
+                        $pageUsers = $results.Resources | ForEach-Object -Process {$_} | `
+                        Select-Object -property `
+                            @{N='Full Name';E={$_.name.formatted}}, `
+                            @{N='Email';E={$_.username}}, `
+                            @{N='User Id';E={$_.id}}, `
+                            @{N='Job Title';E={$_.title}}, `
+                            @{N='Department';E={$_."urn:scim:schemas:extension:enterprise:1.0".department}}, `
+                            @{N='Division';E={$_."urn:scim:schemas:extension:enterprise:1.0".division}}, `
+                            @{N='Status';E={$_ | Get-Status}}, `
+                            @{N='Claimed';E={$_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimed}}, `
+                            @{N='Claimed Date';E={Get-Timestamp $_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimDate $origin}}, `
+                            @{N='Invited';E={$_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".invited}}, `
+                            @{N='Invited Date';E={Get-Timestamp $_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".inviteDate $origin}}, `
+                            @{N='Manager Employee ID';E={$_."urn:scim:schemas:extension:enterprise:1.0".manager.managerID}}, `
+                            @{N='Manager Full Name';E={$_."urn:scim:schemas:extension:enterprise:1.0".manager.displayName}}
                     $pagesResult += $pageUsers
+                    }
+                } catch {
+                    #Handle exception when having errors from SCIM API
+                    Write-Host -NoNewLine -ForegroundColor Red "Error when getting users from API ($next)"
+                    Write-Host " - Retries left: $retries"
+                    $retries--
                 }
-            } catch {
-            #Handle exception when having errors from SCIM API
-            Write-Host -ForegroundColor Red "Error when getting users from API ($next)"
-            }
+            } While ($retries -ge 0 -and $SCIMSuccess -eq $False)
         }
         return $pagesResult
     }
