@@ -36,4 +36,4 @@ This PowerShell script allows to export the members of a Workplace group to a XL
    | WPAccessToken     |  The path for the JSON file with the access token          | _String_ | Yes          |
    
 * A file named `members-[GroupId].xlsx` will be created in the same folder where your run the script. 
-   It will have `Name`, `Id`, `Email`, `Administator` columns.
+   It will have `Name`, `Id`, `Email`, `Administator`, `Location`, `Department` columns.

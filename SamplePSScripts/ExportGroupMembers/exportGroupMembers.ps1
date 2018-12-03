@@ -21,14 +21,14 @@ catch {
 #Get specific group in the community via Graph API
 try {
     $global:members = @()
-    $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator"
+    $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator,primary_address,department"
     do {
         $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token}
         if ($results) {
             $global:members += $results.data
             if($results.paging.cursors.after) {
                 $after = $results.paging.cursors.after
-                $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator&after=$after"
+                $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator,primary_address,department&after=$after"
             }
             else {$next = $null}
         }
@@ -43,7 +43,7 @@ try {
 #Add members to XLSX
 try {
     #Clean email-less fields
-    $($global:members | Where-Object {$_.email.endswith("emailless.facebook.com")}).email = $null
+    $global:members | Where-Object {$_.email.endswith("emailless.facebook.com")} | ForEach-Object {$_.email = $null}
     #Format property names
     $global:members | `
     ForEach-Object -Process {$_} | `
@@ -51,6 +51,8 @@ try {
         @{N='Full Name';E={$_.name}}, `
         @{N='Id';E={$_.id}}, `
         @{N='Email';E={$_.email}}, `
+        @{N='Location';E={$_.primary_address}}, `
+        @{N='Department';E={$_.department}}, `
         @{N='Administrator';E={$_.Administrator}} | `
         Export-Excel "./members-$GroupId.xlsx" -NoNumberConversion *
     Write-Host -NoNewLine "Users written to XLSX: "
