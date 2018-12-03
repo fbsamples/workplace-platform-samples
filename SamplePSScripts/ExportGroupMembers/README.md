@@ -4,7 +4,7 @@ This PowerShell script allows to export the members of a Workplace group to a XL
 
 ## Setup
 
-* Create a new Custom Integration in the Workplace Admin Panel: [Create a custom Integration](https://developers.facebook.com/docs/workplace/custom-integrations-new/#creating).<br/>This requires at least "Manage Groups" and "Read User Emails" permissions. Take note of the Access Token.
+* Create a new Custom Integration in the Workplace Admin Panel: [Create a custom Integration](https://developers.facebook.com/docs/workplace/custom-integrations-new/#creating).<br/>This requires at least "Manage Groups", "Read Work Profile" and "Read User Emails" permissions. Take note of the Access Token.
 
 * Create a file named `accessToken.js` with the following content:
 
@@ -36,4 +36,4 @@ This PowerShell script allows to export the members of a Workplace group to a XL
    | WPAccessToken     |  The path for the JSON file with the access token          | _String_ | Yes          |
    
 * A file named `members-[GroupId].xlsx` will be created in the same folder where your run the script. 
-   It will have `Name`, `Id`, `Email`, `Administator` columns.
+   It will have `Name`, `Id`, `Email`, `Administator`, `Location`, `Department` columns.
