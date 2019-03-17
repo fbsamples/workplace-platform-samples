@@ -33,3 +33,23 @@ Obtain an access token and add them to the environment variable `PAGE_ACCESS_TOK
 [Export your provisioned employees](https://work.workplace.com/help/work/1858663031075098) from Workplace. This claim portal only support users [provisioned with access codes](https://work.workplace.com/help/work/546217199128952). 
 
 Populate the `employees` Postgres table with the information provisioned to Workplace (`id` and `employee_id`) and the secrets your company shares with the employee (`answer1` and `answer2`). These secrets will be used to confirm an employee identity before providing them an access code.
+
+### Usage and Security remarks
+This is sample solution you can take and should build upon and maintainn; we're not providing it as supported software.
+
+For example, the security answers are stored and compared in clear-text. A potential solution should store and compare them as hashes. Using the [bcrypt-nodejs library](https://www.npmjs.com/package/bcrypt-nodejs), you can get this result storing both hashes on the `employees` table
+
+```
+npm install bcrypt
+…
+var bcrypt = require('bcrypt');
+var hash1 = bcrypt.hashSync(<security answer1>);
+var hash2 = bcrypt.hashSync(<security answer2>);
+```
+
+And change [these lines](https://github.com/fbsamples/workplace-platform-samples/blob/80a2e2ddb6b785dbc46a719e57a69c293c0fa0e4/wp-claim-portal/app/controllers/security_questions.js#L30-L31) to:
+
+```
+    if (bcrypt.compareSync(security_questions[0],res.rows[0].answer1) &&
+      bcrypt.compareSync(security_questions[1],res.rows[0].answer2){
+```
