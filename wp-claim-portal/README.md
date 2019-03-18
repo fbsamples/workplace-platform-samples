@@ -53,3 +53,5 @@ And change [these lines](https://github.com/fbsamples/workplace-platform-samples
     if (bcrypt.compareSync(security_questions[0],res.rows[0].answer1) &&
       bcrypt.compareSync(security_questions[1],res.rows[0].answer2){
 ```
+
+Refer to [Owasp cheat sheets](https://github.com/OWASP/CheatSheetSeries) for a compreensive list of security recommendations for web applications.
