@@ -35,9 +35,9 @@ Obtain an access token and add them to the environment variable `PAGE_ACCESS_TOK
 Populate the `employees` Postgres table with the information provisioned to Workplace (`id` and `employee_id`) and the secrets your company shares with the employee (`answer1` and `answer2`). These secrets will be used to confirm an employee identity before providing them an access code.
 
 ### Usage and Security remarks
-This is sample solution you can take and should build upon and maintainn; we're not providing it as supported software.
+This is sample solution, provided as-is, without guarantee or support. You can use this solution for learning purposes or build upon and maintain it.
 
-For example, the security answers are stored and compared in clear-text. A potential solution should store and compare them as hashes. Using the [bcrypt-nodejs library](https://www.npmjs.com/package/bcrypt-nodejs), you can get this result storing both hashes on the `employees` table
+One recommend improvement is around the security answers stored and compared in clear-text. A potential solution should store and compare them as hashes. Using the [bcrypt-nodejs library](https://www.npmjs.com/package/bcrypt-nodejs), you can get this result storing both hashes on the `employees` table
 
 ```
 npm install bcrypt
