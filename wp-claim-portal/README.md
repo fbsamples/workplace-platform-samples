@@ -54,4 +54,4 @@ And change [these lines](https://github.com/fbsamples/workplace-platform-samples
       bcrypt.compareSync(security_questions[1],res.rows[0].answer2){
 ```
 
-Refer to [OWASP cheat sheets](https://github.com/OWASP/CheatSheetSeries) for a compreensive list of security recommendations for web applications.
+Refer to [OWASP cheat sheets](https://github.com/OWASP/CheatSheetSeries/blob/master/Index.md) for a compreensive list of security recommendations for web applications.
