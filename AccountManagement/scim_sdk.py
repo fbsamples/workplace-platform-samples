@@ -9,6 +9,8 @@ import csv_header
 import json
 import urllib
 import collections
+import datetime
+import time
 
 #general constants
 FIRST_ITEM = 0
@@ -39,6 +41,12 @@ FIELD_TYPE = 'type'
 FIELD_PRIMARY = 'primary'
 FIELD_MANAGER = 'manager'
 FIELD_SCHEMAS = 'schemas'
+FIELD_EXTERNALID = 'externalID'
+FIELD_COSTCENTER = 'costCenter'
+FIELD_ORGANIZATION = 'organization'
+FIELD_DIVISION = 'division'
+FIELD_STARTDATE = 'startDate'
+FIELD_TIMEZONE = 'timezone'
 
 #request constants
 HEADER_AUTH_KEY = 'Authorization'
@@ -53,6 +61,7 @@ START_INDEX = "?startIndex="
 #request json constants
 SCHEME_CORE = 'urn:scim:schemas:core:1.0'
 SCHEME_NTP = 'urn:scim:schemas:extension:enterprise:1.0'
+SCHEME_TERMDATES = 'urn:scim:schemas:extension:facebook:starttermdates:1.0'
 
 #response status code constants
 RESPONSE_OK = 200
@@ -221,32 +230,48 @@ def mergeUserObjs(oldObj, newObj):
 def buildUserJSONObj(userObj):
 	data = {}
 	schemas = [SCHEME_CORE]
+	ent = {}
 	keys = userObj.keys()
 	if csv_header.EMAIL_HEADER in keys:
 		data[FIELD_USER_NAME] = userObj.get(csv_header.EMAIL_HEADER, None)
+	if csv_header.EXTERNALID_HEADER in keys:
+		data[FIELD_EXTERNALID]  = userObj[csv_header.EXTERNALID_HEADER]
 	if csv_header.FIRST_NAME_HEADER in keys or csv_header.LAST_NAME_HEADER in keys:
 		data[FIELD_NAME]  = getName(userObj)
 	if csv_header.JOB_HEADER in keys:
 		data[FIELD_TITLE] = userObj[csv_header.JOB_HEADER]
 	if csv_header.PHONE_HEADER in keys:
 		data[FIELD_PHONE_NUMBERS] = [{FIELD_VALUE:userObj[csv_header.PHONE_HEADER], FIELD_TYPE:FIELD_WORK, FIELD_PRIMARY: True}]
+	if csv_header.STARTDATE_HEADER in keys:
+		d = datetime.datetime.strptime(userObj.get(csv_header.STARTDATE_HEADER), '%Y-%m-%d')
+		data[SCHEME_TERMDATES] = {FIELD_STARTDATE:time.mktime(d.timetuple()), "termDate":0}
+		schemas.append(SCHEME_TERMDATES)
 	if csv_header.DEPARTMENT_HEADER in keys:
-		department = {FIELD_DEPARTMENT:userObj.get(csv_header.DEPARTMENT_HEADER, None)}
-		data[SCHEME_NTP] = department
-		schemas.append(SCHEME_NTP)
+		ent[FIELD_DEPARTMENT] = userObj.get(csv_header.DEPARTMENT_HEADER, None)
+	if csv_header.ORGANIZATION_HEADER in keys:
+		ent[FIELD_ORGANIZATION] = userObj.get(csv_header.ORGANIZATION_HEADER, None)
+	if csv_header.DIVISION_HEADER in keys:
+		ent[FIELD_DIVISION] = userObj.get(csv_header.DIVISION_HEADER, None)
+	if csv_header.COSTCENTER_HEADER in keys:
+		ent[FIELD_COSTCENTER] = userObj.get(csv_header.COSTCENTER_HEADER, None)
 	if csv_header.LOCATION_HEADER in keys:
 		data[FIELD_ADDRESSES] = [{FIELD_TYPE:FIELD_WORK, FIELD_FORMATTED:userObj.get(csv_header.LOCATION_HEADER, None), FIELD_PRIMARY:True}]
 	if csv_header.LOCALE_HEADER in keys:
 		data[FIELD_LOCALE] = userObj.get(csv_header.LOCALE_HEADER, None)
+	if csv_header.TIMEZONE_HEADER in keys:
+		data[FIELD_TIMEZONE] = userObj.get(csv_header.TIMEZONE_HEADER, None)
 	if FIELD_ID in keys:
 		data[FIELD_ID] = userObj[FIELD_ID]
 	if FIELD_ACTIVE in keys:
-		data[FIELD_ACTIVE] = userObj.get(FIELD_ACTIVE, None);
+		data[FIELD_ACTIVE] = userObj.get(FIELD_ACTIVE, None)
 	if FIELD_MANAGER_ID in keys:
-		manager = {FIELD_MANAGER:{FIELD_MANAGER_ID:userObj.get(FIELD_MANAGER_ID, None)}}
-		data[SCHEME_NTP] = manager
+		ent[FIELD_MANAGER] = {FIELD_MANAGER_ID:userObj.get(FIELD_MANAGER_ID, None)}
+	if len(ent) > 0:		
+		data[SCHEME_NTP] = ent
 		schemas.append(SCHEME_NTP)
+
 
 	#add schmeas to obj
 	data[FIELD_SCHEMAS] = schemas
+
 	return data

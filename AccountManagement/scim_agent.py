@@ -77,7 +77,7 @@ def updateUsers(filename, access_token, scim_url):
 	# clear errors if any from previous calls
 	del ERRORS[:]
 	print(VALIDATING_PROMPT)
-	userGroups = validateCSV(filename, csv_header.UPDATE_HEADERS, csv_header.UPDATE_HEADERS)
+	userGroups = validateCSV(filename, csv_header.CREATE_UPDATE_EXPECTED_HEADERS, csv_header.CREATE_UPDATE_REQUIRED_HEADERS)
 	if ERRORS:
 		return ERRORS[:]
 	print(UPDATING_USERS_PROMPT)
@@ -91,7 +91,7 @@ def createUsers(filename, access_token, scim_url):
 	# clear errors if any from previous calls
 	del ERRORS[:]
 	print(VALIDATING_PROMPT)
-	userGroups = validateCSV(filename, csv_header.CREATION_HEADERS, csv_header.CREATION_HEADERS)
+	userGroups = validateCSV(filename, csv_header.CREATE_UPDATE_EXPECTED_HEADERS, csv_header.CREATE_UPDATE_REQUIRED_HEADERS)
 	if ERRORS:
 		return ERRORS[:]
 	print(CREATE_USERS_PROMPT)
@@ -129,7 +129,7 @@ def exportUsers(filename, access_token, scim_url):
 	with open(filename, FILE_WRITE_PERMISSION) as csvfile:
 		writer = csv.writer(csvfile, delimiter= FILE_DELIM, quotechar=FILE_QUOTE, quoting=csv.QUOTE_MINIMAL)
 		# CSV Header
-		header = csv_header.CREATION_HEADERS
+		header = csv_header.CREATE_UPDATE_EXPECTED_HEADERS
 		writer.writerow(header)
 		if userCollection:
 			for item in userCollection:
@@ -147,7 +147,14 @@ def buildExportRow(item, access_token, scim_url):
 	location = scim_sdk.getUserPropertyList(item, scim_sdk.FIELD_ADDRESSES, scim_sdk.FIELD_WORK, True, scim_sdk.FIELD_FORMATTED)
 	locale = scim_sdk.getUserProperty(item, scim_sdk.FIELD_LOCALE)
 	manager = scim_sdk.getManager(item, access_token, scim_url)
-	return [email, firstName, lastName, title, department, phoneNumber, location, locale, manager]
+	timezone = scim_sdk.getUserProperty(item, scim_sdk.FIELD_TIMEZONE)
+	externalId = scim_sdk.getUserProperty(item, scim_sdk.FIELD_EXTERNALID)
+	organization = scim_sdk.getUserProperty(item, scim_sdk.SCHEME_NTP, scim_sdk.FIELD_ORGANIZATION)
+	division = scim_sdk.getUserProperty(item, scim_sdk.SCHEME_NTP, scim_sdk.FIELD_DIVISION)
+	costCenter = scim_sdk.getUserProperty(item, scim_sdk.SCHEME_NTP, scim_sdk.FIELD_COSTCENTER)
+	startDate = scim_sdk.getUserProperty(item, scim_sdk.SCHEME_TERMDATES, scim_sdk.FIELD_STARTDATE)
+
+	return [email, firstName, lastName, title, department, phoneNumber, location, locale, manager, timezone, externalId, organization, division, costCenter, startDate]
 
 def validateCSV(filename, expected_headers, required_headers):
 	# reset the column mapping if any previous values
