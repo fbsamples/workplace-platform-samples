@@ -37,15 +37,15 @@ if($WPGroupMembers) {
     try {    
         $global:members = @()
         #Get members of a group from API calls
-        $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator"
+        $next = "https://graph.workplace.com/$GroupId/members/?fields=name,id,email,administrator"
         do {
             #Get specific group in the community via SCIM API
-            $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token}
+            $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"
             if ($results) {
                 $global:members += $results.data
                 if($results.paging.cursors.after) {
                     $after = $results.paging.cursors.after
-                    $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator&after=$after"
+                    $next = "https://graph.workplace.com/$GroupId/members/?fields=name,id,email,administrator&after=$after"
                 }
                 else {$next = $null}
             }
@@ -88,8 +88,8 @@ ForEach($m in $global:members){
                     #Check user input response
                     if($askRes.length -eq 0) {
                         #Remove Member from Group via Graph API
-                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.facebook.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token}}
-                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.facebook.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token}}
+                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"} 
+                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         #Check DELETE result
                         if($result.success) {
                             $removed++

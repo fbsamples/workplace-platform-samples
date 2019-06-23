@@ -21,14 +21,14 @@ catch {
 #Get specific group in the community via Graph API
 try {
     $global:members = @()
-    $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator,primary_address,department"
+    $next = "https://graph.workplace.com/$GroupId/members/?fields=name,id,email,administrator,primary_address,department"
     do {
-        $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token}
+        $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportGroupMembers"
         if ($results) {
             $global:members += $results.data
             if($results.paging.cursors.after) {
                 $after = $results.paging.cursors.after
-                $next = "https://graph.facebook.com/$GroupId/members/?fields=name,id,email,administrator,primary_address,department&after=$after"
+                $next = "https://graph.workplace.com/$GroupId/members/?fields=name,id,email,administrator,primary_address,department&after=$after"
             }
             else {$next = $null}
         }
@@ -43,7 +43,7 @@ try {
 #Add members to XLSX
 try {
     #Clean email-less fields
-    $global:members | Where-Object {$_.email.endswith("emailless.facebook.com")} | ForEach-Object {$_.email = $null}
+    $global:members | Where-Object {$_.email -And $_.email.endswith("emailless.facebook.com")} | ForEach-Object {$_.email = $null}
     #Format property names
     $global:members | `
     ForEach-Object -Process {$_} | `
