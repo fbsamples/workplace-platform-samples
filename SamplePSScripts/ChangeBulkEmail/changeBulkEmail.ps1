@@ -51,7 +51,7 @@ Foreach($u in $global:xslxUsers) {
         try {
 
             #Get User via SCIM API
-            $results = Invoke-RestMethod -Uri ("https://www.facebook.com/scim/v1/Users/?filter=userName%20eq%20%22$uemail%22") -Headers @{Authorization = "Bearer " + $global:token}
+            $results = Invoke-RestMethod -Uri ("https://www.workplace.com/scim/v1/Users/?filter=userName%20eq%20%22$uemail%22") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ChangeBulkEmail"
 
             If($results.Resources) {
 

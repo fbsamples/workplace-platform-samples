@@ -55,7 +55,7 @@ Foreach($u in $global:xslxUsers) {
 
     try {
         #Update User via SCIM API
-        $fbuser = Invoke-RestMethod -Method PUT -URI ("https://www.facebook.com/scim/v1/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -ContentType "application/json" -Body $body
+        $fbuser = Invoke-RestMethod -Method PUT -URI ("https://www.workplace.com/scim/v1/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ActivateInBulk" -ContentType "application/json" -Body $body
         If($Interactive.IsPresent) {
             Write-Host -ForegroundColor Green " Activated"
         }

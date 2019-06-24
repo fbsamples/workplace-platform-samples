@@ -28,14 +28,14 @@ $defJobs = {
         For($i = 0; $i -lt $pageNumber; $i++){
             $offset = $startIndex + $i * $SCIMPageSize
             #$count = $offset + $SCIMPageSize - 1
-            $next = "https://www.facebook.com/scim/v1/Users?startIndex=$offset&count=$SCIMPageSize"
+            $next = "https://www.workplace.com/scim/v1/Users?startIndex=$offset&count=$SCIMPageSize"
             #Write-Host "Calling GET $next"
             #Write-Host "Getting users from $offset to $count..." 
             $retries = 2
             $SCIMSuccess = $False
             do {
                 try {
-                    $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $token}
+                    $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $token} -UserAgent "WorkplaceScript/ExportUsersSCIM"
                     $SCIMSuccess = $True
                     #Write-Host $results.itemsPerPage
                     If($results.Resources){
@@ -82,7 +82,7 @@ catch {
 
 #Setup multi-threading options
 $jobs = @()
-$totalUsers = [int](Invoke-RestMethod -Uri "https://www.facebook.com/scim/v1/Users" -Headers @{Authorization = "Bearer " + $global:token}).totalResults
+$totalUsers = [int](Invoke-RestMethod -Uri "https://www.workplace.com/scim/v1/Users" -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportUsersSCIM").totalResults
 $paral = [math]::Min($ParallelGrade, [math]::Ceiling($totalUsers/$SCIMPageSize))
 $pages = [math]::Ceiling($totalUsers/$SCIMPageSize)
 
