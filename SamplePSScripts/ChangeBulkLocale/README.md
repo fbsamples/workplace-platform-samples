@@ -18,13 +18,13 @@ This PowerShell script allows to change the locale and preferred language fields
  
  * Add a `NewLocale` column in the XLSX file and fill it with the new email address for the users you would like to update profile data.
  
-   | Full Name   |    User ID    |    Status      |  ...  |     NewLocale     |
-   |:-----------:|:-------------:|:--------------:|:-----:|:-----------------:|
-   | Fox A       |  10000000000  |   Claimed      |  ...  |  es_ES            |
-   | Fox B       |  10000000001  |   Invited      |  ...  |  fr_FR            |
-   | Fox C       |  10000000002  |   Deactivated  |  ...  |  en_US            |
+   | Full Name |  User ID  |    Status     |  ...  |  NewLocale |
+   |:---------:|:---------:|:-------------:|:-----:|:----------:|
+   | Fox A     |  1000000  |  Claimed      |  ...  |    es_ES   |
+   | Fox B     |  1000001  |  Invited      |  ...  |    fr_FR   |
+   | Fox C     |  1000002  |  Deactivated  |  ...  |    en_US   |
 
-    _Note:_ The script will skip the email update for a user if the NewLocale field is empty or if User ID and Status fields are not populated.
+    _Note:_ The script will skip the email update for a user if the NewLocale field is empty or if __User ID__ or __Status__ fields are not populated.
     
     _Note:_ Please be aware of the column name format. It is `NewLocale` without spaces (e.g. no `New Locale`). Please also be sure the file uses a plain formatting (no tables, etc.).
 
