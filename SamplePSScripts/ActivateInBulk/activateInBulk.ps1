@@ -49,7 +49,7 @@ Foreach($u in $global:xslxUsers) {
 
     #Craft a Body
     $body = (@{
-        schemas=@("urn:scim:schemas:core:1.0")
+        schemas=@("urn:scim:schemas:core:1.0");
         active=$true
         } | ConvertTo-Json)
 
@@ -71,7 +71,7 @@ Foreach($u in $global:xslxUsers) {
             Write-Host -ForegroundColor Red " KO ($status): $err - $msg"
         } Else {
             Write-Host -NoNewLine [$uid/$uname] ->   
-            Write-Host -ForegroundColor Red "KO ($status): $err - $msg"
+            Write-Host -ForegroundColor Red " KO ($status): $err - $msg"
         }
     }
 }
