@@ -1,6 +1,6 @@
 # Export members from a group
 
-This PowerShell script allows to export the members of a Workplace group to a XLSX file.
+This PowerShell script allows to export analytics (comments, replies, likes, reactions, seen_by) for a post in Workplace.
 
 ## Setup
 
