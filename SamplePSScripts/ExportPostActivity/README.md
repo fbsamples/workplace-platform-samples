@@ -1,4 +1,4 @@
-# Export members from a group
+# Export Post Activity
 
 This PowerShell script allows to export analytics (comments, replies, likes, reactions, seen_by) for a post in Workplace.
 
