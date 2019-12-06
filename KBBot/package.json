@@ -1,0 +1,27 @@
+{
+  "name": "thanks-bot",
+  "version": "1.0.0",
+  "description": "A sample bot for Workplace",
+  "engines": {
+    "node": "6.10.2"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "pg": "6.x",
+    "ejs": "2.5.6",
+    "express": "4.15.2",
+    "body-parser": "^1.15.0",
+    "request": "^2.79.0",
+    "dotenv": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fbsamples/workplace-platform-samples"
+  },
+  "author": "Facebook Inc.",
+  "license": "See LICENSE file.",
+  "private": true
+}
