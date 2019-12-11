@@ -65,7 +65,7 @@ $HashtagsRegexp = ("({0})" -f ($Hashtags -Join '|'))
 If($StartDate) {
     try {
         $date = $StartDate.split('-')
-        $global:startdate = ([System.DateTimeOffset](Get-Date -Day $date[0] -Month $date[1] -Year $date[2])).ToUnixTimeSeconds()
+        $global:startdate = Get-Date (Get-Date -Day $date[0] -Month $date[1] -Year $date[2]).ToUniversalTime() -Uformat %s -Millisecond 0
     }
     catch {
         #Handle exception when having errors from Graph API
