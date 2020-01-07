@@ -66,7 +66,7 @@ Foreach($u in $global:xslxUsers) {
         # Dig into the exception and print error message
         $status = $_.Exception.Response.StatusCode.value__
         $err = $_.Exception.Response.StatusCode
-        $msg = ($_.ErrorDetails.Message | ConvertFrom-Json).Errors[0].description
+        $msg = $_.Exception.Message
         If($Interactive.IsPresent) {
             Write-Host -ForegroundColor Red " KO ($status): $err - $msg"
         } Else {
