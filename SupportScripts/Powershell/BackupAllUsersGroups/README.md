@@ -1,6 +1,7 @@
 # Backup User Group Membership
 
-This PowerShell script allows to backup user group membership of your community.
+This PowerShell script creates a CVS file with a list of all the groups each member of your community belongs to.
+This can be used to track group memberships,run statistics or just to keep a backup of this information.
 <br/>It will check every user in your community and save the following information:
 <br/>1- User ID
 <br/>2- Group Name
