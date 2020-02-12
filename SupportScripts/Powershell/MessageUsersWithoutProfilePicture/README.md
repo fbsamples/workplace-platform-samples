@@ -1,4 +1,4 @@
-# Bulk Editing Emails for Workplace users
+# Bulk Message Workplace Users with Default Profile Picture
 
 This PowerShell script allows to bulk message users without a custom profile picture in your community.
 The script will just send one message per user and will affect only those users whose profile picture is set to the default silhouette.
