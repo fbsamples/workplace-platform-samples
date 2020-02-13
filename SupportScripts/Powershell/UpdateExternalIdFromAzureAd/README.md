@@ -18,7 +18,7 @@ In case of discrepancies it prompts the user to update the ExternalID in Workpla
    ``` 
  
  * Note: Depending on the amount of users in your directory, the script may take a while to run. A progress bar is shown to display the progress of the script.
- * Note: This only works for Azure Active Directory
+ * Note: This only works for Azure Active Directory and needs to run on a Windows computer. It does not support Powershell on Mac.
  
 ## Run
 
