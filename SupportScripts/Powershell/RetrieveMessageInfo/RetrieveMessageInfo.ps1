@@ -36,11 +36,11 @@ while(($messages_results.paging.next) -or ($runonce)){
             Write-Host -NoNewLine -ForegroundColor White $message_content 
             Write-Host -NoNewLine -ForegroundColor Yellow " sent by: "
             Write-Host -ForegroundColor White $sender_email
-            Write-Host -ForegroundColor Red "  *  Is this the correct message? (Press [Enter] to Select, S/s to Skip): "
+            Write-Host -ForegroundColor Red "  *  Is this the correct message? (Press S/s to Select, [Enter] to Skip): "
             $askRes = Read-Host
             } while (!(($askRes -eq "") -Or ($askRes -eq "S") -Or ($askRes -eq "s")))
 
-        if($askRes.length -eq 0) {
+        if($askRes -eq "S" -Or $askRes -eq "s") {
             Write-Host -ForegroundColor Red "Message Urls:"
             $delete_url = "https://graph.facebook.com/"+$message_id+"?user="+$message_sender
             Write-Host $delete_url
@@ -49,7 +49,7 @@ while(($messages_results.paging.next) -or ($runonce)){
                 Write-Host $delete_url
             }
             Write-Host -ForegroundColor Green "  *  OK, message reviewed by user and info provided!"
-            } elseif ($askRes -eq "S" -Or $askRes -eq "s") {
+            } elseif ($askRes.length -eq 0) {
                 Write-Host -ForegroundColor Green "  *  Message skipped as requested!"
             } 
         }
