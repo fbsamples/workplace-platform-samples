@@ -27,11 +27,16 @@ while(($messages_results.paging.next) -or ($runonce)){
         $message_content = $message.message
         $message_id = $message.id
         $message_sender= $message.from.id
+        $sender_email = $message.from.email
+        if($null -eq $sender_email){$sender_email ="Bot/Custom Integration-->"+$message.from.name}
         if ($message_content -match $MessageContent){
             $string_found = 1
             do {
-            Write-Host -ForegroundColor Yellow "Found message: "$message_content
-            Write-Host "  *  Is this the correct message? (Press [Enter] to Continue, S/s to Skip): "
+            Write-Host -NoNewLine -ForegroundColor Yellow "Found message: " 
+            Write-Host -NoNewLine -ForegroundColor White $message_content 
+            Write-Host -NoNewLine -ForegroundColor Yellow " sent by: "
+            Write-Host -ForegroundColor White $sender_email
+            Write-Host -ForegroundColor Red "  *  Is this the correct message? (Press [Enter] to Select, S/s to Skip): "
             $askRes = Read-Host
             } while (!(($askRes -eq "") -Or ($askRes -eq "S") -Or ($askRes -eq "s")))
 
