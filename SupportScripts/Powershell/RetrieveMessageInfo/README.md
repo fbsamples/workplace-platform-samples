@@ -33,6 +33,7 @@ The returned user_id are the ones of the message sender and message recipients.
    For example if I sent a message stating "This is a test, please ignore" <br/>
    I can set -MessageContent "This is a test" and the script will retrieve all the messages I sent or received which are including the sentence "This is a test".
    </br>
+   </br>
    Here are the details of the passed params:
 
    | Parameter         | Description                                                |  Type    |  Required    | 
