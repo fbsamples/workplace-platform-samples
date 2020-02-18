@@ -14,7 +14,8 @@ catch {
     Write-Host -ForegroundColor Red "Fatal Error when reading JSON file. Is it correctly formatted? {'accessToken' : 123xyz}"
     exit;
 }
-
+#Install AzureAD Module
+If(!(Get-module AzureAD)){Install-Module AzureAD -scope CurrentUser}
 try{
     Write-Host -NoNewLine "Connecting to Microsoft Azure AD... "
     connect-AzureAD
