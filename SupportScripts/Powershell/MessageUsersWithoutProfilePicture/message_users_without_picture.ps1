@@ -17,10 +17,11 @@ $message_to_send = "This is an automated message - Please update your profile pi
 
 $user_query_limit = 1000 #default is 25
 $messaged_users = 0
-
-    #Fetch Users profile pictures via Graph API from Workplace - Page 1
-    $first_users_url = "https://graph.facebook.com/company/members?fields=picture&limit="+$user_query_limit
-    $users_results = Invoke-RestMethod -Uri ($first_users_url) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/UpdateProfPicture"
+#Fetch Users profile pictures via Graph API from Workplace
+$first_users_url = "https://graph.facebook.com/company/members?fields=picture&limit="+$user_query_limit
+$users_results = Invoke-RestMethod -Uri ($first_users_url) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/UpdateProfPicture"
+$runonce = 1
+while(($users_results.paging.next) -or ($runonce)){
     foreach($user in $users_results.data){
         if($user.picture.data.is_silhouette -eq $false){
             $body = (@{
@@ -35,22 +36,10 @@ $messaged_users = 0
                 Write-Host -ForegroundColor Yellow "Messaged User: "$user.id
         } 
     }
-    #Fetch Users profile pictures via Graph API from Workplace - Page 2+
-    while($users_results.paging.next){
+    if(!($users_results.paging.next)){
+        $runonce = 0
+    }else{
         $users_results = Invoke-RestMethod -Uri ($users_results.paging.next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/UpdateProfPicture"
-        foreach($user in $users_results.data){
-            if($user.picture.data.is_silhouette -eq $false){
-                $body = (@{
-                    recipient=@{
-                        id=$user.id;
-                    };
-                    message=@{
-                        text=$message_to_send;
-                    }} | ConvertTo-Json)
-                    Invoke-RestMethod -Method POST -URI ("https://graph.facebook.com/me/messages") -Headers @{Authorization = "Bearer " + $global:token} -Body $body -ContentType "application/json" -UserAgent "WorkplaceScript/UpdateProfPicture"
-                    Write-Host -ForegroundColor Yellow "Messaged User: "$user.id
-                    $messaged_users++
-            } 
-        }
     }
+}  
 Write-Host -ForegroundColor Green "Total Messaged Users: $messaged_users - With Message: $message_to_send"
