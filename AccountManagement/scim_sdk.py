@@ -11,6 +11,7 @@ import urllib
 import collections
 import datetime
 import time
+import re
 
 #general constants
 FIRST_ITEM = 0
@@ -243,9 +244,13 @@ def buildUserJSONObj(userObj):
 	if csv_header.PHONE_HEADER in keys:
 		data[FIELD_PHONE_NUMBERS] = [{FIELD_VALUE:userObj[csv_header.PHONE_HEADER], FIELD_TYPE:FIELD_WORK, FIELD_PRIMARY: True}]
 	if csv_header.STARTDATE_HEADER in keys:
-		d = datetime.datetime.strptime(userObj.get(csv_header.STARTDATE_HEADER), '%Y-%m-%d')
-		data[SCHEME_TERMDATES] = {FIELD_STARTDATE:time.mktime(d.timetuple()), "termDate":0}
-		schemas.append(SCHEME_TERMDATES)
+				startTime = userObj.get(csv_header.STARTDATE_HEADER)
+				if re.search('\d{4}\-\d{2}\-\d{2}',startTime):
+						d = datetime.datetime.strptime(startTime, '%Y-%m-%d')
+						data[SCHEME_TERMDATES] = {FIELD_STARTDATE:int(time.mktime(d.timetuple())),"termDate":0}
+				else:
+						data[SCHEME_TERMDATES] = {FIELD_STARTDATE:int(startTime), "termDate":0}
+				schemas.append(SCHEME_TERMDATES)
 	if csv_header.DEPARTMENT_HEADER in keys:
 		ent[FIELD_DEPARTMENT] = userObj.get(csv_header.DEPARTMENT_HEADER, None)
 	if csv_header.ORGANIZATION_HEADER in keys:
