@@ -35,7 +35,7 @@ The returned user_id are the ones of the message sender and message recipients.
    </br>
    It is also possible to search by date instead by running the script as:
 
-      ```powershell
+   ```powershell
    ./RetrieveMessageInfo.ps1 -WPAccessToken accessToken.js -WPUser <User ID> -MessageDate <YYYY-MM-DD>
    ```
    This will retrieve all messages sent by a specific user on the specified date. This search method is recommended when searching for pictures/gifs.
