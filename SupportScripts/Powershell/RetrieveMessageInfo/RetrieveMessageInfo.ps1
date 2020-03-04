@@ -35,7 +35,7 @@ while(($messages_results.paging.next) -or ($runonce)){
         $message_attachment_type = $message.attachments.data.mime_type
         $message_attachment = $message.attachments.data.image_data.url
         if($null -eq $sender_email){$sender_email ="Bot/Custom Integration-->"+$message.from.name}
-        if ((($MessageContent -ne "") -and ($message_content -match $MessageContent)) -or (($MessageDate -ne "") -and ($message_date -match $MessageDate))){
+        if (((($MessageContent -ne "") -and ($MessageDate -ne "")) -and (($message_content -match $MessageContent) -and ($message_date -match $MessageDate))) -or ((($MessageContent -eq "") -and ($MessageDate -ne "")) -and ($message_date -match $MessageDate)) -or ((($MessageContent -ne "") -and ($MessageDate -eq "")) -and ($message_content -match $MessageContent))){
             $string_found = 1
             do {
             Write-Host -NoNewLine -ForegroundColor Yellow "Found message: "
