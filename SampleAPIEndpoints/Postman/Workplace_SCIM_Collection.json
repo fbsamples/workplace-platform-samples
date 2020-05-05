@@ -23,18 +23,7 @@
               }
             },
             "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer DQVJ2NjBmNEVJMEk4cVRVXy1PLUZAKQnNMZA0xROFR4c0E0ZAjFKVWN3RjMtX0Vha3F2aDBtYnlIc1hVTTdpelRCYzVjTGFEMWJmVFBsUFBqNmJLaDVZAWGwzbjktZATl0V2tMZAUt3U0RXRE9zUkZAjU0l3dF9uY3RvaDlBMXliMHRmMk5ab0d1WVpsVi02TzFDdmNsWUpqcGZAlaVZA1dVNkTFE1MGpPdDlJcFU3Q09BQ0tuOHBXZAUtUVmgzc3ZAMa1VOVTFBRGVmbVdR",
-                "disabled": true
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "disabled": true
-              }
-            ],
+            "header": [],
             "url": "https://www.workplace.com/scim/v1/Users"
           },
           "response": []
