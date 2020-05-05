@@ -1,0 +1,2482 @@
+{
+  "info": {
+    "_postman_id": "585b1444-f51a-4644-9b7e-ba3ad63ad4c7",
+    "name": "Workplace Graph Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Community",
+      "item": [
+        {
+          "name": "Admins",
+          "item": [
+            {
+              "name": "GET admins",
+              "_postman_id": "5ee9a0e3-ec80-438e-9d07-fd73276153b9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/community/admins",
+                "description": "# Returns a list of Workplace Admins\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n**Usage**\n`GET https://graph.facebook.com/community/admins?fields={fields}`\n\nReplace {fields} with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "df409e03-6e6a-4490-832b-3e721272e8bb",
+          "description": "# Edge: /community/admins\nThe System Administrators of a Workplace community.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Event",
+          "item": [
+            {
+              "name": "POST events",
+              "_postman_id": "7d3e4eab-7b43-4b5c-8f2d-3cf54b3f42b8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\":\"Name of event\",\n  \"start_time\": \"2019-02-28T08:00+00:00\",\n  \"end_time\": \"2019-03-03T12:00+00:00\",\n  \"description\":\"Your event description\",\n  \"location\": \"London\"\n}"
+                },
+                "url": "https://graph.facebook.com/community/events",
+                "description": "# Creates an Event within your specified Group\n\n**Avilable fields**\n`name,start_time,end_time,description,location`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/community/events\nBody: \n\t\tname: Name of event\n\t\tstart_time: Start time in ISO8601\n\t\tend_time: End time in ISO8601\n\t\tdescription: Your event description\n\t\tlocation: Your Location\n```\n\nReplace `{fields}` with values required above, or remove for defaults.\n\n_Note: Date format must be in ISO 8601 format, e.g.: 2019-02-28T08:00+00:00 represents 28th February 2018 at 08:00 am UTC+0_"
+              },
+              "response": []
+            },
+            {
+              "name": "GET events",
+              "_postman_id": "c92d4d18-5836-4561-850a-40b808cf46ea",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/community/events",
+                "description": "# Returns a list of Events within your Community\n\n**Avilable fields**\n`id,attending_count,can_guests_invite,can_viewer_post,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,is_viewer_admin,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/community/events?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE event",
+              "_postman_id": "3f93b2da-f4f2-475e-aa40-0644c5102501",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}",
+                "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.facebook.com/{{event-id}}`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "b0712565-df9d-4fb8-9940-16c9185612c2",
+          "description": "An event within the community.\nFor more granular events on a group level, look at the `/group/events` endpoint",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Groups",
+          "item": [
+            {
+              "name": "GET groups",
+              "_postman_id": "9f5fa28d-49af-4924-a44e-565b12792013",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/community/groups",
+                "description": "# Returns a list of Workplace Groups within your Community\n\n**Avilable fields**\n`id,archived,cover,description,icon,is_workplace_default,name,owner,privacy,updated_time`\n\n**Usage**\n`GET https://graph.facebook.com/community/groups?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST groups",
+              "_postman_id": "13253674-cb3a-42d7-ba89-a031fa3ea309",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Group Name\",\n    \"group_type\": \"WORK_SOCIAL\",\n    \"privacy\": \"OPEN\"\n}"
+                },
+                "url": "https://graph.facebook.com/community/groups",
+                "description": "# Creates a Workplace Group within your Community\n\n**Avilable fields**\n`name,cover_url,privacy,group_type,admin`\n\n**Usage**\n```\nPOST https://graph.facebook.com/community/groups\nBody:\n    \"name\": \"Group Name\",\n    \"group_type\": \"WORK_SOCIAL\",\n    \"privacy\": \"OPEN\"\n```\n\n_Note: Group admin requires an ID of an existing Workplace user within your community._\n\n**Group Types**  \n        WORK_TEAM = Projects & Teams  \n        WORK_FEEDBACK = Open Discussions  \n        WORK_ANNOUNCEMENT = Announcements  \n        WORK_SOCIAL = Social & More  \n        WORK_MULTI_COMPANY = Multi-Company  \n        FOR_SALE = Buy & Sell\n\n  \n   \n**Privacy Options**  \n\t\tOPEN  \n\t\tCLOSED  \n\t\tSECRET  \n\t\t\n_Note: OPEN cannot be applied to multi-company groups_"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "0255c3a7-6038-410f-9a35-ccb25bd0b092",
+          "description": "# Edge: /{community-id}/groups\n\nThe groups in a Workplace community.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Members",
+          "item": [
+            {
+              "name": "GET members",
+              "_postman_id": "246e67eb-4871-471c-9cfa-b29acde3ac4e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/community/members",
+                "description": "# Returns a list of Members within your Community\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/community/members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "1dcebc9a-fd24-4da7-98d6-60bf3e259037",
+          "description": "# Edge: /{community-id}/members\n\nThe members of a Workplace community.",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "96f23713-8530-41d0-aef9-f189632fcd96",
+      "description": "# Path /community\nRepresents your Workplace community. The `/community` node returns a single community object of type *Group*. For API convenience, you can think of the Community object as a root Group for the other groups in a Workplace community.\n\nYou can find your Community ID by making a Graph API `GET` call to `graph.facebook.com/community` with a custom integration access token."
+    },
+    {
+      "name": "Event",
+      "item": [
+        {
+          "name": "No Reply",
+          "item": [
+            {
+              "name": "GET noreply",
+              "_postman_id": "126a5092-9d1f-4302-87cb-fb6e1f81bee3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/noreply",
+                "description": "# Returns details of users who have no replied in a given Event ID\n\n\n**Avilable fields**  \n`id,email,name,rsvp_status`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/noreply?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "e3d74713-6d76-4691-a15d-1086f47b1006",
+          "description": "# Edge: `/{{event-id}}/noreply`\nUsers who have not replied in the event",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "99c5670c-5ca6-480f-a19a-fdaa43705ce9",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "a2da2f66-a4b4-4548-9446-9e55ce8f403c",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Admins",
+          "item": [
+            {
+              "name": "GET admins",
+              "_postman_id": "2e48b2e2-0ea4-4d4d-b80c-3c7b0b6b2977",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/admins",
+                "description": "# Returns details of a given Event ID's Admins\nReturns Users that are admins of the event.\n\n**Avilable fields**  \n`id,name`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "ed4dfeeb-658b-453e-a8bc-670740d32629",
+          "description": "# Edge: `/{{event-id}}/admins`\nThe Admins of a Workplace Event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Attending",
+          "item": [
+            {
+              "name": "GET attending",
+              "_postman_id": "7b7047a4-da82-4fbe-86a8-325f639504a8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/attending",
+                "description": "# Returns details of attending users for a given Event ID\n\n\n**Parameters**\n* **[Bool]** `summary`: If set to true, shows aggregated information about the edge, such as counts.\n\n**Avilable fields**  \n`id,email,name,rsvp_status`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/attending?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "8bad2ae3-e9c5-4c59-88a9-c1a90d5284f6",
+          "description": "# Edge: `/{{event-id}}/attemding`\nUsers that are attending the event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Declined",
+          "item": [
+            {
+              "name": "GET declined",
+              "_postman_id": "97072211-b4e1-47ff-a945-b474624e9def",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/declined",
+                "description": "# Returns details of users who have declined a given Event ID\n\n\n**Avilable fields**  \n`id,email,name,rsvp_status`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/declined?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "609d7f89-e0ed-459f-b8b8-eb6889028f08",
+          "description": "# Edge: `/{{event-id}}/declined`\nUsers who have declined the event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Feed",
+          "item": [
+            {
+              "name": "GET feed",
+              "_postman_id": "24c2d8ab-1778-4205-821e-cf4c840e8e4b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/feed",
+                "description": "# Returns the Feed for your specified Event\n\n**Avilable fields**\n`id,admin_creator,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,privacy,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{event-id}}/feed?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST feed",
+              "_postman_id": "a4a8b151-b2c2-44e2-a29b-5dfab7dc9ff7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"message\": \"The body of your post\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/feed",
+                "description": "# Creates a Post within your specified Event\n\n**Parameters**\n* `message`: The main body of the post, otherwise called the status message. Either link or message must be supplied.\n* `link`: The URL of a link to attach to the post. Either link or message must be supplied.\n* `attachment_id`: Id of an attachment\n* `attachment_url`: URL of an attachment\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{event-id}}/feed\nBody:\n    message: \"Text body of your post\"\n```\n\n**Note:** To mention someone, use the following format in the `message`: `@[<user-id>]`, e.g. `@[10001234567890]`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "adcbd06c-3f76-4fa2-afc4-1ba76fcb7d38",
+          "description": "# Edge: /{{event-id}}/feed\nThe event's feed.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Interested",
+          "item": [
+            {
+              "name": "GET interested",
+              "_postman_id": "01a74cea-7cf9-4733-9e53-575dd81bc09a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/interested",
+                "description": "# Returns details of users who are interested in a given Event ID\n\n\n**Avilable fields**  \n`id,email,name,rsvp_status`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/interested?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "1e13e317-a057-4a03-9c7b-9331eb20bc4a",
+          "description": "# Edge: `/{{event-id}}/interested`\nUsers who are interested in the event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Maybe",
+          "item": [
+            {
+              "name": "GET maybe",
+              "_postman_id": "e032c7b9-2b73-4a53-8c6f-9c744c239fd6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/maybe",
+                "description": "# Returns details of users who replied with 'maybe' in a given Event ID\n\n\n**Avilable fields**  \n`id,email,name,rsvp_status`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/maybe?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "ddf2c79c-5cb9-414d-b0d9-c2b21349b61b",
+          "description": "# Edge: `/{{event-id}}/maybe`\nUsers who replied maybe in the event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "No Reply",
+          "item": [
+            {
+              "name": "GET noreply",
+              "_postman_id": "55ec6166-953c-4537-9ed7-a1bb9ad90445",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/noreply",
+                "description": "# Returns details of users who have no replied in a given Event ID\n\n\n**Avilable fields**  \n`id,email,name,rsvp_status`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/noreply?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "733c22cb-cf21-42a2-a1f4-22b4c20f23b5",
+          "description": "# Edge: `/{{event-id}}/noreply`\nUsers who have not replied in the event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Photos",
+          "item": [
+            {
+              "name": "GET photos",
+              "_postman_id": "c7c94406-2a0f-412d-b309-01cdd0b259d8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}/photos",
+                "description": "# Returns photos which have been uploaded to the Event\n\n\n**Avilable fields**  \n`id,created_time,name,images,height,link,picture,width`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/photos?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST photos",
+              "_postman_id": "75f29101-0b2d-4d37-9ccc-296af49bdfb6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"url\": \"http://image-url-here.jpg\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{event-id}}/photos",
+                "description": "# Adds an Event photo\n\n**Parameters**  \n* `url`: Public URL of the photo\n* `source`: Binary of file as a multi-part/form-data upload. \n\n\n**Usage**  \n```\nPOST https://graph.facebook.com/{{event-id}}/photos\nBody:\n\turl: \"http://url-to-your-photo.com/photo.jpg\"\n```\n\n**Note:** `url` or `source` is required."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "e7a1aa21-2841-4420-83a0-21eb2ac76738",
+          "description": "# Edge: `/{{event-id}}/photos`\nPhotos uploaded to the event",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET event",
+          "_postman_id": "10bf4d77-86e7-42f7-882a-893cfa94fcea",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{event-id}}",
+            "description": "# Returns details of a given Event ID\nRepresents a Workplace event. The /{{event-id}} node returns a single event.\n\n**Avilable fields**\n`id,attending_count,can_guests_invite,can_viewer_post,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,is_viewer_admin,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{event-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE event",
+          "_postman_id": "a653c25d-019c-4935-8917-dd588c3a587c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "https://graph.facebook.com/{{event-id}}",
+            "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.facebook.com/{{event-id}}`"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "cd9cee7e-54d1-4697-b1d2-339a2763dc08",
+      "description": "# Edge: /{{event-id}}\n\nThe events of a Workplace community."
+    },
+    {
+      "name": "Group",
+      "item": [
+        {
+          "name": "Admins",
+          "item": [
+            {
+              "name": "GET admins",
+              "_postman_id": "a1e737b2-e13a-46ea-918f-4785196fa2e3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/admins",
+                "description": "# Returns a list of Admins within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST admins",
+              "_postman_id": "177e3f3b-ea96-404f-951a-b6ac516c7471",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"member\": \"100022234455678\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/admins",
+                "description": "# Creates a Group Admin within your specified Group\n\n**Avilable fields**\n`member`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/admins\nBody:\n    member: {{member-id}}\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE admins",
+              "_postman_id": "f5c0b7ae-7a76-40e7-aa15-69d872c40e41",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"member\": \"100022234455678\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/admins",
+                "description": "# Removes a Group Admin within your specified Group\n_This does **not** delete the member from your community_\n\n**Avilable fields**\n`member`\n\n\n**Usage**\n```\nDELETE https://graph.facebook.com/{{group-id}}/admins\nBody:\n\t\tmember: {{member-id}}\n```"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "dae5e2b2-c700-44d5-bfaa-2337eb8a539d",
+          "description": "# Edge: /{{group-id}}/admins\n\nThe admins of a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Albums",
+          "item": [
+            {
+              "name": "Comments ",
+              "item": [
+                {
+                  "name": "Likes",
+                  "item": [
+                    {
+                      "name": "GET likes",
+                      "_postman_id": "a7e8fb12-8c01-4582-923d-8166873decea",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                        "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "DELETE likes",
+                      "_postman_id": "6207c708-68aa-473e-9f38-b5cbb412f128",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                        "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "POST likes",
+                      "_postman_id": "2e1204fb-337e-4e12-ac68-d7e63e206120",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                        "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+                      },
+                      "response": []
+                    }
+                  ],
+                  "_postman_id": "4c856640-35a8-4801-9305-d1ec50747197",
+                  "description": "# Likes on a Workplace object.",
+                  "_postman_isSubFolder": true
+                },
+                {
+                  "name": "Reactions",
+                  "item": [
+                    {
+                      "name": "GET reactions",
+                      "_postman_id": "99b9ae8f-916a-4e03-80f9-37107eb6aa98",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/reactions",
+                        "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                      },
+                      "response": []
+                    }
+                  ],
+                  "_postman_id": "a79d2af5-acab-484d-86a1-3adc246970fd",
+                  "description": "# Reactions on a Workplace object.",
+                  "_postman_isSubFolder": true
+                },
+                {
+                  "name": "GET comments ",
+                  "_postman_id": "87a1bf76-a855-4fad-8118-91927bb3cfa2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{album_id}/comments",
+                    "description": "# Comments associated to this album \nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_hide,can_like,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/comments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "POST comments ",
+                  "_postman_id": "6031edaa-b957-4034-be4d-8b6790b9ff04",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n\t\"message\": \"My test comment\",\n    \"attachment_id\": 1234567890123456\n}"
+                    },
+                    "url": "https://graph.facebook.com/{album_id}/comments",
+                    "description": "# Adds a comment associated to an object  \nThe can_comment field on individual comment objects indicates whether it is possible to reply to that comment by publishing another.\n\n**Parameters**  \n* `message`: The comment text.\n* `attachment_id`: An optional ID of a unpublished photo (see no\\_story field in /{user-id}/photos) uploaded to Workplace to include as a photo comment. \n* `attachment_url`: The URL of an image to include as a photo comment. \n* `source`: A photo, encoded as form data, to use as a photo comment.\n  \n**Usage**  \n```\nPOST https://graph.facebook.com/{{object_id}}/comments\nBody:\n  message: \"A post message\"\n  attachment_url: http://www.a-link-to-a-photo.com/photo.jpg\n```  \n**Note:** One of `attachment_url`, `attachment_id`, `message` or `source` must be provided when publishing."
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "5e07aeca-1b3f-47dd-b2fb-942bbe7fbb13",
+              "description": "Comments on this album",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "Likes",
+              "item": [
+                {
+                  "name": "GET likes",
+                  "_postman_id": "9aa875b9-c045-49e1-9fa5-95b3045bf793",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{album_id}/likes",
+                    "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "DELETE likes",
+                  "_postman_id": "7887ba37-688f-4e83-a211-7a648516f8fd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{album_id}/likes",
+                    "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "POST likes",
+                  "_postman_id": "a68240d6-3617-4c66-b227-18782e1dbb99",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{album_id}/likes",
+                    "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "7b723a79-63c9-41a4-bedf-3222795484c4",
+              "description": "# Likes on a Workplace object.",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "Reactions",
+              "item": [
+                {
+                  "name": "GET reactions",
+                  "_postman_id": "e91a4069-5f77-4d83-9c33-69874e4f627f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{album_id}/reactions",
+                    "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "33c347b7-7c8d-488e-97eb-73e0e299fbf4",
+              "description": "# Reactions on a Workplace object.",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "GET albums",
+              "_postman_id": "77734e03-ddc5-4bbc-a30b-38837f4746bf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/albums",
+                "description": "# Returns a list of Albums within your specified Group\n\n**Avilable fields**\n`id,can_upload,count,cover_photo,created_time,description,event,from,link,location,name,place,privacy,type,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/albums?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "788f53ff-201f-4b45-9ae1-4fcb3e550be1",
+          "description": "# Edge: /{{group-id}}/albums\n\nThe photo albums in a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Docs",
+          "item": [
+            {
+              "name": "Comments ",
+              "item": [
+                {
+                  "name": "Likes",
+                  "item": [
+                    {
+                      "name": "GET likes",
+                      "_postman_id": "fcb1cf13-b1d4-4ad1-ae7b-380e4d8aac39",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                        "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "DELETE likes",
+                      "_postman_id": "01b0a73e-2808-4c01-af11-83e81be17b7f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                        "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+                      },
+                      "response": []
+                    },
+                    {
+                      "name": "POST likes",
+                      "_postman_id": "73931a48-c8a9-4407-80af-5f1df02de37f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                        "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+                      },
+                      "response": []
+                    }
+                  ],
+                  "_postman_id": "bebde0af-3181-430c-acd0-568f724bf61f",
+                  "description": "# Likes on a Workplace object.",
+                  "_postman_isSubFolder": true
+                },
+                {
+                  "name": "Reactions",
+                  "item": [
+                    {
+                      "name": "GET reactions",
+                      "_postman_id": "922fd10c-9a51-4e06-8085-bc1d090877af",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "token": ""
+                          }
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": "https://graph.facebook.com/{{comment-id}}/reactions",
+                        "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                      },
+                      "response": []
+                    }
+                  ],
+                  "_postman_id": "316666a4-b6bd-4de1-859a-b7407313ec8b",
+                  "description": "# Reactions on a Workplace object.",
+                  "_postman_isSubFolder": true
+                },
+                {
+                  "name": "GET comments ",
+                  "_postman_id": "aa3a3223-e00f-4874-b6a8-fe9d5d1dd938",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{doc_id}/comments",
+                    "description": "# Comments associated to this doc \nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_hide,can_like,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/comments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "POST comments",
+                  "_postman_id": "55fd7568-503a-472a-98b9-41f92e3c3486",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n\t\"message\": \"My test comment\",\n    \"attachment_id\": 1234567890123456\n}"
+                    },
+                    "url": "https://graph.facebook.com/{doc_id}/comments",
+                    "description": "# Adds a comment associated to an object  \nThe can_comment field on individual comment objects indicates whether it is possible to reply to that comment by publishing another.\n\n**Parameters**  \n* `message`: The comment text.\n* `attachment_id`: An optional ID of a unpublished photo (see no\\_story field in /{user-id}/photos) uploaded to Workplace to include as a photo comment. \n* `attachment_url`: The URL of an image to include as a photo comment. \n* `source`: A photo, encoded as form data, to use as a photo comment.\n  \n**Usage**  \n```\nPOST https://graph.facebook.com/{{object_id}}/comments\nBody:\n  message: \"A post message\"\n  attachment_url: http://www.a-link-to-a-photo.com/photo.jpg\n```  \n**Note:** One of `attachment_url`, `attachment_id`, `message` or `source` must be provided when publishing."
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "49346e3c-5b02-48b8-a3cb-bd30367aeedd",
+              "description": "Comments on this doc",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "Likes ",
+              "item": [
+                {
+                  "name": "GET likes",
+                  "_postman_id": "a5dcb3f9-c6a3-4d44-b34e-6e1e12a2a181",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{doc_id}/likes",
+                    "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "DELETE likes",
+                  "_postman_id": "6814654f-9b3c-4c12-95f9-5d8903f03d32",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{doc_id}/likes",
+                    "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "POST likes",
+                  "_postman_id": "a209bca8-d5e4-4347-a011-78455a553c2d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{{post-id}}/likes",
+                    "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "588d6c62-3c49-4d7f-bca3-ec04625a3a23",
+              "description": "# Likes on a Workplace object.",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "Reactions",
+              "item": [
+                {
+                  "name": "GET reactions",
+                  "_postman_id": "1d2236eb-7a11-4564-819f-79046c7b3c50",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{doc_id}/reactions",
+                    "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "e606346e-c0ba-4b35-b8ca-5be33cf96c65",
+              "description": "# Reactions on a Workplace object.",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "GET docs",
+              "_postman_id": "07308e94-fdda-4382-9dcd-6df3e1e74044",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/docs",
+                "description": "# Returns a list of Docs within your specified Group\n\n**Avilable fields**\n`id,can_delete,can_edit,created_time,from,message,revision,subject,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/docs?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST docs",
+              "_postman_id": "392466e5-785b-431d-9c2e-b2c387e72c7b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"title\": \"Title of document\",\n\t\"body\": \"HTML <b>body</b> of the <i>doc</i><br/>A new line can be done like this!\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/docs",
+                "description": "# Returns a list of Docs within your specified Group\n\n**Avilable fields**\n`body,title`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/docs\nBody:\n\t\tTitle: Your Title\n\t\tBody: HTML of your body\n```"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "4ab99555-d700-4d02-b05c-7961a9e8a03f",
+          "description": "# Edge: /{{group-id}}/docs\n\nThe documents/notes of a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Events",
+          "item": [
+            {
+              "name": "GET events",
+              "_postman_id": "b700ad3d-cb18-45e9-9bb0-f5d897ef4832",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/events",
+                "description": "# Returns a list of Events within your specified Group\n\n**Avilable fields**\n`id,attending_count,can_guests_invite,can_viewer_post,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,is_viewer_admin,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/events?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST events",
+              "_postman_id": "76fce474-167b-4e89-9333-53f02958366a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\":\"Name of event\",\n  \"start_time\": \"2019-02-28T08:00+00:00\",\n  \"end_time\": \"2019-03-03T12:00+00:00\",\n  \"description\":\"Your event description\",\n  \"location\": \"London\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/events",
+                "description": "# Creates an Event within your specified Group\n\n**Avilable fields**\n`name,start_time,end_time,description,location`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/events\nBody: \n\t\tname: Name of event\n\t\tstart_time: start time in ISO8601\n\t\tend_time: end time in ISO8601\n\t\tdescription: Your event description\n\t\tlocation: Your Location\n```\n\nReplace `{fields}` with values required above, or remove for defaults.\n\n_Note: Date format must be in ISO 8601 format, e.g.: 2019-02-28T08:00+00:00 represents 28th February 2018 at 08:00 am UTC+0_"
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE event",
+              "_postman_id": "fe56a58c-e60b-4943-8013-bad8868180f5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "https://graph.facebook.com/{{event-id}}",
+                "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.facebook.com/{{event-id}}`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "1f52e7e8-2d04-47b0-8876-108da0d9dd41",
+          "description": "# Edge: /{{group-id}}/events\n\nThe events of a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Feed",
+          "item": [
+            {
+              "name": "GET feed",
+              "_postman_id": "b2346d86-5b65-44d6-8a2a-0362068327ed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/feed",
+                "description": "# Returns the News Feed for your specified Group\n\n**Avilable fields**\n`id,admin_creator,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,privacy,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/feed?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST feed",
+              "_postman_id": "bb6bb5cc-df4b-45e8-94da-5d06f206beb2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"message\": \"The body of your post\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/feed",
+                "description": "# Creates a Post within your specified Group\n\n**Parameters**\n* `message`: The main body of the post, otherwise called the status message. Either link or message must be supplied.\n* `link`: The URL of a link to attach to the post. Either link or message must be supplied.\n* `attachment_id`: Id of an attachment\n* `attachment_url`: URL of an attachment\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/feed\nBody:\n    message: \"Text body of your post\"\n```\n\n**Note:** To mention someone, use the following format in the `message`: `@[<user-id>]`, e.g. `@[10001234567890]`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "43eb19b6-06de-4776-a1c6-414e3ff9a7df",
+          "description": "# Edge: /{{group-id}}/feed\n\nThe news feed of a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Files",
+          "item": [
+            {
+              "name": "GET files",
+              "_postman_id": "8d9410f8-cbd1-466d-8447-005f7837965c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{group_id}/files",
+                "description": "# The files shared into a Workplace group.\n\n**Avilable fields**  \n`id,download_link,from,group,id,message,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{group-id}}/files?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "cc39fa0e-5e37-4ad8-a5ef-6a8d47c7f4e3",
+          "description": "The files shared into a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Members",
+          "item": [
+            {
+              "name": "GET members",
+              "_postman_id": "17c0b088-04c6-4738-b14e-065fb153858b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/members",
+                "description": "# Returns a list of Members within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST members",
+              "_postman_id": "39785787-ccc9-4192-bf92-abbcfc23b2dd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@domain.com\",\n  \"member\": \"100022234455678\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/members",
+                "description": "# Creates a Member within your specified Group\n\n**Avilable fields**\n`member,email`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/members\nBody:\n    member: {{member-id}}\n    OR\n    email: \"email@domain.com\"\n```  \n\n\n_Note 1: Use `email` OR `member` when adding a user, do not use both_\n\n\n_Note 2: When including email addresses in the URL for a request, ensure that the email addresses is URL encoded. Example: michael@example.com becomes michael%40example.com._"
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE members",
+              "_postman_id": "d66b365c-cd32-4361-a169-d70e9a34853a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"email\": \"user@domain.com\",\n\t\"member\": \"100022234455678\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{group-id}}/members",
+                "description": "# Removes a Member within your specified Group\n_This does **not** delete the member from your community_\n\n**Avilable fields**\n`member,email`\n\n\n**Usage**\n```\nDELETE https://graph.facebook.com/{{group-id}}/members\nBody:\n\t\tmember: {{member-id}}\nOR\n\t\temail: \"email@domain.com\"\n```  \n\n\n_Note 1: Use `email` OR `member` when adding a user, do not use both_\n\n\n_Note 2: When including email addresses in the URL for a request, ensure that the email addresses is URL encoded. Example: michael@example.com becomes michael%40example.com._"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "8797d351-0eb0-48aa-948d-74205d94d97b",
+          "description": "# Edge: /{{group-id}}/members\n\nThe members of a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Member Requests",
+          "item": [
+            {
+              "name": "GET member_requests",
+              "_postman_id": "e69672a4-3f82-44c3-896c-10eb0df0ce7b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{group_id}/member_requests",
+                "description": "# Returns details of your specified Group\n\n**Avilable fields**  \n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{group-id}}/member_requests?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "3edeeca6-0e56-453b-8146-d4314c4590e1",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Moderators",
+          "item": [
+            {
+              "name": "GET moderators",
+              "_postman_id": "e25c5ee5-1c0e-4f60-9430-dbd9b2b0d438",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{group_id}/moderators",
+                "description": "# Returns a list of Moderators within your specified Group\n\n**Avilable fields**  \n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{group_id}/moderators?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "b58889d4-dd71-4db8-aeda-160bb8729456",
+          "description": "# Edge: /{{group-id}}/moderators\n\nThe moderators of a Workplace group.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Photos",
+          "item": [
+            {
+              "name": "POST photos",
+              "_postman_id": "3b5cb2bb-3c66-4f63-bc0f-2d56bdb7422b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"url\": \"http://image-url-here.jpg\"\n}"
+                },
+                "url": "https://graph.facebook.com/{group_id}/photos",
+                "description": "# Adds a Group photo\n\n**Parameters**  \n* `url`: Public URL of the photo\n* `source`: Binary of file as a multi-part/form-data upload. \n\n\n**Usage**  \n```\nPOST https://graph.facebook.com/{{group-id}}/photos\nBody:\n\turl: \"http://url-to-your-photo.com/photo.jpg\"\n```\n\n**Note:** `url` or `source` is required."
+              },
+              "response": []
+            },
+            {
+              "name": "GET photos",
+              "_postman_id": "c65b93fb-06bc-4276-9fde-213776577f79",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group_id}}/photos",
+                "description": "# Gets a details of all photos uploaded to a specified group\n\n**Avilable fields**  \n`id,created_time,name,images,height,link,picture,width`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{group_id}/photos?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "79702547-c8d8-4d4d-bec6-c03df2def737",
+          "description": "# Edge: `/{group_id}/photos`\n\nPhotos belonging to this group",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Videos",
+          "item": [
+            {
+              "name": "POST videos",
+              "_postman_id": "d5df19b9-a7a2-4dd6-9ae0-b67ba70dfe03",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "message",
+                      "value": "",
+                      "description": "The body of your post goes here",
+                      "type": "text"
+                    },
+                    {
+                      "key": "source",
+                      "description": "Your file here",
+                      "type": "file",
+                      "value": null
+                    }
+                  ]
+                },
+                "url": "https://graph.facebook.com/{{group_id}}/videos",
+                "description": "# Adds a Group Video\n\n**Parameters**  \n* `url`: Public URL of the photo\n* `source`: Binary of file as a multi-part/form-data upload. \n\n\n**Usage**  \n```\nPOST https://graph.facebook.com/{group-id}/videos\nBody:\n\tmessage: \"Message of your post\"\n\tsource: <multipart of your video file>\n\turl: \"http://www.some-storage.com/path-to-your-video.mp4\"\n```\n\n**Note:** `url` or `source` is required."
+              },
+              "response": []
+            },
+            {
+              "name": "GET videos",
+              "_postman_id": "31071845-a42e-4cad-b26e-8525994a0e54",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{group-id}}/videos",
+                "description": "# Gets a details of all videos within a given group \n\n**Avilable fields**  \n`id,created_time,name,images,height,link,picture,width`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{group_id}/videos?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "4b2c557d-7548-4163-911b-ba4987cc1e5d",
+          "description": "Edge: `/{group-id}/videos`\n\n\nA list of all the video objects associated with this group",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "17789579-9e18-481b-8c3c-b11bb17c4db7",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "bc9dc287-f34f-45a4-a336-0e3c5c3f25b7",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET group",
+          "_postman_id": "c99077af-8efe-4498-b589-a828eca4598c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{group_id}}",
+            "description": "# Returns details of your specified Group\n\n**Avilable fields**  \n`id,archived,name,privacy,admins,moderators,cover,description,icon,is_workplace_default,name,owner,privacy,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{group-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        },
+        {
+          "name": "POST group",
+          "_postman_id": "4b059797-8723-4a4f-b5e4-0286b3eddc98",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Group Name\",\n    \"id\": \"352864358553647\",\n    \"archive\": true\n}"
+            },
+            "url": "https://graph.facebook.com/{{group_id}}",
+            "description": "# Archives a Workplace Group within your Community\n\n**Avilable fields**\n`name,archive,cover_url,privacy,group_type,admin`\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group_id}}\nBody:\n    \"name\": \"ID of group\",\n    \"archive\": boolean\n```"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "e25f5bdd-1709-4d05-bd28-f8d4b63dc5af",
+      "description": "# Path /{{group-id}}}\n\nRepresents a Workplace group. The `/{{group-id}}` node returns a single group.\n\nReading Group node requires either **Read content** or **Read company visible content** permission for closed/secret groups and open groups respectively."
+    },
+    {
+      "name": "Me ",
+      "item": [
+        {
+          "name": "Messages",
+          "item": [
+            {
+              "name": "POST messages",
+              "_postman_id": "52f5d7d5-4e31-4fec-ab80-9f75d94b7fe1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"ids\": [\n    \t1000123456789,\n    \t1000987654321\n    ]\n  },\n  \"message\": {\n    \"attachment\": {\n\t    \"type\": \"template\",\n\t    \"payload\": {\n\t      \"template_type\": \"button\",\n\t      \"text\": \"This is test text\",\n\t      \"buttons\":[\n\t      \t{\n\t    \t\t\"type\": \"web_url\",\n\t    \t\t\"url\": \"https://www.oculus.com/en-us/rift/\",\n\t    \t\t\"title\": \"Open Web URL\"\n\t    \t}, \n\t\t    {\n\t\t      \"type\": \"postback\",\n\t\t      \"title\": \"Trigger Postback\",\n\t\t      \"payload\": \"postback payload\"\n\t\t    }, \n\t\t    {\n\t\t      \"type\": \"phone_number\",\n\t\t      \"title\": \"Call Phone Number\",\n\t\t      \"payload\": \"1234567890\"\n\t\t     }\n\t\t     ]\n\t    }\n    }\n  }\n}"
+                },
+                "url": "https://graph.facebook.com/me/messages",
+                "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "85208f34-a9a1-41d8-a17b-797ef5ef193d",
+          "description": "Get conversations for a bot page, including messages and attachments",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "e413fc2d-c7d7-4fa4-a2f8-2239fdf5fdf8",
+      "description": "Accessing your bot's page data"
+    },
+    {
+      "name": "Member",
+      "item": [
+        {
+          "name": "Reports",
+          "item": [
+            {
+              "name": "GET reports",
+              "_postman_id": "57ebcefa-caff-434b-b819-e0a803389492",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{member_id or email_address}/reports",
+                "description": "# Get a given member's reports  \n`/{member_id}/reports`  \n`/{email_address}/reports`\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**  \nUsing member-id: `GET https://graph.facebook.com/{member_id}/reports?fields={fields}`  \nUsing email: `GET https://graph.facebook.com/{email_address}/reports?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "b055e625-261a-41e7-a6ed-b52daa161472",
+          "description": "Edge: /{{member-id}}/reports",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Manager",
+          "item": [
+            {
+              "name": "GET managers",
+              "_postman_id": "e1e58818-e6cb-47d8-b9b9-ee8fa3476a0d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{member_id or email_address}/managers",
+                "description": "# Get a given member's manager  \n`/{member_id}/managers`  \n`/{email_address}/managers`\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,impersonate_token,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**  \nUsing member-id: `GET https://graph.facebook.com/{member_id}/managers?fields={fields}`  \nUsing email: `GET https://graph.facebook.com/{email_address}/managers?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "59908f73-9d31-4df5-b496-b8e86208185c",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Feed",
+          "item": [
+            {
+              "name": "GET feed",
+              "_postman_id": "33584be0-2bee-4205-8874-036c800cd73b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{member_id or email_address}/feed",
+                "description": "# Get a given member's feed  \nThe feed of posts (including status updates) and links published by this person, or by others on this person's profile. There are other edges which provide filtered versions of this edge:  \n\n* `/{user-id}/posts` shows only the posts that were published by this person.  \n* `/{user-id}/tagged` shows only the posts that this person was tagged in.  \n\nAll of these derivative edges share the exact same reading structure, however `/feed` should be used for all publishing purposes.\n\n**Avilable fields**\n`id,created_time,link,message,story`\n\n\n**Usage**  \nUsing member-id: `GET https://graph.facebook.com/{member_id}/feed?fields={fields}`  \nUsing email: `GET https://graph.facebook.com/{email_address}/feed?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST feed",
+              "_postman_id": "35c34fe0-0124-4dee-8442-63eafb3f17c0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "https://graph.facebook.com/{member_id or email_address}/feed",
+                "description": "# Post to a given member's timeline  \n\n**Avilable fields**\n`message,link`\n\n\n**Usage**  \n```\nPOST https://graph.facebook.com/{member_id or email_address}/feed\nBody:  \n  Message: \"Your post message\"\n```  \n\nMessage or Link is required to publish to this edge."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "1bf3858b-74b9-4af6-8c1e-c6f96a7ff0a3",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Events",
+          "item": [
+            {
+              "name": "GET events",
+              "_postman_id": "478b0587-ac74-47e6-8040-81fedc7f614d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{member_id or email_address}/events",
+                "description": "# Get a given member's timeline feed  \nEvents for this person. By default this does not include events the person has declined or not replied to.   \n  \n  \n  \n**Avilable Parameters**  \n`include_canceled`: **[boolean]**: Whether include canceled events.  \n`type`: **[enum: attending, created, declined, maybe, not_replied]**: Query events for which the user has this particular rsvp_status set\n\n\n**Usage**  \nUsing member-id: `GET https://graph.facebook.com/{member_id}/events?{parameters}`  \nUsing email: `GET https://graph.facebook.com/{email_address}/events?{parameters}`\n\nReplace `{parameters}` with values required above, for example:  \n`type=attending`  \n`include_canceled=true&type=attending`"
+              },
+              "response": []
+            },
+            {
+              "name": "POST events",
+              "_postman_id": "85e102e0-17da-4b1d-83f5-6a4be4fb92cd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\":\"Name of event\",\n  \"start_time\": \"2019-02-28T08:00+00:00\",\n  \"end_time\": \"2019-03-03T12:00+00:00\",\n  \"description\":\"Your event description\",\n  \"location\": \"London\"\n}"
+                },
+                "url": "https://graph.facebook.com/{{user-id}}/events",
+                "description": "# Creates an Event within your specified Group\n\n**Avilable fields**\n`name,start_time,end_time,description,location`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{user-id}}/events\nBody: \n\t\tname: Name of event\n\t\tstart_time: Start time in ISO8601\n\t\tend_time: End time in ISO8601\n\t\tdescription: Your event description\n\t\tlocation: Your Location\n```\n\nReplace `{fields}` with values required above, or remove for defaults.\n\n_Note: Date format must be in ISO 8601 format, e.g.: 2019-02-28T08:00+00:00 represents 28th February 2018 at 08:00 am UTC+0_"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "420243dd-9f02-4532-989e-a814d14fa624",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Conversations",
+          "item": [
+            {
+              "name": "GET conversations",
+              "_postman_id": "284e57a2-44ca-4aa1-8bde-33b4018c54d8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{member-id}}/conversations",
+                "description": "# A person or bot page's Workplace Messages. \nRequires either the Read all messages permission or an impersonate token for viewing a person's conversations.  \n**Fields**  \n`id,snippet,updated_time,message_count,unread_count,tags,participants,former_participants,senders,messages{message,attachments,from},can_reply,is_subscribed,link`  \n\n**Usage**  \n`GET https://graph.facebook.com/{member_id or email_address}/conversations`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "6c16b272-c5ea-4b1e-abb5-a91651d9afe3",
+          "description": "A person or bot page's Workplace Messages. Requires either the Read all messages permission or an impersonate token for viewing a person's conversations.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Picture",
+          "item": [
+            {
+              "name": "GET picture",
+              "_postman_id": "1ab135c3-7774-4a8f-a519-3a379badedd9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{member_id or email_address}/picture",
+                "description": "# The member's profile pictures\nBy default this edge will return a 302 redirect to the picture image. To get access to the data about the picture, please include redirect=false in your query.\n\n\n**Parameters**  \n- **[Bool]** `redirect`: If false, will return information about the picture. True will return the picture.\n\n\n**Fields**  \n`height,is_silhouette,width,url`  \n\n**Usage**  \n`GET https://graph.facebook.com/{member_id or email_address}/picture?redirect={true/false}&fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "cdea364c-8a77-4d01-8636-fab071db4659",
+          "description": "The member's profile pictures.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET member",
+          "_postman_id": "a67cc32a-0c58-481e-b85b-931f39592e75",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{member_id or email_address}}",
+            "description": "# Returns a single User object representing a Workplace user. \nCan be accessed via the member's Workplace ID or the email address used by the member when logging into Workplace.\n\n`/{member_id}`  \n`/{email_address}`\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,impersonate_token,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time,account_invite_time,account_claim_time`\n\n\n**Usage**  \nUsing member-id: `GET https://graph.facebook.com/{member_id}?fields={fields}`  \nUsing email: `GET https://graph.facebook.com/{email_address}?fields={fields}`  \nMultiple ids or emails: `GET https://graph.facebook.com/?ids=person1@domain.com,person2@domain.com` Or   \n`GET https://graph.facebook.com/?ids=101234567890,10987654321`\n\nReplace `{fields}` with values required above, or remove for defaults.\n\n**Note**\nImpersonate tokens can only be retrieved for accounts that were claimed."
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "19e9a102-de8d-4098-8365-709e59cb5f5f",
+      "description": "#Path /{{member-id}}\n\nRepresents a user object as a member of a Workplace community or group."
+    },
+    {
+      "name": "Message",
+      "item": [
+        {
+          "name": "DELETE message",
+          "_postman_id": "ad4a5870-0e4a-4890-afa3-42a1f1b30ad3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "https://graph.facebook.com/{message_id}",
+            "description": "# Deletes a message for a given message ID, for a given user  \n*Requires Impersonate Token*  \nDeleting a message only deletes the message from the view of the member whose impersonate token was used. To delete a message entirely, each member's view of that message must be deleted.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{message_id}`"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "214528a5-de91-4e50-b50d-68169b29bf30",
+      "description": "Messages for a given ID"
+    },
+    {
+      "name": "Object Comments",
+      "item": [
+        {
+          "name": "GET comments",
+          "_postman_id": "8cf5de92-3dba-4137-9e65-c71f6bd36871",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{object_id}}/comments",
+            "description": "# Comments associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Note\n* Photo\n* Post\n* User\n* Video \n\n\nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_hide,can_like,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/comments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        },
+        {
+          "name": "POST comments",
+          "_postman_id": "8b5a6f60-bf87-46bc-89ee-f3a7ed54dc33",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"message\": \"My test comment\",\n    \"attachment_id\": 1234567890123456\n}"
+            },
+            "url": "https://graph.facebook.com/{{object_id}}/comments",
+            "description": "# Adds a comment associated to an object  \nThe can_comment field on individual comment objects indicates whether it is possible to reply to that comment by publishing another.\n\n**Parameters**  \n* `message`: The comment text.\n* `attachment_id`: An optional ID of a unpublished photo (see no\\_story field in /{user-id}/photos) uploaded to Workplace to include as a photo comment. \n* `attachment_url`: The URL of an image to include as a photo comment. \n* `source`: A photo, encoded as form data, to use as a photo comment.\n  \n**Usage**  \n```\nPOST https://graph.facebook.com/{{object_id}}/comments\nBody:\n  message: \"A post message\"\n  attachment_url: http://www.a-link-to-a-photo.com/photo.jpg\n```  \n**Note:** One of `attachment_url`, `attachment_id`, `message` or `source` must be provided when publishing."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE comment",
+          "_postman_id": "ae1bcfba-e87f-4642-9a0e-0eabedce37c6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "https://graph.facebook.com/{{comment-id}}",
+            "description": "# Deletes a comment associated to an object  \n\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{comment-id}}`"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "a9c58b9a-19b0-44a1-94bd-da51f3c09ae7",
+      "description": "# Comments on a Workplace object."
+    },
+    {
+      "name": "Object Likes",
+      "item": [
+        {
+          "name": "GET likes",
+          "_postman_id": "a83089dd-d4a0-43b2-8fce-b67fc479a6e7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{object_id}}/likes",
+            "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE likes",
+          "_postman_id": "e5e7fe04-463e-40fe-8139-df5bb2868e85",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "https://graph.facebook.com/{{object_id}}/likes",
+            "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+          },
+          "response": []
+        },
+        {
+          "name": "POST likes",
+          "_postman_id": "11212ccf-71f6-4987-8ef0-9c024d981cc7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "POST",
+            "header": [],
+            "url": "https://graph.facebook.com/{{object_id}}/likes",
+            "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "f628598a-ef85-4c19-9149-c10eea557f3a",
+      "description": "# Likes on a Workplace object."
+    },
+    {
+      "name": "Object Reactions",
+      "item": [
+        {
+          "name": "GET reactions",
+          "_postman_id": "11d29385-0623-4df7-bace-11e8314cf4eb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{object_id}}/reactions",
+            "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "c5b1c3ef-0b5c-4f01-813e-160ed07a9f87",
+      "description": "# Reactions on a Workplace object."
+    },
+    {
+      "name": "Photo",
+      "item": [
+        {
+          "name": "DELETE photo",
+          "_postman_id": "aee69504-608e-4809-9250-39210421ebf2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "https://graph.facebook.com/{{photo-id}}",
+            "description": "# Deletes a photo with a given ID  \nRequires impersonation token of user who posted the photo\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{photo-id}}`"
+          },
+          "response": []
+        },
+        {
+          "name": "GET photo",
+          "_postman_id": "be8b2f57-1142-41df-9c8d-9191b2df229b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{photo-id}}",
+            "description": "# Gets a details of photo with a given ID  \n\n**Avilable fields**  \n`id,created_time,name,images,height,link,picture,width`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{photo-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "b66006a9-b50e-4e47-8456-00b7ed35972d",
+      "description": "# Edge: `/{{photo-id}}`"
+    },
+    {
+      "name": "Post",
+      "item": [
+        {
+          "name": "Attachments",
+          "item": [
+            {
+              "name": "GET attachments",
+              "_postman_id": "cfad1c85-a14e-420d-bced-ed397c45fe03",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/attachments",
+                "description": "# Media content associated with a story or comment. \nStory attachments are accessed from the following endpoints:\n  \n* `/{{post-id}}/attachments` displays all attachments and sub attachments associated with a particular post.\n* `/{{comment-id}}?fields=attachment` displays any media attachment associated with a comment.\n  \n**Avilable fields**  \n`id,description,description_tags,media,target,title,type,url`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{post-id}}/attachments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "00a61644-e62f-428f-adc6-b11976b6e1c3",
+          "description": "# All media attachments associated with this post.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Comments",
+          "item": [
+            {
+              "name": "Likes",
+              "item": [
+                {
+                  "name": "GET likes",
+                  "_postman_id": "ee5517a9-6b4d-44dc-8dce-96bc1bfc6f9c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                    "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "DELETE likes",
+                  "_postman_id": "370aa5e3-6a86-45bc-8c38-7385d526522e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                    "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+                  },
+                  "response": []
+                },
+                {
+                  "name": "POST likes",
+                  "_postman_id": "2848a1ee-6f42-486e-8bc4-e34efb786a77",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": ""
+                      }
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "url": "https://graph.facebook.com/{{comment-id}}/likes",
+                    "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_id": "842ca4e0-1318-44b3-a457-a034f220692f",
+              "description": "# Likes on a Workplace object.",
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "GET comments ",
+              "_postman_id": "c802ecc2-0902-4088-bdd1-8cb1c16f60b1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/comments",
+                "description": "# Comments associated to this post \nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_hide,can_like,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/comments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "POST comments",
+              "_postman_id": "e75c1f18-3566-4799-ab60-5ce67fe6e7ed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"message\": \"My test comment\",\n    \"attachment_id\": 1234567890123456\n}"
+                },
+                "url": "https://graph.facebook.com/{{post-id}}/comments",
+                "description": "# Adds a comment associated to an object  \nThe can_comment field on individual comment objects indicates whether it is possible to reply to that comment by publishing another.\n\n**Parameters**  \n* `message`: The comment text.\n* `attachment_id`: An optional ID of a unpublished photo (see no\\_story field in /{user-id}/photos) uploaded to Workplace to include as a photo comment. \n* `attachment_url`: The URL of an image to include as a photo comment. \n* `source`: A photo, encoded as form data, to use as a photo comment.\n  \n**Usage**  \n```\nPOST https://graph.facebook.com/{{object_id}}/comments\nBody:\n  message: \"A post message\"\n  attachment_url: http://www.a-link-to-a-photo.com/photo.jpg\n```  \n**Note:** One of `attachment_url`, `attachment_id`, `message` or `source` must be provided when publishing."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "4a9db840-942f-40e8-84af-cf103362a5a7",
+          "description": "Comments on this post",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Likes",
+          "item": [
+            {
+              "name": "GET likes",
+              "_postman_id": "fd352ee1-75d7-48c4-b94c-4a476fc234b2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/likes",
+                "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE likes",
+              "_postman_id": "1981948e-b7b9-431e-be3a-568f0c9e68f1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/likes",
+                "description": "# Deletes a like associated to an object  \nA Page Access Token can be used to remove existing likes by that Page.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object_id}}/likes`"
+              },
+              "response": []
+            },
+            {
+              "name": "POST likes",
+              "_postman_id": "6401299b-d6e4-4c0e-9729-118130283b21",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/likes",
+                "description": "# Adds a like associated to an object  \nA Page Access Token can be used to add existing likes by that Page.\n\n**Usage**  \n`POST https://graph.facebook.com/{{object_id}}/likes`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "c046d2ef-eb58-43a9-8a01-46484ff7a648",
+          "description": "# Likes on a Workplace object.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Reactions",
+          "item": [
+            {
+              "name": "GET reactions",
+              "_postman_id": "4f760571-623a-4dca-b92f-08bb5f3c004c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/reactions",
+                "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, in addition to the optional field `total_count`. \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count`  \n\n**Avilable fields**  \n`id,name,type`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object_id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "a63bb63f-48bb-4184-9f41-959717c7153c",
+          "description": "# Reactions on a Workplace object.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Shared Posts",
+          "item": [
+            {
+              "name": "GET sharedposts",
+              "_postman_id": "477f1372-ed9b-44ab-b85f-afecbed1fb88",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/sharedposts",
+                "description": "# This edge represents any posts where the original object was shared on Workplace.\n\n**Fields**  \n`id,created_time,message,story`\n\n**Usage**  \n`GET https://graph.facebook.com/{{post-id}}/sharedposts`"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "dc28d6b7-fecf-4a3e-800d-a8268c5fbcbd",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Seen By",
+          "item": [
+            {
+              "name": "GET seen",
+              "_postman_id": "4b5b1a39-1e58-404a-9d93-c2c7eeee0865",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://graph.facebook.com/{{post-id}}/seen",
+                "description": "**To check the seen state for a group post**\n\nThis will return a list of the people who have seen the post. If you want a post count summary, use the summary field.  \n\n**Fields**  \n`id,name,seen_time`\n\n**Usage**  \n`GET https://graph.facebook.com/{{post-id}}/seen?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "42aecf11-7c42-4a15-ac60-0d5cc779c300",
+          "description": "To check the seen state for a group post, make a GET request to the /post_id/seen edge. This will return a list of the people who have seen the post. If you want a post count summary, use the summary field.",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET post",
+          "_postman_id": "2b887225-b38e-4802-9560-816fc0acddbb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "https://graph.facebook.com/{{post-id}}",
+            "description": "# Returns details about a given post id  \nAn individual entry in a profile's feed. The profile could be a user, page, app, or group.\n\n**Avilable fields**\n`id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{post-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE post ",
+          "_postman_id": "20fb00d3-dfa4-42cf-a4a7-1fd746c26cc7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "https://graph.facebook.com/{{post-id}}",
+            "description": "# Deletes a given post id  \n\n**Usage**\n`DELETE https://graph.facebook.com/{{post-id}}`"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "f608185a-a3e0-4f30-a512-0318f3e43333"
+    },
+    {
+      "name": "Thread",
+      "item": [
+        {
+          "name": "Thread Name",
+          "item": [
+            {
+              "name": "POST threadname",
+              "_postman_id": "560acbaf-8299-4594-9dfd-7cdb671f061a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"name\": \"New thread name\"\n}"
+                },
+                "url": "https://graph.facebook.com/t_{{thread-id}}/threadname",
+                "description": "# Renames an existing thread  \n  \n**Parameters**  \n* `name`: The name of the thread\n\n\n**Usage**  \n```\nPOST https://graph.facebook.com/t_{{thread-id}}/thredname\nBody:\n  Name: \"New thread name\"\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+              },
+              "response": []
+            },
+            {
+              "name": "GET threadname",
+              "_postman_id": "6fbc533c-9a20-48ed-8398-ff4d0caa2185",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "https://graph.facebook.com/t_{{thread-id}}/threadname",
+                "description": "# Renames an existing thread  \n  \n**Avilable fields**  \n`name`  \n\n**Usage**  \n```\nGET https://graph.facebook.com/t_{{thread-id}}/thredname\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "0be5e968-a8ca-458c-bd04-ffa68a50b443",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "Participants",
+          "item": [
+            {
+              "name": "POST participants",
+              "_postman_id": "458a98e2-4a74-47d4-8ea9-464dba70f5c7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"to\": [\n    \t1000123456789,\n    \t1000987654321\n    ]\n}"
+                },
+                "url": "https://graph.facebook.com/t_{{thread-id}}/participants",
+                "description": "# Add participants from threads\n  \n**Parameters**  \n* `to`: The User ID(s) of the participant(s)\n\n**Usage**  \n```\nPOST https://graph.facebook.com/t_{{thread-id}}/participants\nBody:\n  to: [<user_ids>]\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE participants",
+              "_postman_id": "50ad12e1-45e2-4cc1-8696-98f9ff3b5309",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"to\": [\n    \t1000123456789,\n    \t1000987654321\n    ]\n}"
+                },
+                "url": "https://graph.facebook.com/t_{{thread-id}}/participants",
+                "description": "# Remove participants from threads\n  \n**Parameters**  \n* `to`: The User ID(s) of the participant(s)\n\n**Usage**  \n```\nDELETE https://graph.facebook.com/t_{{thread-id}}/participants\nBody:\n  to: [<user_ids>]\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+              },
+              "response": []
+            },
+            {
+              "name": "GET participants",
+              "_postman_id": "8873068b-2c69-48c1-b26f-fc82b0e86266",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "https://graph.facebook.com/t_{{thread-id}}/participants",
+                "description": "# List participants from a given thread\n  \n**Usage**  \n```\nGET https://graph.facebook.com/t_{{thread-id}}/participants\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "168b773a-b2f2-47bf-a582-55bb7117878c",
+          "description": "Add or remote participants to a thread",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET messages",
+          "_postman_id": "1b4a678c-6049-475c-ada4-c723c648461f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/{{thread-id}}/messages?user={{user-id}}",
+              "protocol": "https",
+              "host": [
+                "graph",
+                "facebook",
+                "com"
+              ],
+              "path": [
+                "{{thread-id}}",
+                "messages"
+              ],
+              "query": [
+                {
+                  "key": "user",
+                  "value": "{{user-id}}"
+                }
+              ]
+            },
+            "description": "# Messages for a given thread ID, for a given user  \nRequires custom integration token with Read all messages permission \n\n**Parameters**  \n* **[id]** `User`: The User ID of a participant in the thread. Mandatory for successful call.\n\n**Avilable fields**\n`id,created_time,message,attachments`  \n\n**Usage**  \n`GET https://graph.facebook.com/{{thread-id}}/messages?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "38a2a696-edbb-431b-b0ed-7afea6157eae",
+      "description": "Messages for a given thread ID, for a given user"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": {
+      "token": "Access token here"
+    }
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "c3f26f6a-bb8e-4b89-a9ca-71a9ae52da55",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "86c8ea68-d685-4b2a-bc5a-b1d1deaeb29f",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
