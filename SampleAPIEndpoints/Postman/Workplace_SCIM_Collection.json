@@ -230,6 +230,9 @@
     {
       "name": "POST /USER (email-less)",
       "_postman_id": "5f6a9e07-0161-415d-84c5-e96f247a55ff",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "auth": {
           "type": "bearer",
@@ -246,9 +249,12 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"schemas\": [\n    \"urn:scim:schemas:core:1.0\",\n    \"urn:scim:schemas:extension:facebook:auth_method:1.0\",\n    \"urn:scim:schemas:extension:enterprise:1.0\"\n  ],\n  \"externalId\": \"1745847\",\n  \"name\": {\n    \"formatted\": \"Julius Caesar\"\n  },\n  \"active\": true,\n   \"preferredLanguage\": \"en_US\",\n   \"title\": \"Solutions Architect\",\n   \"locale\": \"en_US\",\n   \"timezone\": \"America/Los_Angeles\",\n  \"urn:scim:schemas:extension:facebook:auth_method:1.0\": {\n    \"auth_method\": \"password\"\n  },\n  \"urn:scim:schemas:extension:enterprise:1.0\": {\n      \"department\": \"Sales\"\n   }\n}"
+          "raw": "{\n  \"schemas\": [\n    \"urn:scim:schemas:core:1.0\",\n    \"urn:scim:schemas:extension:facebook:auth_method:1.0\",\n    \"urn:scim:schemas:extension:enterprise:1.0\"\n  ],\n  \"externalId\": \"1745847\",\n  \"name\": {\n    \"formatted\": \"Julius Caesar\"\n  },\n  \"active\": true,\n   \"preferredLanguage\": \"en_US\",\n   \"title\": \"Solutions Architect\",\n   \"locale\": \"en_US\",\n   \"timezone\": \"America/Los_Angeles\",\n  \"urn:scim:schemas:extension:facebook:auth_method:1.0\": {\n    \"auth_method\": \"password\"\n  },\n  \"urn:scim:schemas:extension:enterprise:1.0\": {\n      \"department\": \"Sales\"\n   }\n}",
+          "options": {
+            "raw": {}
+          }
         },
-        "url": "https://www.facebook.com/scim/v1/Users/"
+        "url": "https://www.workplace.com/scim/v1/Users/"
       },
       "response": []
     },
