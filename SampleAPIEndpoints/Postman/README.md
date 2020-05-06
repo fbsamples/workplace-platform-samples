@@ -15,7 +15,7 @@ While using these samples, you will have to [configure variables](https://learni
 - Path Variable
 
 ## variables used
- - access_token: Contains the access token from the [custom integration](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps/) in Workplace. Since its SCIM API, you will have to grant appropriate user management permissions to the app within workplace before you can use the calls in Postman. It should be configured within env variables for ease of use.
+ - access_token: Contains the access token from the [custom integration](https://developers.facebook.com/docs/workplace/custom-integrations-new/) in Workplace. Since its SCIM API, you will have to grant appropriate user management permissions to the app within workplace before you can use the calls in Postman. It should be configured within env variables for ease of use.
  - user_id/user_id2: unique Workplace user id(referenced as id in the schema).
  - external_id: mandatory for emailless users(referenced as externalId in schema).
  - user_email: email id of a user on your instance.
