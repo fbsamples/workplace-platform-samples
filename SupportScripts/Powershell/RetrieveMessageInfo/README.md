@@ -40,6 +40,10 @@ The returned user_id are the ones of the message sender and message recipients.
    ```
    This will retrieve all messages sent by a specific user on the specified date. This search method is recommended when searching for pictures/gifs.
    </br>
+   *Note 1: It is possible to use both MessageContent and MessageDate during a search, this will help narrow down the results by filtering the messages which contain a specific text AND have been sent/received on the specified date.
+   </br>
+   *Note 2: If the target WPUser hid a chat window in Workplace, this script will not return any results for the hid chat window. It is still possible to retrieve the message ids by targeting a different user who was part of that chat and didn't hid that chat OR ask the target user to unhide the chat.
+   </br>
    </br>
    Here are the details of the passed params:
 
