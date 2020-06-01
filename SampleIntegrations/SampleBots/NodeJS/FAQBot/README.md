@@ -93,9 +93,9 @@ Deployment/Code setup
     * Install any IDE of your choice to check the code and edit anything required 
 
 * The project has 3 files which we needs to be modified/changed according to your needs 
-    * *client_secret.json(FAQ/utilities/client_secret.json)[*Mandatory*]*
+    * *client_secret.json(FAQBot/utilities/client_secret.json)[*Mandatory*]*
         * You need to replace the client_secret.json in the project with the one that you saved in the previous step
-    * *.env(FAQ/.env)[*Mandatory*]* 
+    * *.env(FAQBot/.env)[*Mandatory*]* 
         * Please modify/add the necessary details to this file
         * This is your config file which can be edited at any point of time 
         * It contains the google sheet ID/ google sheet links and Workplace_Admin_ID
@@ -108,7 +108,7 @@ Google_sheet_new_queries_link =    https://docs.google.com/spreadsheets/d/[Googl
         
         ![alt text](images/environment_variable.png)
         
-    * *messages.js (FAQ/utilities/messages.js)[*OPTIONAL*]*
+    * *messages.js (FAQBot/utilities/messages.js)[*OPTIONAL*]*
         * Most Important : Make sure to get the columns names right from the spreadsheet set up 
 
 e.g. in here the column names (“meaning”,“def”) is same as the ones being extracted in the code
