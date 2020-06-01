@@ -11,7 +11,7 @@ What can the bot be used for ?
 
 How does it work ? 
 
-![alt text](/images/helpbut_setup.png)
+![alt text](images/helpbut_setup.png)
 
 
 * Workplace Admin updates the google sheet with all the necessary information. The sheet can be accessed and updated by anyone with the correct permission as assigned by the organisation (irrespective of their work background)
