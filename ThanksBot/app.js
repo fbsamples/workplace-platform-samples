@@ -65,9 +65,15 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+
+
 // List out all the thanks recorded in the database
 app.get('/', function (request, response) {
-    pg.connect(DATABASE_URL, function(err, client, done) {
+    // Create a pool for database connection / querying. pass in the database url that we want to connect to
+    var pool = new pg.Pool({
+      connectionString: DATABASE_URL
+    });
+    pool.connect(function(err, client, done) {
         if(err) {
             console.error(err);
             return;
@@ -81,6 +87,9 @@ app.get('/', function (request, response) {
             }
         });
     });
+
+    // shutdown the pool as we are done with it. 
+    pool.end();
 });
 
 // Handle the webhook subscription request from Facebook
@@ -148,7 +157,11 @@ app.post('/webhook', function(request, response) {
                         let query = 'INSERT INTO thanks VALUES '
                             + query_inserts.join(',')
                             + `; SELECT * FROM thanks WHERE create_date > now() - INTERVAL '${interval}';`;
-                        pg.connect(DATABASE_URL, function(err, client, done) {
+                        // Create a pool for database connection / querying. pass in the database url that we want to connect to
+                        var pool = new pg.Pool({
+                          connectionString: DATABASE_URL
+                        });
+                        pool.connect(function(err, client, done) {
                             client.query(query, function(err, result) {
                                 done();
                                 if (err) {
@@ -188,6 +201,8 @@ app.post('/webhook', function(request, response) {
                                 response.sendStatus(200);
                             });
                         });
+                        // shutdown the pool as we are done with it.
+                        pool.end()
                     });
                 }
             });
