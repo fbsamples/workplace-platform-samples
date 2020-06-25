@@ -24,7 +24,7 @@
             },
             "method": "GET",
             "header": [],
-            "url": "https://www.faebook.com/scim/v1/Schemas/Users",
+            "url": "https://www.facebook.com/scim/v1/Schemas/Users",
             "description": "To get Workplace SCIM schema."
           },
           "response": []
