@@ -1,4 +1,4 @@
-# FAQ Bot
+# FAQBot
 A sample FAQ bot for Workplace which can act as an online assistant answering questions it is asked by simply querying from a google sheet. 
 
 
@@ -15,8 +15,8 @@ How does it work ?
 
 
 * Workplace Admin updates the google sheet with all the necessary information. The sheet can be accessed and updated by anyone with the correct permission as assigned by the organisation (irrespective of their work background)
-* Workplace user queries the bot(FAQ bot) for information about any specific topic
-* FAQ Bot  queries the sheets and replies back to the user
+* Workplace user queries the bot(FAQBot) for information about any specific topic
+* FAQBot  queries the sheets and replies back to the user
 * In case a query made to the bot is absent in the sheets then the FAQ Bot pings the admin with the unavailable query to update the sheet
 
 * You can check the experience of the bot in this video :
