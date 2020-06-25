@@ -52,7 +52,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of Admins within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{group_id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of Admins within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n\n`GET https://graph.workplace.com/{{group_id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -232,11 +232,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.facebook.com/:group_id/docs?fields=id,can_delete,can_edit,cover_photo_url,created_time,from,icon,link,message,revision,subject,updated_time",
+                  "raw": "https://graph.workplace.com/:group_id/docs?fields=id,can_delete,can_edit,cover_photo_url,created_time,from,icon,link,message,revision,subject,updated_time",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -257,7 +257,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of Docs within your specified Group\n\n**Avilable fields**\n\n`id,can_delete,can_edit,cover_photo_url,created_time,from,icon,link,message,revision,subject,updated_time`\n\n\n**Usage**\n\n`GET https://graph.facebook.com/{{group-id}}/docs?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of Docs within your specified Group\n\n**Avilable fields**\n\n`id,can_delete,can_edit,cover_photo_url,created_time,from,icon,link,message,revision,subject,updated_time`\n\n\n**Usage**\n\n`GET https://graph.workplace.com/{{group-id}}/docs?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -469,8 +469,8 @@
               "request": {
                 "method": "DELETE",
                 "header": [],
-                "url": "https://graph.facebook.com/{{event-id}}",
-                "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.facebook.com/{{event-id}}`"
+                "url": "https://graph.workplace.com/{{event-id}}",
+                "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.workplace.com/{{event-id}}`"
               },
               "response": []
             }
@@ -491,8 +491,8 @@
               "request": {
                 "method": "GET",
                 "header": [],
-                "url": "https://graph.facebook.com/{{group-id}}/feed",
-                "description": "# Returns the News Feed for your specified Group\n\n**Avilable fields**\n`id,admin_creator,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,privacy,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/feed?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "url": "https://graph.workplace.com/{{group-id}}/feed",
+                "description": "# Returns the News Feed for your specified Group\n\n**Avilable fields**\n`id,admin_creator,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,privacy,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{group-id}}/feed?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -540,7 +540,7 @@
                     }
                   ]
                 },
-                "description": "# Creates a Post within your specified Group\n\n**Parameters**\n* `message`: The main body of the post, otherwise called the status message. Either link or message must be supplied.\n* `link`: The URL of a link to attach to the post. Either link or message must be supplied.\n* `attachment_id`: Id of an attachment\n* `attachment_url`: URL of an attachment\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/feed\nBody:\n    message: \"Text body of your post\"\n```\n\n**Note:** To mention someone, use the following format in the `message`: `@[<user-id>]`, e.g. `@[10001234567890]`"
+                "description": "# Creates a Post within your specified Group\n\n**Parameters**\n* `message`: The main body of the post, otherwise called the status message. Either link or message must be supplied.\n* `link`: The URL of a link to attach to the post. Either link or message must be supplied.\n* `attachment_id`: Id of an attachment\n* `attachment_url`: URL of an attachment\n\n\n**Usage**\n```\nPOST https://graph.workplace.com/{{group-id}}/feed\nBody:\n    message: \"Text body of your post\"\n```\n\n**Note:** To mention someone, use the following format in the `message`: `@[<user-id>]`, e.g. `@[10001234567890]`"
               },
               "response": []
             }
@@ -561,8 +561,8 @@
               "request": {
                 "method": "GET",
                 "header": [],
-                "url": "https://graph.facebook.com/{group_id}/files",
-                "description": "# The files shared into a Workplace group.\n\n**Avilable fields**  \n`id,download_link,from,group,id,message,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{group-id}}/files?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "url": "https://graph.workplace.com/{group_id}/files",
+                "description": "# The files shared into a Workplace group.\n\n**Avilable fields**  \n`id,download_link,from,group,id,message,updated_time`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{{group-id}}/files?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -590,11 +590,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.facebook.com/:group_id/members",
+                  "raw": "https://graph.workplace.com/:group_id/members",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -609,7 +609,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of Members within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time,admins,moderators`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of Members within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time,admins,moderators`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{group-id}}/members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -658,7 +658,7 @@
                     }
                   ]
                 },
-                "description": "# Adds a user to the specified Group\n\n**Avilable fields**\n`member,email`\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/members\nBody:\n    member: {{user_id}}\n    OR\n    email: \"email@domain.com\"\n```  \n\n\n_Note 1: Use `email` OR `member` when adding a user, do not use both_\n\n\n_Note 2: When including email addresses in the URL for a request, ensure that the email addresses is URL encoded. Example: michael@example.com becomes michael%40example.com._"
+                "description": "# Adds a user to the specified Group\n\n**Avilable fields**\n`member,email`\n\n\n**Usage**\n```\nPOST https://graph.workplace.com/{{group-id}}/members\nBody:\n    member: {{user_id}}\n    OR\n    email: \"email@domain.com\"\n```  \n\n\n_Note 1: Use `email` OR `member` when adding a user, do not use both_\n\n\n_Note 2: When including email addresses in the URL for a request, ensure that the email addresses is URL encoded. Example: michael@example.com becomes michael%40example.com._"
               },
               "response": []
             },
@@ -707,7 +707,7 @@
                     }
                   ]
                 },
-                "description": "# Removes a Member your specified Group\n_This does **not** delete the member from your community_\n\n**Avilable fields**\n`member,email`\n\n\n**Usage**\n```\nDELETE https://graph.facebook.com/{{group-id}}/members\nBody:\n\t\tmember: {{member-id}}\nOR\n\t\temail: \"email@domain.com\"\n```  \n\n\n_Note 1: Use `email` OR `member` when adding a user, do not use both_\n\n\n_Note 2: When including email addresses in the URL for a request, ensure that the email addresses is URL encoded. Example: michael@example.com becomes michael%40example.com._"
+                "description": "# Removes a Member your specified Group\n_This does **not** delete the member from your community_\n\n**Avilable fields**\n`member,email`\n\n\n**Usage**\n```\nDELETE https://graph.workplace.com/{{group-id}}/members\nBody:\n\t\tmember: {{member-id}}\nOR\n\t\temail: \"email@domain.com\"\n```  \n\n\n_Note 1: Use `email` OR `member` when adding a user, do not use both_\n\n\n_Note 2: When including email addresses in the URL for a request, ensure that the email addresses is URL encoded. Example: michael@example.com becomes michael%40example.com._"
               },
               "response": []
             }
@@ -735,11 +735,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.facebook.com/:group_id/former_members",
+                  "raw": "https://graph.workplace.com/:group_id/former_members",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -755,7 +755,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of former members within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{group-id}}/former_members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of former members within your specified Group\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{group-id}}/former_members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -782,11 +782,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.facebook.com/:group_id/member_requests",
+                  "raw": "https://graph.workplace.com/:group_id/member_requests",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -801,7 +801,7 @@
                     }
                   ]
                 },
-                "description": "# Returns list of pending member requests for specified Group\n\n**Avilable fields**  \n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{group-id}}/member_requests?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns list of pending member requests for specified Group\n\n**Avilable fields**  \n`id,first_name,last_name,email,title,department,employee_number,joined,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{{group-id}}/member_requests?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -1050,7 +1050,7 @@
                     }
                   ]
                 },
-                "description": "# Gets a details of all videos within a given group \n\n**Avilable fields**  \n`id,created_time,name,images,height,link,picture,width`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{group_id}/videos?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Gets a details of all videos within a given group \n\n**Avilable fields**  \n`id,created_time,name,images,height,link,picture,width`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{group_id}/videos?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -1250,7 +1250,7 @@
                     }
                   ]
                 },
-                "description": "# Returns details of a given Event ID's Admins\nReturns Users that are admins of the event.\n\n**Avilable fields**  \n`id,name`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns details of a given Event ID's Admins\nReturns Users that are admins of the event.\n\n**Avilable fields**  \n`id,name`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{{event-id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -1298,7 +1298,7 @@
                     }
                   ]
                 },
-                "description": "# Returns details of a given Event ID's Admins\nReturns Users that are admins of the event.\n\n**Avilable fields**  \n`id,name`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{event-id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns details of a given Event ID's Admins\nReturns Users that are admins of the event.\n\n**Avilable fields**  \n`id,name`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{{event-id}}/admins?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -1322,11 +1322,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://graph.facebook.com/:event_id?fields=id,attending_count,can_guests_invite,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time",
+              "raw": "https://graph.workplace.com/:event_id?fields=id,attending_count,can_guests_invite,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -1335,8 +1335,7 @@
               "query": [
                 {
                   "key": "fields",
-                  "value": "id,attending_count,can_guests_invite,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time",
-                  "type": "text"
+                  "value": "id,attending_count,can_guests_invite,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time"
                 }
               ],
               "variable": [
@@ -1347,7 +1346,7 @@
                 }
               ]
             },
-            "description": "# Returns details of a given Event ID\nRepresents a Workplace event. The /{{event-id}} node returns a single event.\n\n**Avilable fields**\n`id,attending_count,can_guests_invite,can_viewer_post,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,is_viewer_admin,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{event-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Returns details of a given Event ID\nRepresents a Workplace event. The /{{event-id}} node returns a single event.\n\n**Avilable fields**\n`id,attending_count,can_guests_invite,can_viewer_post,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,is_viewer_admin,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{event-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -1436,7 +1435,7 @@
                 }
               ]
             },
-            "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.facebook.com/{{event-id}}`"
+            "description": "# Deletes an Event within your community\n\n**Usage**\n`DELETE https://graph.workplace.com/{{event-id}}`"
           },
           "response": []
         }
@@ -1463,11 +1462,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://graph.facebook.com/:object_id/likes?summary=true&fields=id,name",
+              "raw": "https://graph.workplace.com/:object_id/likes?summary=true&fields=id,name",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -1477,13 +1476,11 @@
               "query": [
                 {
                   "key": "summary",
-                  "value": "true",
-                  "type": "text"
+                  "value": "true"
                 },
                 {
                   "key": "fields",
-                  "value": "id,name",
-                  "type": "text"
+                  "value": "id,name"
                 }
               ],
               "variable": [
@@ -1494,7 +1491,7 @@
                 }
               ]
             },
-            "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. The following objects has a /likes edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count,can_like,has_liked`  \n\n**Avilable fields**  \n`id,name`  \n\n**Usage**  \n`GET https://graph.facebook.com/{{object-id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Likes associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. The following objects has a /likes edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count,can_like,has_liked`  \n\n**Avilable fields**  \n`id,name`  \n\n**Usage**  \n`GET https://graph.workplace.com/{{object-id}}/likes?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -1533,7 +1530,7 @@
                 }
               ]
             },
-            "description": "# Adds a like associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nThe following objects has a /likes edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Usage**  \n`POST https://graph.facebook.com/{{object-id}}/likes`"
+            "description": "# Adds a like associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nThe following objects has a /likes edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Usage**  \n`POST https://graph.workplace.com/{{object-id}}/likes`"
           },
           "response": []
         },
@@ -1553,11 +1550,11 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "https://graph.facebook.com/:object_id/likes",
+              "raw": "https://graph.workplace.com/:object_id/likes",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -1572,7 +1569,7 @@
                 }
               ]
             },
-            "description": "# Deletes a like associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /likes edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Usage**  \n`DELETE https://graph.facebook.com/{{object-id}}/likes`"
+            "description": "# Deletes a like associated to an object  \nThis reference describes the /likes edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /likes edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Usage**  \n`DELETE https://graph.workplace.com/{{object-id}}/likes`"
           },
           "response": []
         }
@@ -1599,11 +1596,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://graph.facebook.com/:object_id/comments",
+              "raw": "https://graph.workplace.com/:object_id/comments",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -1618,7 +1615,7 @@
                 }
               ]
             },
-            "description": "# Comments associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n\nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_like,can_hide,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{object-id}}/comments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Comments associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n\nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_like,can_hide,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.workplace.com/{{object-id}}/comments?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -1638,11 +1635,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://graph.facebook.com/:comment_id",
+              "raw": "https://graph.workplace.com/:comment_id",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -1657,7 +1654,7 @@
                 }
               ]
             },
-            "description": "# Comments associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n\nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_like,can_hide,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.facebook.com/{{comment-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Comments associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n\nIt is possible for comment objects to have a /comments edge, which is called 'comment replies'. The structure is the same for these, but attention should be paid to the modifiers for these edges.\n\nFor objects that have tens of thousands of comments, you may encounter limits while paging. The API will return an error when your app has reached the cursor limit.\n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `order,total_count`  \n\n**Avilable fields**  \n`id,attachment,can_comment,can_remove,can_like,can_hide,can_reply_privately,comment_count,created_time,from,like_count,message,message_tags,object`  \n\n\n**Usage**  \n`GET https://graph.workplace.com/{{comment-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -1705,7 +1702,7 @@
                 }
               ]
             },
-            "description": "# Adds a comment associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Parameters**  \n* `message`: The comment text.\n* `attachment_id`: An optional ID of a unpublished photo (see no\\_story field in /{user-id}/photos) uploaded to Workplace to include as a photo comment. \n* `attachment_url`: The URL of an image to include as a photo comment. \n* `source`: A photo, encoded as form data, to use as a photo comment.\n  \n**Usage**  \n```\nPOST https://graph.facebook.com/{{object-id}}/comments\nBody:\n  message: \"A post message\"\n  attachment_url: http://www.a-link-to-a-photo.com/photo.jpg\n```  \n**Note:** One of `attachment_url`, `attachment_id`, `message` or `source` must be provided when publishing."
+            "description": "# Adds a comment associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that liked the object, in addition to the optional field `total_count`. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Parameters**  \n* `message`: The comment text.\n* `attachment_id`: An optional ID of a unpublished photo (see no\\_story field in /{user-id}/photos) uploaded to Workplace to include as a photo comment. \n* `attachment_url`: The URL of an image to include as a photo comment. \n* `source`: A photo, encoded as form data, to use as a photo comment.\n  \n**Usage**  \n```\nPOST https://graph.workplace.com/{{object-id}}/comments\nBody:\n  message: \"A post message\"\n  attachment_url: http://www.a-link-to-a-photo.com/photo.jpg\n```  \n**Note:** One of `attachment_url`, `attachment_id`, `message` or `source` must be provided when publishing."
           },
           "response": []
         },
@@ -1743,7 +1740,7 @@
                 }
               ]
             },
-            "description": "# Deletes a comment associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Usage**  \n`DELETE https://graph.facebook.com/{{comment-id}}`"
+            "description": "# Deletes a comment associated to an object  \nThis reference describes the /comments edge that is common to multiple Graph API nodes. The structure and operations are the same for each node. The following objects has a /comments edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Usage**  \n`DELETE https://graph.workplace.com/{{comment-id}}`"
           },
           "response": []
         }
@@ -1970,7 +1967,7 @@
               "options": {}
             },
             "url": "https://graph.workplace.com/me/messages/",
-            "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
+            "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.workplace.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
           },
           "response": []
         }
@@ -2019,7 +2016,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of Workplace Admins\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n**Usage**\n`GET https://graph.facebook.com/community/admins?fields={fields}`\n\nReplace {fields} with values required above, or remove for defaults."
+                "description": "# Returns a list of Workplace Admins\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n**Usage**\n`GET https://graph.workplace.com/community/admins?fields={fields}`\n\nReplace {fields} with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -2220,7 +2217,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of Workplace Groups within your Community\n\n**Avilable fields**\n`id,archived,cover,description,icon,is_workplace_default,name,owner,privacy,updated_time`\n\n**Usage**\n`GET https://graph.facebook.com/community/groups?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of Workplace Groups within your Community\n\n**Avilable fields**\n`id,archived,cover,description,icon,is_workplace_default,name,owner,privacy,updated_time`\n\n**Usage**\n`GET https://graph.workplace.com/community/groups?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -2249,11 +2246,11 @@
                   "raw": "{\n    \"name\": \"Group Name\",\n    \"group_type\": \"WORK_SOCIAL\",\n    \"privacy\": \"OPEN\"\n}"
                 },
                 "url": {
-                  "raw": "https://graph.facebook.com/:community_id/groups",
+                  "raw": "https://graph.workplace.com/:community_id/groups",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -2268,7 +2265,7 @@
                     }
                   ]
                 },
-                "description": "# Creates a Workplace Group within your Community\n\n**Avilable fields**\n`name,cover_url,privacy,group_type,admin`\n\n**Usage**\n```\nPOST https://graph.facebook.com/community/groups\nBody:\n    \"name\": \"Group Name\",    \"name\": string(any custom string),\n    \"archive\": boolean{true/false},\n    \"privacy\": string{OPEN/CLOSED/SECRET},\n    \"purpose\": enum {WORK_FEEDBACK, WORK_ANNOUNCEMENT, WORK_SOCIAL, WORK_TEAMWORK, WORK_FOR_SALE, WORK_MULTI_COMPANY},\n    \"post_permissions\": enum {NONE, ADMIN_ONLY},\n    \"post_requires_admin_approval\": boolean{true/false},\n```\n\n_Note: Group admin requires an ID of an existing Workplace user within your community._\n\n**Group Types**  \n        WORK_TEAMWORK = Projects & Teams  \n        WORK_FEEDBACK = Open Discussions  \n        WORK_ANNOUNCEMENT = Announcements  \n        WORK_SOCIAL = Social & More  \n        WORK_MULTI_COMPANY = Multi-Company  \n        WORK_FOR_SALE = Buy & Sell\n\n  \n\t\t\n_Note: privacy can't be set to OPEN for multi-company groups_"
+                "description": "# Creates a Workplace Group within your Community\n\n**Avilable fields**\n`name,cover_url,privacy,group_type,admin`\n\n**Usage**\n```\nPOST https://graph.workplace.com/community/groups\nBody:\n    \"name\": \"Group Name\",    \"name\": string(any custom string),\n    \"archive\": boolean{true/false},\n    \"privacy\": string{OPEN/CLOSED/SECRET},\n    \"purpose\": enum {WORK_FEEDBACK, WORK_ANNOUNCEMENT, WORK_SOCIAL, WORK_TEAMWORK, WORK_FOR_SALE, WORK_MULTI_COMPANY},\n    \"post_permissions\": enum {NONE, ADMIN_ONLY},\n    \"post_requires_admin_approval\": boolean{true/false},\n```\n\n_Note: Group admin requires an ID of an existing Workplace user within your community._\n\n**Group Types**  \n        WORK_TEAMWORK = Projects & Teams  \n        WORK_FEEDBACK = Open Discussions  \n        WORK_ANNOUNCEMENT = Announcements  \n        WORK_SOCIAL = Social & More  \n        WORK_MULTI_COMPANY = Multi-Company  \n        WORK_FOR_SALE = Buy & Sell\n\n  \n\t\t\n_Note: privacy can't be set to OPEN for multi-company groups_"
               },
               "response": []
             }
@@ -2351,7 +2348,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of users within your Community\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/community/members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of users within your Community\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.workplace.com/community/members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -2495,7 +2492,7 @@
                     }
                   ]
                 },
-                "description": "# Removes a member from your Community\n\n**Avilable fields**\n`member\nor \nemail`\n\n\n**Usage**\n`DELETE https://graph.facebook.com/community/members`"
+                "description": "# Removes a member from your Community\n\n**Avilable fields**\n`member\nor \nemail`\n\n\n**Usage**\n`DELETE https://graph.workplace.com/community/members`"
               },
               "response": []
             }
@@ -2552,7 +2549,7 @@
         }
       ],
       "_postman_id": "96f23713-8530-41d0-aef9-f189632fcd96",
-      "description": "# Path /community\nRepresents your Workplace community. The `/community` node returns a single community object of type *Group*. For API convenience, you can think of the Community object as a root Group for the other groups in a Workplace community.\n\nYou can find your Community ID by making a Graph API `GET` call to `graph.facebook.com/community` with a custom integration access token."
+      "description": "# Path /community\nRepresents your Workplace community. The `/community` node returns a single community object of type *Group*. For API convenience, you can think of the Community object as a root Group for the other groups in a Workplace community.\n\nYou can find your Community ID by making a Graph API `GET` call to `graph.workplace.com/community` with a custom integration access token."
     },
     {
       "name": "Member",
@@ -2723,7 +2720,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of users in your company\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\nDeactivated user accounts can be shown instead by using the `inactive=1` URL parameter.\n\nList company members based on external id of users using `external_ids=12356,abc123` URL parameter.\n\n**Usage**\n`GET https://graph.facebook.com/company/members?fields={fields}?inactive=1`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of users in your company\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\nDeactivated user accounts can be shown instead by using the `inactive=1` URL parameter.\n\nList company members based on external id of users using `external_ids=12356,abc123` URL parameter.\n\n**Usage**\n`GET https://graph.workplace.com/company/members?fields={fields}?inactive=1`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             },
@@ -2762,7 +2759,7 @@
                     }
                   ]
                 },
-                "description": "# Returns a list of Deactivated users in your company\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.facebook.com/company/former_members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Returns a list of Deactivated users in your company\n\n**Avilable fields**\n`id,first_name,last_name,email,title,department,employee_number,primary_phone,primary_address,picture,link,locale,name,name_format,updated_time`\n\n\n**Usage**\n`GET https://graph.workplace.com/company/former_members?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -2815,7 +2812,7 @@
                     }
                   ]
                 },
-                "description": "# A person or bot page's Workplace Messages. \nRequires either the Read all messages permission or an impersonate token for viewing a person's conversations.  \n**Fields**  \n`id,snippet,updated_time,message_count,unread_count,tags,participants,former_participants,senders,messages{message,attachments,from},can_reply,is_subscribed,link`  \n\n**Usage**  \n`GET https://graph.facebook.com/{{member-id}}/conversations`\n`GET https://graph.facebook.com/{{email-address}}/conversations`"
+                "description": "# A person or bot page's Workplace Messages. \nRequires either the Read all messages permission or an impersonate token for viewing a person's conversations.  \n**Fields**  \n`id,snippet,updated_time,message_count,unread_count,tags,participants,former_participants,senders,messages{message,attachments,from},can_reply,is_subscribed,link`  \n\n**Usage**  \n`GET https://graph.workplace.com/{{member-id}}/conversations`\n`GET https://graph.workplace.com/{{email-address}}/conversations`"
               },
               "response": []
             },
@@ -2845,7 +2842,7 @@
                   "options": {}
                 },
                 "url": "https://graph.workplace.com/me/messages/",
-                "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
+                "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.workplace.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
               },
               "response": []
             }
@@ -3174,11 +3171,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.facebook.com/:member_id/reports/",
+                  "raw": "https://graph.workplace.com/:member_id/reports/",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -3689,7 +3686,7 @@
                 }
               ]
             },
-            "description": "# Gets details of photo with a given ID  \n\n**Avilable fields**  \n`id,name,from,height,width,created_time,album,can_delete,can_tag,icon,images,link,name_tags,place,target,updated_time`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{photo-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Gets details of photo with a given ID  \n\n**Avilable fields**  \n`id,name,from,height,width,created_time,album,can_delete,can_tag,icon,images,link,name_tags,place,target,updated_time`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{{photo-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -3777,7 +3774,7 @@
                 }
               ]
             },
-            "description": "# Deletes a photo.\nNot supported for user photos.\n\n**Usage**  \n`DELETE https://graph.facebook.com/{{photo-id}}`"
+            "description": "# Deletes a photo.\nNot supported for user photos.\n\n**Usage**  \n`DELETE https://graph.workplace.com/{{photo-id}}`"
           },
           "response": []
         }
@@ -3826,7 +3823,7 @@
                     }
                   ]
                 },
-                "description": "# Media content associated with a post or comment. \nAttachments are accessed from the following endpoints:\n  \n* `/{{post-id}}/attachments` displays all attachments and sub attachments associated with a particular post.\n* `/{{comment-id}}?fields=attachment` displays any media attachment associated with a comment.\n  \n**Avilable fields**  \n`id,description,target,type`\n\n\n**Usage**  \n`GET https://graph.facebook.com/{{post-id}}/attachments?fields={fields}`\n\n`{{post-id}}` complete post ID usually in the format \"{{group_id}}_{{post_id}}\"\n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "# Media content associated with a post or comment. \nAttachments are accessed from the following endpoints:\n  \n* `/{{post-id}}/attachments` displays all attachments and sub attachments associated with a particular post.\n* `/{{comment-id}}?fields=attachment` displays any media attachment associated with a comment.\n  \n**Avilable fields**  \n`id,description,target,type`\n\n\n**Usage**  \n`GET https://graph.workplace.com/{{post-id}}/attachments?fields={fields}`\n\n`{{post-id}}` complete post ID usually in the format \"{{group_id}}_{{post_id}}\"\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -3873,7 +3870,7 @@
                     }
                   ]
                 },
-                "description": "**To check the seen state for a group post**\n\nThis will return a list of the people who have seen the post. If you want a post count summary, use the summary field.  \n\n**Fields**  \n`id,name,seen_time`\n\n**Usage**  \n`GET https://graph.facebook.com/{{post-id}}/seen?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "**To check the seen state for a group post**\n\nThis will return a list of the people who have seen the post. If you want a post count summary, use the summary field.  \n\n**Fields**  \n`id,name,seen_time`\n\n**Usage**  \n`GET https://graph.workplace.com/{{post-id}}/seen?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -3920,7 +3917,7 @@
                     }
                   ]
                 },
-                "description": "# This edge represents any posts where the original object was shared on Workplace.\n\n**Fields**  \n`id,created_time,message,story`\n\n**Usage**  \n`GET https://graph.facebook.com/{{post-id}}/sharedposts`"
+                "description": "# This edge represents any posts where the original object was shared on Workplace.\n\n**Fields**  \n`id,created_time,message,story`\n\n**Usage**  \n`GET https://graph.workplace.com/{{post-id}}/sharedposts`"
               },
               "response": []
             }
@@ -3969,7 +3966,7 @@
                 }
               ]
             },
-            "description": "# Returns details about a given post id  \nAn individual entry in a profile's feed. The profile could be a user, page, app, or group.\n\n**Avilable fields**\n`id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.facebook.com/{{post-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Returns details about a given post id  \nAn individual entry in a profile's feed. The profile could be a user, page, app, or group.\n\n**Avilable fields**\n`id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{post-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -4019,7 +4016,7 @@
                 }
               ]
             },
-            "description": "# Creates a Post within your specified Group\n\n**Parameters**\n* `message`: The main body of the post, otherwise called the status message. Either link or message must be supplied.\n* `link`: The URL of a link to attach to the post. Either link or message must be supplied.\n* `attachment_id`: Id of an attachment\n* `attachment_url`: URL of an attachment\n\n\n**Usage**\n```\nPOST https://graph.facebook.com/{{group-id}}/feed\nBody:\n    message: \"Text body of your post\"\n```\n\n**Note:** To mention someone, use the following format in the `message`: `@[<user-id>]`, e.g. `@[10001234567890]`"
+            "description": "# Creates a Post within your specified Group\n\n**Parameters**\n* `message`: The main body of the post, otherwise called the status message. Either link or message must be supplied.\n* `link`: The URL of a link to attach to the post. Either link or message must be supplied.\n* `attachment_id`: Id of an attachment\n* `attachment_url`: URL of an attachment\n\n\n**Usage**\n```\nPOST https://graph.workplace.com/{{group-id}}/feed\nBody:\n    message: \"Text body of your post\"\n```\n\n**Note:** To mention someone, use the following format in the `message`: `@[<user-id>]`, e.g. `@[10001234567890]`"
           },
           "response": []
         },
@@ -4057,7 +4054,7 @@
                 }
               ]
             },
-            "description": "# Deletes a given post.  \n\n**Usage**\n`DELETE https://graph.facebook.com/{{post-id}}`"
+            "description": "# Deletes a given post.  \n\n**Usage**\n`DELETE https://graph.workplace.com/{{post-id}}`"
           },
           "response": []
         }
@@ -4152,11 +4149,11 @@
                   }
                 ],
                 "url": {
-                  "raw": "https://graph.facebook.com/:t_thread_id?fields=name",
+                  "raw": "https://graph.workplace.com/:t_thread_id?fields=name",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -4176,7 +4173,7 @@
                     }
                   ]
                 },
-                "description": "# Get Threadname for a given Thread ID  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants`  \n\n**Usage**  \n```\nGET https://graph.facebook.com/t_{{thread-id}}/?fields=\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+                "description": "# Get Threadname for a given Thread ID  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields=\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
               },
               "response": []
             },
@@ -4205,11 +4202,11 @@
                   "raw": "{\n\t\"name\": \"New thread name\"\n}"
                 },
                 "url": {
-                  "raw": "https://graph.facebook.com/:t_thread_id",
+                  "raw": "https://graph.workplace.com/:t_thread_id",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -4223,7 +4220,7 @@
                     }
                   ]
                 },
-                "description": "# Renames an existing thread  \n  \n**Parameters**  \n* `name`: The name of the thread\n\n\n**Usage**  \n```\nPOST https://graph.facebook.com/t_{{thread-id}}/threadname\nBody:\n  Name: \"New thread name\"\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+                "description": "# Renames an existing thread  \n  \n**Parameters**  \n* `name`: The name of the thread\n\n\n**Usage**  \n```\nPOST https://graph.workplace.com/t_{{thread-id}}/threadname\nBody:\n  Name: \"New thread name\"\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
               },
               "response": []
             }
@@ -4280,7 +4277,7 @@
                     }
                   ]
                 },
-                "description": "# Get participants of an existing chat thread  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants`  \n\n**Usage**  \n```\nGET https://graph.facebook.com/t_{{thread-id}}/?fields=\n```  \n**Note:** \nNote the need to prefix the thread\\_id with `t_` in the edge path.\n\nBot should be member of the thread to get participants list."
+                "description": "# Get participants of an existing chat thread  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields=\n```  \n**Note:** \nNote the need to prefix the thread\\_id with `t_` in the edge path.\n\nBot should be member of the thread to get participants list."
               },
               "response": []
             },
@@ -4398,11 +4395,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.facebook.com/:t_thread_id/?fields=id,messages.source(PARTICIPANTS)",
+                  "raw": "https://graph.workplace.com/:t_thread_id/?fields=id,messages.source(PARTICIPANTS)",
                   "protocol": "https",
                   "host": [
                     "graph",
-                    "facebook",
+                    "workplace",
                     "com"
                   ],
                   "path": [
@@ -4454,11 +4451,11 @@
               }
             ],
             "url": {
-              "raw": "https://graph.facebook.com/:t_thread_id/messages?user={{user_id1}}&fields=message,from",
+              "raw": "https://graph.workplace.com/:t_thread_id/messages?user={{user_id1}}&fields=message,from",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -4484,7 +4481,7 @@
                 }
               ]
             },
-            "description": "# Get Thread details for a given Thread ID  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants,message,from`  \n\n**Usage**  \n```\nGET https://graph.facebook.com/t_{{thread-id}}/?fields=\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+            "description": "# Get Thread details for a given Thread ID  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants,message,from`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields=\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
           },
           "response": []
         },
@@ -4514,7 +4511,7 @@
               "options": {}
             },
             "url": "https://graph.workplace.com/me/messages/",
-            "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
+            "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": <thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.workplace.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
           },
           "response": []
         },
@@ -4544,7 +4541,7 @@
               "options": {}
             },
             "url": "https://graph.workplace.com/me/messages/",
-            "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.facebook.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": t_<thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
+            "description": "# Creates new named thread\nTo create a new thread with specific recipients, make a POST request to the /me/messages endpoint specifying an array of recipient IDs and an initial message payload.  \nYou'll get back a response payload that includes a thread ID, which you can use for follow-up messages.  \nIf you use the same endpoint with the same list of recipients again, a new thread will be created. To send follow-up messages to an already-created thread, make a POST request to the /me/messages endpoint using the thread_id in the recipient payload.  \n**Parameters**  \n* `recipient`: The User ID(s) of the participant(s)\n* `message`: The message you wish to send.\n\n  \n**Usage**  \n*To create a new thread*\n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"ids\": [<user_ids>]\n  },\n  \"message\": <message_payload>\n}\n```   \n*To use an existing thread*  \n```\nPOST https://graph.workplace.com/me/messages\nBody:\n{\n  \"recipient\": {\n    \"thread_key\": t_<thread id>\n  },\n  \"message\": <message_payload>\n}\n```  \n**Note**  \nFor further information, see our documentation page [here](https://developers.workplace.com/docs/workplace/integrations/custom-integrations/bots#botsinchat)"
           },
           "response": []
         },
@@ -4564,11 +4561,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://graph.facebook.com/:t_thread_id/messages?fields=id,message,attachments,created_time,to,from,shares{link}",
+              "raw": "https://graph.workplace.com/:t_thread_id/messages?fields=id,message,attachments,created_time,to,from,shares{link}",
               "protocol": "https",
               "host": [
                 "graph",
-                "facebook",
+                "workplace",
                 "com"
               ],
               "path": [
@@ -4589,7 +4586,7 @@
                 }
               ]
             },
-            "description": "# Get Messages for a given thread ID\nRequires custom integration token with Read all messages permission \n\n**Avilable fields**\n`id,message,created_time,to,from,attachments,shares{link}`  \n\n**Usage**  \n`GET https://graph.facebook.com/t_{{thread-id}}/messages?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Get Messages for a given thread ID\nRequires custom integration token with Read all messages permission \n\n**Avilable fields**\n`id,message,created_time,to,from,attachments,shares{link}`  \n\n**Usage**  \n`GET https://graph.workplace.com/t_{{thread-id}}/messages?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
