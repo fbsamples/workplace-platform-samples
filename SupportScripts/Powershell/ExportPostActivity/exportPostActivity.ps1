@@ -52,11 +52,11 @@ $global:stats = @{
 #Get post stats
 Write-Host "Retrieving post stats from Workplace..."
 try {
-    $statsURL = "https://graph.workplace.com/$PostId/?fields=seen.limit(0).summary(total_count),likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry)"
+    $statsURL = "https://graph.workplace.com/$PostId/?fields=seen.limit(0).summary(total_count),reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry)"
     $results = Invoke-RestMethod -Uri ($statsURL) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportPostStats"
         if ($results) {
             $global:stats.total_post_seen_by = $results.seen.summary.total_count;
-            $global:stats.total_post_reactions.like = $results.likes.summary.total_count;
+            $global:stats.total_post_reactions.like = $results.reactions_like.summary.total_count;
             $global:stats.total_post_reactions.love = $results.reactions_love.summary.total_count;
             $global:stats.total_post_reactions.haha = $results.reactions_haha.summary.total_count;
             $global:stats.total_post_reactions.wow = $results.reactions_wow.summary.total_count;
@@ -73,7 +73,7 @@ try {
 Write-Host "Retrieving comments and replies from Workplace..."
 try {
     $global:comments = @()
-    $next = "https://graph.workplace.com/$PostId/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate"
+    $next = "https://graph.workplace.com/$PostId/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate"
     do {
         $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportPostStats"
         if ($results) {
@@ -81,7 +81,7 @@ try {
                 $_ | Add-Member -NotePropertyName "Interaction" -NotePropertyValue "Comment" 
                 $global:comments += $_
                 $global:stats.total_post_comments++
-                $nextReply = "https://graph.workplace.com/" + $_.id + "/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological"
+                $nextReply = "https://graph.workplace.com/" + $_.id + "/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological"
                 do {
                     $resultsReplies = Invoke-RestMethod -Uri ($nextReply) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportPostStats"
                     if($resultsReplies){
@@ -90,7 +90,7 @@ try {
                         $global:stats.total_post_replies += $resultsReplies.data.count
                         if($resultsReplies.paging.cursors.after) {
                             $afterReplies = $resultsReplies.paging.cursors.after
-                            $nextReply = "https://graph.workplace.com/" + $_.id + "/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&after=$afterReplies"
+                            $nextReply = "https://graph.workplace.com/" + $_.id + "/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&after=$afterReplies"
                         }
                         else {$nextReply = $null}
                     }
@@ -99,7 +99,7 @@ try {
             })
             if($results.paging.cursors.after) {
                 $after = $results.paging.cursors.after
-                $next = "https://graph.workplace.com/$PostId/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate&after=$after"
+                $next = "https://graph.workplace.com/$PostId/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate&after=$after"
             }
             else {$next = $null}
         }
@@ -145,14 +145,14 @@ try {
         @{N='Department';E={$_.from.department}}, `
         @{N='Message';E={$_.message}}, `
         @{N='Interaction';E={$_.Interaction}}, `
-        @{N='Likes';E={$_.likes.summary.total_count}}, `
+        @{N='Likes';E={$_.reactions_like.summary.total_count}}, `
         @{N='Loves';E={$_.reactions_love.summary.total_count}}, `
         @{N='Hahas';E={$_.reactions_haha.summary.total_count}}, `
         @{N='Wows';E={$_.reactions_wow.summary.total_count}}, `
         @{N='Sads';E={$_.reactions_sad.summary.total_count}}, `
         @{N='Angrys';E={$_.reactions_angry.summary.total_count}}, `
         @{N='Date';E={$_.created_time}} |`
-        Export-Excel -ExcelPackage $xlp -NoNumberConversion * -WorkSheetname PostAnalytics -TableName CommentsReplies -StartRow 8 -Show
+        Export-Excel -ExcelPackage $xlp -NoNumberConversion * -WorkSheetname PostAnalytics -StartRow 8 -Show
     
     Write-Host -NoNewLine "Analytics written to XLSX: "
     Write-Host -ForegroundColor Green "OK, Written!"
