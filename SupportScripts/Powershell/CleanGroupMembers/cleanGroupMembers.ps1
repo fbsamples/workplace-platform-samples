@@ -1,4 +1,4 @@
-param(
+﻿param(
     [Parameter(Mandatory=$true, HelpMessage='The ID of the Workplace Group you would like to remove users from')] [string]$GroupId,
     [Parameter(Mandatory=$false, HelpMessage='The domain of the users you would like to remove')] [string]$EmailDomain,
     [Parameter(Mandatory=$false, HelpMessage='Path to your file listing users to remove from group')] [string]$WPGroupMembers,
@@ -37,7 +37,7 @@ if($WPGroupMembers) {
     try {    
         $global:members = @()
         #Get members of a group from API calls
-        $next = "https://graph.workplace.com/$GroupId/members/?fields=name,id,email,administrator"
+        $next = "https://graph.workplace.com/$GroupId/members/?fields=name%2Cid%2Cemail%2Cadministrator"
         do {
             #Get specific group in the community via SCIM API
             $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"
@@ -45,7 +45,7 @@ if($WPGroupMembers) {
                 $global:members += $results.data
                 if($results.paging.cursors.after) {
                     $after = $results.paging.cursors.after
-                    $next = "https://graph.workplace.com/$GroupId/members/?fields=name,id,email,administrator&after=$after"
+                    $next = "https://graph.workplace.com/$GroupId/members/?fields=name%2Cid%2Cemail%2Cadministrator&after=%24after"
                 }
                 else {$next = $null}
             }
@@ -106,7 +106,18 @@ ForEach($m in $global:members){
                 }
 
                 #Remove member from the group without asking for removal
-                'Live-Force' { }
+                'Live-Force' {
+                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"} 
+                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
+                        #Check DELETE result
+                        if($result.success) {
+                            $removed++
+                            Write-Host -ForegroundColor Green "  *  OK, done!"
+                        } else {
+                            $errors++
+                            Write-Host -ForegroundColor Red "  *  KO, impossible to remove the users. Sure it's still in the group? User ID/Email are correct?"
+                        } 
+                        }
             }
         }
         catch {
@@ -122,4 +133,3 @@ ForEach($m in $global:members){
 Write-Host "---------------------------------------------------------------------------------------------------------"
 Write-Host -NoNewLine -ForegroundColor Yellow "Summary "
 Write-Host "- Total User: $(($global:members.Length, $hits -ne $null)[0]) - Match: ($hits), Removed ($removed), Skipped ($skipped), Errors ($errors)"
-Write-Host "---------------------------------------------------------------------------------------------------------"
