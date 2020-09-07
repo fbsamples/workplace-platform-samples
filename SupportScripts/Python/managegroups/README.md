@@ -2,7 +2,7 @@
   
 **Language:** Python v2.7
 
-This usecase demonstrates how to create [groups](/docs/workplace/custom-integrations/reference#groups) and manage their members. The example offers the following functionality:
+This usecase demonstrates how to create [groups](https://developers.facebook.com/docs/workplace/reference/graph-api/group) and manage their members. The example offers the following functionality:
 
 * Getting a list of all groups with `id`, `name`, `privacy`, `description`, and `update_time`, by calling `getAllGroups(access_token, community_ID)`
 * Getting the group members for a specific group by calling `getGroupMembers(access_token, group_id)`
