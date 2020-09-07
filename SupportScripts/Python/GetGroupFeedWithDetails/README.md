@@ -1,4 +1,4 @@
-## Get feed data from groups in detail
+## Get feed data from a list of groups with details
   
 **Language:** Python v3.7
 
@@ -6,6 +6,6 @@ This usecase example shows how to get all [posts](https://developers.facebook.co
 
 To run this script, edit the code to add the required variables (ids of groups and access token) and save the code as `group_posts_detail.py`. Run the script in a command line as follows:
 
-python manage_groups.py
+python group_posts_detail.py
 
-It will print on screen information in dict format about the given groups. Ideally, you would generate a CSV file with this information.
+It will print in console the data in dict format. Ideally, you would want to export the data varibale to an external file (i.e. CSV).
