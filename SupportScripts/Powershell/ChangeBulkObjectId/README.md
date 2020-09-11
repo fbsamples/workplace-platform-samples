@@ -3,6 +3,8 @@
 This PowerShell script allows to change the ObjectID/External ID of Workplace users in bulk.
 This is particularly useful for situations in which users are getting migrated from one AD to another while thier email does not change, but their AD Object ID does.
 
+* Note: for Azure users it is recommended to use this script instead: [Update External ID from Azure AD](https://github.com/fbsamples/workplace-platform-samples/tree/master/SupportScripts/Powershell/UpdateExternalIdFromAzureAd).
+
 ## Setup
 
 * Create a new Custom Integration in the Workplace Admin Panel: [Create a custom Integration](https://developers.facebook.com/docs/workplace/custom-integrations-new/#creating).<br/>This requires at least "Manage Accounts" permissions. Take note of the Access Token.
