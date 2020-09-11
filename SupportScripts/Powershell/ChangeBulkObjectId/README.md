@@ -1,4 +1,4 @@
-# Bulk Object IDs/External Ids for Workplace users
+# Bulk update Object IDs/External Ids for Workplace users
 
 This PowerShell script allows to change the ObjectID/External ID of Workplace users in bulk.
 This is particularly useful for situations in which users are getting migrated from one AD to another while thier email does not change, but their AD Object ID does.
