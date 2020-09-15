@@ -11,6 +11,7 @@ import json
 # Constants
 GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
 FIELDS_CONJ = '?fields=' 
+SINCE_CONJ = '&since=' 
 GROUPS_SUFFIX = '/groups'
 GROUP_FIELDS = 'id,name,members,privacy,description,updated_time'
 MEMBERS_SUFFIX = '/members'
@@ -30,8 +31,8 @@ def getAllGroups(access_token, community_id):
     endpoint  = GRAPH_URL_PREFIX + community_id + GROUPS_SUFFIX + FIELDS_CONJ + GROUP_FIELDS
     return getPagedData(access_token, endpoint, [])
 
-def getAllPostsFromGroup(access_token, group_id):
-    endpoint  = GRAPH_URL_PREFIX + group_id + POSTS_SUFFIX + FIELDS_CONJ + POST_FIELDS
+def getAllPostsFromGroup(access_token, group_id, since_date):
+    endpoint  = GRAPH_URL_PREFIX + group_id + POSTS_SUFFIX + FIELDS_CONJ + POST_FIELDS + SINCE_CONJ + since_date
     return getPagedData(access_token, endpoint, [])
 
 def getReactionsData(access_token, post_id):
@@ -46,8 +47,8 @@ def getCommentsData(access_token, post_id):
     endpoint  = GRAPH_URL_PREFIX + post_id + COMMENTS_SUFFIX
     return getPagedData(access_token, endpoint, [])
 
-def processGroupPosts(access_token, group_data):
-    post_list = getAllPostsFromGroup(access_token, group_data['id'])
+def processGroupPosts(access_token, group_data, since_date):
+    post_list = getAllPostsFromGroup(access_token, group_data['id'], since_date)
     if post_list:
         for idx,post in enumerate(post_list):
             post['group_name'] = group_data['name']
@@ -90,8 +91,9 @@ def buildHeader(access_token):
 ## START
 access_token = 'your_access_token'
 group_ids = ['group_id_1','group_id_2','group_id_3']
+since_date = 'DD-MM-YYYY'
 
 for group_id in group_ids:
     group_data = getGroupData(access_token, group_id)
-    data = processGroupPosts(access_token, group_data)
+    data = processGroupPosts(access_token, group_data, since_date)
     print (data);
