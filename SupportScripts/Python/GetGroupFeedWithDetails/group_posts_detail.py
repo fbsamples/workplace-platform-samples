@@ -7,6 +7,7 @@
 
 import requests
 import json
+import csv
 
 # Constants
 GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
@@ -87,13 +88,24 @@ def getPagedData(access_token, endpoint, data):
 def buildHeader(access_token):
     return {'Authorization': 'Bearer ' + access_token}
 
+def exportToCSV(post_list, first):
+    keys = post_list[0].keys()
+    with open('post_export.csv', 'a', newline='\n')  as file:
+        dict_writer = csv.DictWriter(file, fieldnames=keys, delimiter=';', quotechar='"', escapechar='\\', extrasaction='ignore')
+        if (first):
+            dict_writer.writeheader()
+        dict_writer.writerows(post_list)
+
 
 ## START
 access_token = 'your_access_token'
 group_ids = ['group_id_1','group_id_2','group_id_3']
 since_date = 'DD-MM-YYYY'
 
+first = True
 for group_id in group_ids:
     group_data = getGroupData(access_token, group_id)
     data = processGroupPosts(access_token, group_data, since_date)
     print (data);
+    exportToCSV(data, first);
+    first = False

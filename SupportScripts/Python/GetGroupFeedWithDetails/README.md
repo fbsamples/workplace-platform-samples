@@ -3,7 +3,7 @@
 **Language:** Python v3.7
 
 ## DESCRIPTION
-This usecase example shows how to get all [posts](https://developers.facebook.com/docs/workplace/reference/graph-api/post) from a given list of [groups](https://developers.facebook.com/docs/workplace/reference/graph-api/group) and obtain all their details.
+This usecase example shows how to get all [posts](https://developers.facebook.com/docs/workplace/reference/graph-api/post) from a given list of [groups](https://developers.facebook.com/docs/workplace/reference/graph-api/group) and obtain all their details. Finally it exports them to a CSV file.
 
 ## SETUP
 Edit the code to add the required parameters (ids of groups, access token and start date) and then save the code as `group_posts_detail.py`. Information about the parameters below.
@@ -28,4 +28,4 @@ Run the script in a command line as follows:
 python group_posts_detail.py
 ```
 
-It will print in console the data in dict format. Ideally, you would want to export the data varibale to an external file (i.e. CSV).
+It will print in console the data in dict format and it also exports it to a CSV file called `post_export.csv`.
