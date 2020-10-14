@@ -1,6 +1,6 @@
-# Bulk Editing Locale/Preferred Language for Workplace users
+# Bulk Editing Locale/Preferred Language for unclaimed Workplace users
 
-This PowerShell script allows to change the locale and preferred language fields for Workplace users in bulk.
+This PowerShell script allows to change the locale and preferred language fields for Workplace users (that haven't claimed their account yet) in bulk. If a user has already claimed their account these updates won't be reflected in their profile.
 
 ## Setup
 
@@ -14,7 +14,7 @@ This PowerShell script allows to change the locale and preferred language fields
    }
    ``` 
  
- * Export your users' profile data: As an admin, you can export profile data by going to the People Tab in the Admin Portal > Edit People button > Download File button in the dialog window that will open. You will then receive an email message with a link to download a XLSX file containing the exported user data.
+ * Export your users' profile data: As an admin, you can export profile data by going to the People Tab in the Admin Portal > ... > Export Employee information (with Insights).
  
  * Add a `NewLocale` column in the XLSX file and fill it with the new email address for the users you would like to update profile data.
  
