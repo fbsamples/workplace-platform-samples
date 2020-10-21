@@ -18,6 +18,7 @@ Here are the details of the script parameters to be replaced:
 
 ### GENERATE ACCESS TOKEN
 More information on how to generate an access token on Workplace can be found in [this link](https://developers.facebook.com/docs/workplace/custom-integrations-new/).
+"Read all messages" permission is needed for this script to work.
 
 ## RUN
 
