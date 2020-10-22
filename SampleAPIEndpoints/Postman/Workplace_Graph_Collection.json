@@ -433,7 +433,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Test Event Name - Extra Fields\",\n  \"start_time\": \"2020-06-02T08:00+00:00\",\n  \"end_time\": \"2020-06-02T12:00+00:00\",\n  \"description\": \"Your event description\",\n  \"location\": \"London\"\n}",
+                  "raw": "{\n  \"name\": \"Test Event Name\",\n  \"start_time\": \"2020-11-02T08:00+00:00\",\n  \"end_time\": \"2020-11-02T12:00+00:00\",\n  \"description\": \"Your event description\",\n  \"location\": \"London\",\n  \"owner\" : \"{{group_id}}\",\n  \"type\" : \"group\"\n\n}",
                   "options": {}
                 },
                 "url": {
@@ -489,9 +489,34 @@
                 "disableBodyPruning": true
               },
               "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{access_token}}"
+                  }
+                },
                 "method": "GET",
                 "header": [],
-                "url": "https://graph.workplace.com/{{group-id}}/feed",
+                "url": {
+                  "raw": "https://graph.workplace.com/:group_id/feed",
+                  "protocol": "https",
+                  "host": [
+                    "graph",
+                    "workplace",
+                    "com"
+                  ],
+                  "path": [
+                    ":group_id",
+                    "feed"
+                  ],
+                  "variable": [
+                    {
+                      "key": "group_id",
+                      "value": "{{group_id}}",
+                      "type": "string"
+                    }
+                  ]
+                },
                 "description": "# Returns the News Feed for your specified Group\n\n**Avilable fields**\n`id,admin_creator,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,privacy,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{group-id}}/feed?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
@@ -1335,7 +1360,8 @@
               "query": [
                 {
                   "key": "fields",
-                  "value": "id,attending_count,can_guests_invite,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time"
+                  "value": "id,attending_count,can_guests_invite,category,cover,declined_count,description,end_time,event_times,guest_list_enabled,interested_count,is_canceled,is_draft,is_page_owned,maybe_count,name,noreply_count,owner,parent_group,place,start_time,timezone,type,updated_time",
+                  "type": "text"
                 }
               ],
               "variable": [
@@ -1476,11 +1502,13 @@
               "query": [
                 {
                   "key": "summary",
-                  "value": "true"
+                  "value": "true",
+                  "type": "text"
                 },
                 {
                   "key": "fields",
-                  "value": "id,name"
+                  "value": "id,name",
+                  "type": "text"
                 }
               ],
               "variable": [
@@ -1767,7 +1795,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://graph.workplace.com/:object_id/reactions?summary=true",
+              "raw": "https://graph.workplace.com/:object_id/reactions?summary=true&since=1577836800&until=1593561600",
               "protocol": "https",
               "host": [
                 "graph",
@@ -1781,8 +1809,15 @@
               "query": [
                 {
                   "key": "summary",
-                  "value": "true",
-                  "type": "text"
+                  "value": "true"
+                },
+                {
+                  "key": "since",
+                  "value": "1577836800"
+                },
+                {
+                  "key": "until",
+                  "value": "1593561600"
                 }
               ],
               "variable": [
@@ -1793,7 +1828,7 @@
                 }
               ]
             },
-            "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, along with `summary`. The following objects has a /reactions edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count,viewer_reaction`  \n\n**Avilable fields**  \n`id,name,type`  \n\n**Usage**  \n`GET https://graph.workplace.com/{{object-id}}/reactions?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Reactions associated to an object  \nThis reference describes the /reactions edge that is common to multiple Graph API nodes. The structure and operations are the same for each node.  \nReturns an array of User or Page objects that reacted to the object, along with `summary`. The following objects has a /reactions edge:\n* Album\n* Comment\n* Event\n* Link\n* Live Video\n* Message\n* Notes(Doc)\n* Photo\n* Post\n* User\n* Video \n\n**Parameters**  \n* **[Bool]** `summary`: If `true`, includes the following fields: `total_count,viewer_reaction`  \n\n**Avilable fields**  \n`id,name,type`  \n\n**since**  \n`&since=UNIX_TIMESTAMP`\n\n**until**  \n`&until=UNIX_TIMESTAMP`\n\n**Usage**  \n`GET https://graph.workplace.com/{{object-id}}/reactions?fields={fields}summary=true&since=1577836800&until=1593561600`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         }
@@ -3851,7 +3886,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://graph.workplace.com/:post_id/seen",
+                  "raw": "https://graph.workplace.com/:post_id/seen?fields=id,name,seen_time&since=1577836800&until=1593561600",
                   "protocol": "https",
                   "host": [
                     "graph",
@@ -3862,6 +3897,20 @@
                     ":post_id",
                     "seen"
                   ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "id,name,seen_time"
+                    },
+                    {
+                      "key": "since",
+                      "value": "1577836800"
+                    },
+                    {
+                      "key": "until",
+                      "value": "1593561600"
+                    }
+                  ],
                   "variable": [
                     {
                       "key": "post_id",
@@ -3870,7 +3919,7 @@
                     }
                   ]
                 },
-                "description": "**To check the seen state for a group post**\n\nThis will return a list of the people who have seen the post. If you want a post count summary, use the summary field.  \n\n**Fields**  \n`id,name,seen_time`\n\n**Usage**  \n`GET https://graph.workplace.com/{{post-id}}/seen?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
+                "description": "**To check the seen state for a group post**\n\nThis will return a list of the people who have seen the post. If you want a post count summary, use the summary field.  \n\n**Fields**  \n`id,name,seen_time`\n\n**since**  \n`&since=UNIX_TIMESTAMP`\n\n**until**  \n`&until=UNIX_TIMESTAMP`\n\n**Usage**  \n`GET https://graph.workplace.com/{{post-id}}/seen?fields={fields}`  \n\nReplace `{fields}` with values required above, or remove for defaults."
               },
               "response": []
             }
@@ -3926,6 +3975,58 @@
           "_postman_isSubFolder": true
         },
         {
+          "name": "Polls",
+          "item": [
+            {
+              "name": "Get Poll",
+              "_postman_id": "060cf373-bb04-4114-b3d4-24706eda7876",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{access_token}}"
+                  }
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.workplace.com/:post_id?fields=id,created_time,from,question,updated_time",
+                  "protocol": "https",
+                  "host": [
+                    "graph",
+                    "workplace",
+                    "com"
+                  ],
+                  "path": [
+                    ":post_id"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "id,created_time,from,question,updated_time"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "c562ee3c-5a91-4e18-a49d-99eace69a55b",
+                      "key": "post_id",
+                      "value": "{{poll_post_id}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "description": "# Returns details about a given post id with a Poll\nAn individual post in any group.\n\n**Avilable fields**\n`id,created_time,from,question,updated_time`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{post-id}}?fields=poll{options{{poll_options}}}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "6bef9e7e-f366-404a-b2c2-b4e6bf1bfc28",
+          "_postman_isSubFolder": true
+        },
+        {
           "name": "Get Post",
           "_postman_id": "2b887225-b38e-4802-9560-816fc0acddbb",
           "protocolProfileBehavior": {
@@ -3954,8 +4055,7 @@
               "query": [
                 {
                   "key": "fields",
-                  "value": "id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source",
-                  "type": "text"
+                  "value": "id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source"
                 }
               ],
               "variable": [
@@ -3966,7 +4066,7 @@
                 }
               ]
             },
-            "description": "# Returns details about a given post id  \nAn individual entry in a profile's feed. The profile could be a user, page, app, or group.\n\n**Avilable fields**\n`id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{post-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+            "description": "# Returns details about a given post id  \nAn individual post in a group or user timeline.\n\n**Avilable fields**\n`id,admin_creator,actions,application,caption,created_time,description,feed_targeting,from,icon,is_hidden,link,message,message_tags,name,object_id,parent_id,permalink_url,picture,place,properties,shares,source`\n\n\n**Usage**\n`GET https://graph.workplace.com/{{post-id}}?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
           },
           "response": []
         },
@@ -4202,7 +4302,7 @@
                   "raw": "{\n\t\"name\": \"New thread name\"\n}"
                 },
                 "url": {
-                  "raw": "https://graph.workplace.com/:t_thread_id",
+                  "raw": "https://graph.workplace.com/:t_thread_id/threadname",
                   "protocol": "https",
                   "host": [
                     "graph",
@@ -4210,7 +4310,8 @@
                     "com"
                   ],
                   "path": [
-                    ":t_thread_id"
+                    ":t_thread_id",
+                    "threadname"
                   ],
                   "variable": [
                     {
@@ -4326,7 +4427,7 @@
                     }
                   ]
                 },
-                "description": "# Add participants to thread\n  \n**Parameters**  \n* `to`: The User ID(s) of the participant(s)\n\n**Usage**  \n```\nPOST https://graph.workplace.com/t_{{thread-id}}/participants\nBody:\n  to: [<user_ids>]\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+                "description": "# Add participants to thread\nAdds participants to a chat thread. Bot must be member of the chat group to which a user is being added.  \n**Parameters**  \n* `to`: The User ID(s) of the participant(s)\n\n**Usage**  \n```\nPOST https://graph.workplace.com/t_{{thread-id}}/participants\nBody:\n  to: [<user_ids>]\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
               },
               "response": []
             },
@@ -4375,12 +4476,12 @@
                     }
                   ]
                 },
-                "description": "# Remove participants from threads\n  \n**Parameters**  \n* `to`: The User ID(s) of the participant(s)\n\n**Usage**  \n```\nDELETE https://graph.workplace.com/t_{{thread-id}}/participants\nBody:\n  to: [<user_ids>]\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+                "description": "# Remove participants from threads\nRemoves the participants from a chat thread. The bot must be the admin of that chat group to perform this action.  \n**Parameters**  \n* `to`: The User ID(s) of the participant(s)\n\n**Usage**  \n```\nDELETE https://graph.workplace.com/t_{{thread-id}}/participants\nBody:\n  to: [<user_ids>]\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
               },
               "response": []
             },
             {
-              "name": "Get Meggages from Participants",
+              "name": "Get Messages from Participants",
               "_postman_id": "7819b382-6172-4a50-96a1-a8b14ab90d76",
               "protocolProfileBehavior": {
                 "disableBodyPruning": true
@@ -4421,7 +4522,7 @@
                     }
                   ]
                 },
-                "description": "# Get Message IDs for messages sent by participants in a chat thread  \n  \n**Avilable fields**  \n`id,messages.source(PARTICIPANTS)`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields=\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+                "description": "# Get Message IDs for messages sent by participants in a chat thread  \n  \n**Avilable fields**  \n`id,messages.source(PARTICIPANTS)`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields={fields}\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
               },
               "response": []
             }
@@ -4481,7 +4582,7 @@
                 }
               ]
             },
-            "description": "# Get Thread details for a given Thread ID  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants,message,from`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields=\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
+            "description": "# Get Thread details for a given Thread ID  \n  \n**Avilable fields**  \n`id,name,link,updated_time,can_reply,participants,message,from`  \n\n**Usage**  \n```\nGET https://graph.workplace.com/t_{{thread-id}}/?fields={fields}\n```  \n**Note:** Note the need to prefix the thread\\_id with `t_` in the edge path."
           },
           "response": []
         },
