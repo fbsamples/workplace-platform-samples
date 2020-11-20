@@ -1,5 +1,5 @@
 param(
-    [Parameter(Mandatory=$true, Position=0, HelpMessage='Path for your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken	
+    [Parameter(Mandatory=$true, Position=0, HelpMessage='Path for your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken
 )
 #Read JSON Access Token
 try {
@@ -23,7 +23,7 @@ $users_results = Invoke-RestMethod -Uri ($first_users_url) -Headers @{Authorizat
 $runonce = 1
 while(($users_results.paging.next) -or ($runonce)){
     foreach($user in $users_results.data){
-        if($user.picture.data.is_silhouette -eq $false){
+        if($user.picture.data.is_silhouette -eq $true){
             $body = (@{
                 recipient=@{
                     id=$user.id;
@@ -34,12 +34,12 @@ while(($users_results.paging.next) -or ($runonce)){
                 Invoke-RestMethod -Method POST -URI ("https://graph.facebook.com/me/messages") -Headers @{Authorization = "Bearer " + $global:token} -Body $body -ContentType "application/json" -UserAgent "WorkplaceScript/UpdateProfPicture"
                 $messaged_users++
                 Write-Host -ForegroundColor Yellow "Messaged User: "$user.id
-        } 
+        }
     }
     if(!($users_results.paging.next)){
         $runonce = 0
     }else{
         $users_results = Invoke-RestMethod -Uri ($users_results.paging.next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/UpdateProfPicture"
     }
-}  
+}
 Write-Host -ForegroundColor Green "Total Messaged Users: $messaged_users - With Message: $message_to_send"
