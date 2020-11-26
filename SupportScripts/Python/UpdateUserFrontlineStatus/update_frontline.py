@@ -14,6 +14,7 @@ GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
 # Methods
 def sendModificationRequest(access_token, endpoint, frontline_status):
     headers = buildHeader(access_token)
+    # Remove: , "has_access": "true" to only add users to Frontline set. Only permission 'Manage work profiles' is required.
     body = {"frontline": '{ "is_frontline": ' + frontline_status + ', "has_access": "true" }' }
     result = requests.post(endpoint, headers=headers, data = body)
     print (endpoint + ' changing frontline status to ' + frontline_status + ' -> ' + result.text)
