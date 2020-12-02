@@ -1,4 +1,4 @@
-# Migrate group content
+# Migrate group members to people sets
 
 This PowerShell script allows to migrate group content (posts and comments) to a new group, that is automatically created.
 
