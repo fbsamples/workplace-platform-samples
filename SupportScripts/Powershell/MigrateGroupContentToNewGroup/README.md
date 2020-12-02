@@ -26,7 +26,7 @@ This PowerShell script allows to migrate group content (posts and comments) to a
 * Run the script by passing the OriginGroupId and `accessToken.js` file as input:
 
    ```powershell
-   ./exportPostActivity.ps1 -OriginGroupId {GroupId} -WPAccessToken accessToken.js
+   ./groupCloner.ps1 -OriginGroupId {GroupId} -WPAccessToken accessToken.js
    ```
 
    Here are the details of the passed params:
