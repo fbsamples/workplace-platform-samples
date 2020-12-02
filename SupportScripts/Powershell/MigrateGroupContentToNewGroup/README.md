@@ -11,7 +11,7 @@ This PowerShell script allows to migrate group content (posts and comments) to a
    ```javascript
    {
          "accessToken" : "ORIGIN-ACCESS-TOKEN",
-	 "destAccessToken" : "DESTINATION-ACCESS-TOKEN"
+	     "destAccessToken" : "DESTINATION-ACCESS-TOKEN"
    }
    ``` 
  
