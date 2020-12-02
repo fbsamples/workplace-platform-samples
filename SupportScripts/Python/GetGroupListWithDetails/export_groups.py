@@ -49,7 +49,7 @@ def buildHeader(access_token):
 
 def exportToCSV(group_list):
     keys = group_list[0].keys()
-    with io.open('group_export.csv', 'w', newline='\n')  as file:
+    with io.open('group_export.csv', 'w', newline='\n', encoding='utf-8-sig')  as file:
         dict_writer = csv.DictWriter(file, fieldnames=keys, delimiter=',', quotechar='"', escapechar='\\', extrasaction='ignore')
         dict_writer.writeheader()
         dict_writer.writerows(group_list)
