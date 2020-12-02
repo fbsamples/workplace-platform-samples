@@ -1,6 +1,6 @@
 # Migrate group members to people sets
 
-This PowerShell script allows to migrate group content (posts and comments) to a new group, that is automatically created.
+This PowerShell script allows to migrate group members to a people set, which can be easily added then to a new group.
 
 ## Setup
 
