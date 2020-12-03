@@ -1,4 +1,4 @@
-# Use Graph API to delete a user with the email of a given user
+# Use Graph API to delete a user with the email of a given user via Graph API
 import requests, json
 
 #Get the access token from a file named accessToken
