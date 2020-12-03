@@ -1,5 +1,6 @@
 # code to print out IOS and Android Workplace App download QR Codes and print out deeplinked QR Codes for Access Codes
 import pyqrcode
+
 IOS = 0
 accessFile = "workplace_access_codes.csv"
 WorkplaceIOSURL = "https://apps.apple.com/us/app/workplace-by-facebook/id944921229"
