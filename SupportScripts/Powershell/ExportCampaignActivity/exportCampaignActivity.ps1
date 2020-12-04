@@ -29,7 +29,7 @@ function Iterate-On {
 
 #Sum Comments Count
 function SumComments($comment){
-    return $(Iterate-On -Url "https://graph.workplace.com/$($comment.id)/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological" -JobItem $function:SumReplies).count
+    return $(Iterate-On -Url "https://graph.workplace.com/$($comment.id)/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(CARE).limit(0).summary(total_count).as(reactions_care),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological" -JobItem $function:SumReplies).count
 }
 
 #Sum Replies Count
@@ -113,28 +113,30 @@ foreach ($groupId in $GroupIds) {
                             wow = 0;
                             sad = 0;
                             angry = 0;
+                            care = 0;
                         };
                     }
 
                     try {
 
                         #Extract stats
-                        $statsURL = "https://graph.workplace.com/$($campaignPostAnalytics.id)/?fields=seen.limit(0).summary(total_count),likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),shares"
+                        $statsURL = "https://graph.workplace.com/$($campaignPostAnalytics.id)/?fields=seen.limit(0).summary(total_count),reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(CARE).limit(0).summary(total_count).as(reactions_care),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),shares"
                         $sentimentResults = Invoke-RestMethod -Uri ($statsURL) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportCampaignActivity"
                             
                             if ($sentimentResults) {
                                 $campaignPostAnalytics.total_post_seen_by = $sentimentResults.seen.summary.total_count;
                                 $campaignPostAnalytics.total_post_shares = $sentimentResults.shares.count;
-                                $campaignPostAnalytics.total_post_reactions.like = $sentimentResults.likes.summary.total_count;
+                                $campaignPostAnalytics.total_post_reactions.like = $sentimentResults.reactions_like.summary.total_count;
                                 $campaignPostAnalytics.total_post_reactions.love = $sentimentResults.reactions_love.summary.total_count;
                                 $campaignPostAnalytics.total_post_reactions.haha = $sentimentResults.reactions_haha.summary.total_count;
                                 $campaignPostAnalytics.total_post_reactions.wow = $sentimentResults.reactions_wow.summary.total_count;
                                 $campaignPostAnalytics.total_post_reactions.sad = $sentimentResults.reactions_sad.summary.total_count;
                                 $campaignPostAnalytics.total_post_reactions.angry = $sentimentResults.reactions_angry.summary.total_count;
+                                $campaignPostAnalytics.total_post_reactions.care = $sentimentResults.reactions_care.summary.total_count;
                             }
 
                             try {
-                                $impressions = $(Iterate-On -Url "https://graph.workplace.com/$($campaignPostAnalytics.id)/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,likes.limit(0).summary(total_count),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate" -JobItem $function:SumComments)
+                                $impressions = $(Iterate-On -Url "https://graph.workplace.com/$($campaignPostAnalytics.id)/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(CARE).limit(0).summary(total_count).as(reactions_care),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate" -JobItem $function:SumComments)
                                 $campaignPostAnalytics.total_post_comments = $impressions.count
                                 $campaignPostAnalytics.total_post_replies = ($impressions | Measure-Object -sum ).sum  
                             } 
@@ -189,6 +191,7 @@ try {
         @{N='Loves';E={$_.total_post_reactions.love}}, `
         @{N='Hahas';E={$_.total_post_reactions.haha}}, `
         @{N='Wows';E={$_.total_post_reactions.wow}}, `
+        @{N='Cares';E={$_.total_post_reactions.care}}, `
         @{N='Sads';E={$_.total_post_reactions.sad}}, `
         @{N='Angrys';E={$_.total_post_reactions.angry}} |`
         Export-Excel $xlsxFile -NoNumberConversion * 
