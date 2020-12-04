@@ -7,13 +7,14 @@
 import requests
 import json
 import csv
+import io
 
 # Constants
 GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
 COMMUNITY_SUFFIX = 'community'
 FIELDS_CONJ = '?fields=' 
 GROUPS_SUFFIX = '/groups'
-GROUP_FIELDS = 'id,name,admins,members.limit(0).summary(true),privacy,description,updated_time'
+GROUP_FIELDS = 'id,name,admins{id,name,email},members.limit(0).summary(true),privacy,description,updated_time'
 JSON_KEY_DATA = 'data'
 JSON_KEY_PAGING = 'paging'
 JSON_KEY_NEXT = 'next'
@@ -39,6 +40,8 @@ def getPagedData(access_token, endpoint, data):
         next = result_json[JSON_KEY_PAGING][JSON_KEY_NEXT]
         if next:
             getPagedData(access_token, next, data)
+    if (0 == len(data)):
+        return result.text
     return data
 
 def buildHeader(access_token):
@@ -46,7 +49,7 @@ def buildHeader(access_token):
 
 def exportToCSV(group_list):
     keys = group_list[0].keys()
-    with open('group_export.csv', 'w', newline='\n')  as file:
+    with io.open('group_export.csv', 'w', newline='\n', encoding='utf-8-sig')  as file:
         dict_writer = csv.DictWriter(file, fieldnames=keys, delimiter=',', quotechar='"', escapechar='\\', extrasaction='ignore')
         dict_writer.writeheader()
         dict_writer.writerows(group_list)
