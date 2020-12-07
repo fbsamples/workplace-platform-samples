@@ -16,7 +16,7 @@ Here are the details of the script parameters to be replaced:
    | access_token      |  The access token of the Workplace integration             | _String_ | Yes |
 
 ### GENERATE ACCESS TOKEN
-More information on how to generate an access token on Workplace can be found in [this link](https://developers.facebook.com/docs/workplace/custom-integrations-new/). The integration should at least have the following permissions: "Read user email", Read group content", "Manage group content", "Manage groups" and "Read group membership".
+More information on how to generate an access token on Workplace can be found in [this link](https://developers.facebook.com/docs/workplace/custom-integrations-new/). The integration should at least have the following permissions: "Read group content", "Manage group content", "Manage groups" and "Read group membership".
 
 ## RUN
 
