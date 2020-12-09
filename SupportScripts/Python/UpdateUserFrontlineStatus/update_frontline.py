@@ -18,7 +18,7 @@ file_name = 'email_list_change.csv'
 # Methods
 def sendModificationRequest(access_token, endpoint, frontline_status, has_access):
     headers = buildHeader(access_token)
-    body = {"frontline": '{ "is_frontline": ' + frontline_status + ', "has_access":' + has_access + ' }' }
+    body = {"frontline": '{ "is_frontline": ' + frontline_status + ', "has_access": ' + has_access + ' }' }
     result = requests.post(endpoint, headers=headers, data = body)
     print (endpoint + ' changing frontline status to ' + frontline_status + ' and has_access to ' + has_access + ' -> ' + result.text)
 
