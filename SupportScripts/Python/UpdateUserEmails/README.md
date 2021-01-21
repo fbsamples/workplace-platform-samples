@@ -23,6 +23,7 @@ Here are the details of the script parameters to be replaced:
 
 ### GENERATE ACCESS TOKEN
 More information on how to generate an access token on Workplace can be found in [this link](https://developers.facebook.com/docs/workplace/custom-integrations-new/).
+Please make sure that the integration created on Workplace has at least the "Manage work profiles" permission.
 
 ## RUN
 Run the script in a command line as follows:
