@@ -1,4 +1,4 @@
-email@yourdomain.com,true
-email2@yourdomain.com,0
-email3@yourdomain.com,false
-123456789,false
+email/WorkplaceID,frontLine_status,has_access
+email2@yourdomain.com,true,false
+email3@yourdomain.com,false,false
+123456789,false,true

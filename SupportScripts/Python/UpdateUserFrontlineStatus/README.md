@@ -17,6 +17,8 @@ Please find the information about the parameters below. There is an example of t
 
 If you need a list of the Workplace internal IDs, [you can export it from the People section of the admin panel](https://www.workplace.com/help/work/1858663031075098). The column in the exported file is called "User ID".
 
+`has_access` is an *Enterprise* only feature and its use is documented in [developer docs](https://developers.facebook.com/docs/workplace/account-management/graph). By default its set to True and is not required for most use cases. 
+
 ### PARAMETERS
 Here are the details of the script parameters to be replaced:
 
