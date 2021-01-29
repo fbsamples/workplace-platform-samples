@@ -1,6 +1,6 @@
-# Bulk update Employee Ids for Workplace Frontline users
+# Bulk update Employee Ids for Workplace Users
 
-This PowerShell script allows to change the Employee ID of Workplace Frontline users in bulk.
+This PowerShell script allows to change the Employee ID of Workplace Users in bulk.
 
 ## Setup
 
