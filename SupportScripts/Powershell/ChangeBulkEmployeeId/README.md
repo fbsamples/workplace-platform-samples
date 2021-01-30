@@ -25,7 +25,7 @@ This PowerShell script allows to change the Employee ID of Workplace Users in bu
    | Fox C       |  foxC@yyy.com |  ...  |     7553-1314-1315   |
 
     _Note:_ The script will skip updating a user if the Employee ID field is empty.
-
+    _Note:_ The excel file should contain the User ID column populated with User IDs. If this column is not present the script will fail to retrieve users to update.
     _Note:_ Please be sure the file uses a plain formatting (no tables, etc.).
 
 ## Run
