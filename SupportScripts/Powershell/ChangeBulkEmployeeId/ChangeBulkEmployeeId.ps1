@@ -43,14 +43,14 @@ Foreach($u in $global:xslxUsers) {
     #Get User ID from XLSX
     $uid_file = $u."User ID"
 	$unewid = $u."Employee ID"
+    $uemail = $u.Email
     $total++
-    #Check if is a standard user and if employee id should be changed
-    if($uid_file -And $unewid) {
+    #Check if is a standard user and if employee id should be changed and if the user is email-less
+    if($uid_file -And $unewid -not $uemail ) {
         try {
             #Get User via SCIM API
             $results = Invoke-RestMethod -Uri ("https://www.workplace.com/scim/v1/Users/$uid_file") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ChangeBulkEmployeeId"
             If($results) {
-                Write-Host "test"
                 #Get User params
                 $user = $results
                 $uid = $user.id
