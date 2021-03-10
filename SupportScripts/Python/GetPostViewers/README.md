@@ -3,9 +3,9 @@
 **Language:** Python v3.7
 
 ## DESCRIPTION
-This usecase example shows how to get all [users](https://developers.facebook.com/docs/workplace/reference/graph-api/member) who saw* a speficic [post](https://developers.facebook.com/docs/workplace/reference/graph-api/post) on your Workplace instance. The user list contains the ID, Name, Email, Department, Division, Organization and Title of each user. Finally, it exports this data to a CSV file.
+This usecase example shows how to get all [users](https://developers.facebook.com/docs/workplace/reference/graph-api/member) who saw a speficic [post](https://developers.facebook.com/docs/workplace/reference/graph-api/post) on your Workplace instance. The user list contains the ID, Name, Email, Department, Division, Organization and Title of each user. Finally, it exports this data to a CSV file.
 
-*On Workplace, a post is considered as seen if the user spent at least a fraction of second in that post.
+On Workplace, a post is considered as seen if the user spent at least a fraction of second in that post.
 
 ## SETUP
 Edit the code to add the required parameters and then save the code as `get_post_viewers.py`. Information about the parameters below.
