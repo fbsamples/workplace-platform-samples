@@ -48,48 +48,46 @@ function AnonymiseWorkplaceUserProfile
 			}
 			        
 			$requestBody = '{
-               "schemas" : ["urn:scim:schemas:core:1.0", "urn:scim:schemas:extension:enterprise:1.0", "urn:scim:schemas:extension:facebook:starttermdates:1.0"],
-               "userName" : "' + $newUsername + '",
-               "displayName" : "Default User",
-               "name" : {
-                  "formatted" : "Default User",
-                  "familyName" : "User",
-                  "givenName" : "Default"
-               },
-               "active" : ' + $results.active + ',
-               "title" : "Default Title",
-               "emails" : [
-                  {
-                     "primary" : false,
-                     "value" : "' + $newUsername + '"
-                  }
-               ],
-               "urn:scim:schemas:extension:enterprise:1.0" : {
-                  "organization" : "Default Org",
-                  "division" : "Default Region",
-                  "department" : "Default Department"
-               },
-			   "locale": "en_US",
-			   "preferredLanguage": "en_US",
-			   "addresses": [{
+				"schemas" : ["urn:scim:schemas:core:1.0", "urn:scim:schemas:extension:enterprise:1.0", "urn:scim:schemas:extension:facebook:starttermdates:1.0"],
+				"userName" : "' + $newUsername + '",
+				"displayName" : "Default User",
+				"name" : {
+					"formatted" : "Default User",
+					"familyName" : "User",
+					"givenName" : "Default"
+				},
+				"active" : true,
+				"title" : "Default Title",
+				"emails" : [{
+					"primary" : false,
+					"value" : "' + $newUsername + '"
+				}],
+				"urn:scim:schemas:extension:enterprise:1.0" : {
+					"organization" : "Default Org",
+					"division" : "Default Region",
+					"department" : "Default Department"
+				},
+				"locale": "en_US",
+				"preferredLanguage": "en_US",
+				"addresses": [{
 					"type": "work",
 					"formatted": "Default Office",
 					"primary": true
 				}],
-         "phoneNumbers": [{
-               "primary": true,
-               "type": "work",
-               "value": "+1-202-555-0104"
-         }],
-         "urn:scim:schemas:extension:facebook:starttermdates:1.0": {
-            "startDate": 1577836800
-         },
-			   "photos": [{
-				   "value" : "https://static.xx.fbcdn.net/rsrc.php/v1/yN/r/5YNclLbSCQL.jpg",
-				   "type" : "profile",
-				   "primary" : true
-			   }]
-            }';
+				"urn:scim:schemas:extension:facebook:starttermdates:1.0": {
+					"startDate": 1577836800
+				},
+				"phoneNumbers": [{
+					"primary": true,
+					"type": "work",
+					"value": "+1-202-555-0104"
+				}],
+				"photos": [{
+					"value" : "https://static.xx.fbcdn.net/rsrc.php/v1/yN/r/5YNclLbSCQL.jpg",
+					"type" : "profile",
+					"primary" : true
+				}]
+			}';
 			#Write-Host $requestBody
             $resultsModification = Invoke-RestMethod -Method PUT -URI ($userDataUrl) -Headers @{Authorization = "Bearer " + $global:token} -Body $requestBody -ContentType "application/json" -UserAgent "GithubRep-ProfileAnonymiser"
         }
