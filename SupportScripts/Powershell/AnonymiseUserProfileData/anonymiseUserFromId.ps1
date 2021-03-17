@@ -48,16 +48,16 @@ function AnonymiseWorkplaceUserProfile
 			}
 			        
 			$requestBody = '{
-               "schemas" : ["urn:scim:schemas:core:1.0", "urn:scim:schemas:extension:enterprise:1.0"],
+               "schemas" : ["urn:scim:schemas:core:1.0", "urn:scim:schemas:extension:enterprise:1.0", "urn:scim:schemas:extension:facebook:starttermdates:1.0"],
                "userName" : "' + $newUsername + '",
-               "displayName" : "Anonymous User",
+               "displayName" : "Default User",
                "name" : {
-                  "formatted" : "Anonymous User",
+                  "formatted" : "Default User",
                   "familyName" : "User",
-                  "givenName" : "Anonymous"
+                  "givenName" : "Default"
                },
                "active" : ' + $results.active + ',
-               "title" : "Anonymous Title",
+               "title" : "Default Title",
                "emails" : [
                   {
                      "primary" : false,
@@ -76,6 +76,14 @@ function AnonymiseWorkplaceUserProfile
 					"formatted": "Default Office",
 					"primary": true
 				}],
+         "phoneNumbers": [{
+               "primary": true,
+               "type": "work",
+               "value": "+1-202-555-0104"
+         }],
+         "urn:scim:schemas:extension:facebook:starttermdates:1.0": {
+            "startDate": 1577836800
+         },
 			   "photos": [{
 				   "value" : "https://static.xx.fbcdn.net/rsrc.php/v1/yN/r/5YNclLbSCQL.jpg",
 				   "type" : "profile",
