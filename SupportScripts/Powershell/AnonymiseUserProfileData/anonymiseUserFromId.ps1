@@ -31,7 +31,7 @@ function AnonymiseWorkplaceUserProfile
     Write-Host -NoNewLine "Anonymising user $userId profile data on Workplace... "
     try
     {
-		$todayDate = Get-Date -Format "yyyyddMM"
+		$todayDate = Get-Date -Format "yyyyMMdd"
 		$userDataUrl = "https://www.workplace.com/scim/v1/Users/$userId"
 
         #Requesting data of the user to Workplace
@@ -44,7 +44,8 @@ function AnonymiseWorkplaceUserProfile
 			if ($results.externalId) {
 				$newUsername = $results.externalId + "_" + $todayDate + "@" + $emailParts[1]
 			} else {
-				$newUsername = $results.id + "_" + $todayDate + "@" + $emailParts[1]
+				$randomString = -join ((65..90) + (97..122) | Get-Random -Count 10 | % {[char]$_})
+				$newUsername = $randomString + "_" + $todayDate + "@" + $emailParts[1]
 			}
 			        
 			$requestBody = '{
@@ -56,7 +57,7 @@ function AnonymiseWorkplaceUserProfile
 					"familyName" : "User",
 					"givenName" : "Default"
 				},
-				"active" : true,
+				"active" : ' + $results.active.ToString().ToLower() + ',
 				"title" : "Default Title",
 				"emails" : [{
 					"primary" : false,
