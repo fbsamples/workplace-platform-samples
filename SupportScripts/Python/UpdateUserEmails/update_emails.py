@@ -19,7 +19,7 @@ def sendModificationRequest(access_token, endpoint, new_email):
     print (endpoint + ' changing to ' + new_email + ' -> ' + result.text)
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-UpdateUserEmail"}
 
 def modifyUserEmail(access_token, old_email, new_email):
     endpoint  = GRAPH_URL_PREFIX + old_email

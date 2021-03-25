@@ -76,7 +76,7 @@ function GetCommentsFromPost
         $nextC = "https://graph.workplace.com/" + $postId + "/comments/?fields=created_time,from,message,id&order=chronological&limit=20000"
         do
         {
-            $resultsC = Invoke-RestMethod -Uri ($nextC) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "WorkplaceScript/GroupCloner"
+            $resultsC = Invoke-RestMethod -Uri ($nextC) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "GithubRep-GroupCloner"
             if ($resultsC)
             {
                 $resultsC.data.ForEach({
@@ -86,7 +86,7 @@ function GetCommentsFromPost
                     $nextReply = "https://graph.workplace.com/" + $_.id + "/comments/?fields=created_time,from,message,id&order=chronological&limit=20000"
                     do
                     {
-                        $resultsReplies = Invoke-RestMethod -Uri ($nextReply) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "WorkplaceScript/GroupCloner"
+                        $resultsReplies = Invoke-RestMethod -Uri ($nextReply) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "GithubRep-GroupCloner"
                         if ($resultsReplies)
                         {
                             $resultsReplies.data | ForEach-Object -Process { $_ | Add-Member -NotePropertyName "Interaction" -NotePropertyValue "Comment-Reply" }
@@ -144,7 +144,7 @@ function GetGroupMetaData
         $groupUrl = "https://graph.workplace.com/" + $groupId + "?fields=name,description,privacy"
         Write-Host $groupUrl
 
-        $groupMetadata = Invoke-RestMethod -Uri ($groupUrl) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "WorkplaceScript/GroupCloner"
+        $groupMetadata = Invoke-RestMethod -Uri ($groupUrl) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "GithubRep-GroupCloner"
         $global:gMetadata = $groupMetadata
 
         Write-Host -ForegroundColor Green "Meta data from original group retrieved!"
@@ -172,7 +172,7 @@ function GetGroupPosts
         do
         {
             #Write-Host $next
-            $results = Invoke-RestMethod -Uri ($next) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "WorkplaceScript/GroupCloner"
+            $results = Invoke-RestMethod -Uri ($next) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "GithubRep-GroupCloner"
             if ($results -and !$results.error)
             {
                 $results.data.ForEach({
@@ -225,7 +225,7 @@ function CreateGroupFromMetadata
         $groupUrl = $groupUrl -replace "\s+", "+"
         Write-Host $groupUrl
 
-        $newGroup = Invoke-RestMethod -Method 'Post' -Uri ($groupUrl) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
+        $newGroup = Invoke-RestMethod -Method 'Post' -Uri ($groupUrl) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner"
         #$newGroup | Write-Host
         $global:newGroupId = $newGroup.id
 
@@ -322,7 +322,7 @@ function CreateNewGroupPosts
                             "--$boundary--$LF"
                             ) -join $LF
 
-                            $send_file = Invoke-RestMethod -ErrorAction Stop -Uri $URL -Method Post -TimeoutSec 2147483647 -ContentType "multipart/form-data; boundary=`"$boundary`"" -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner" -Body $bodyLines
+                            $send_file = Invoke-RestMethod -ErrorAction Stop -Uri $URL -Method Post -TimeoutSec 2147483647 -ContentType "multipart/form-data; boundary=`"$boundary`"" -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner" -Body $bodyLines
 
                             $attachments += $send_file.id + ','
 
@@ -380,7 +380,7 @@ function CreateNewGroupPosts
                             Write-Host "Adding photo of album..."
                             $photoUploadURL = "https://graph.workplace.com/me/photos?published=false&url=" + [System.Web.HTTPUtility]::UrlEncode($postToAdd.attachments.data.subattachments.data[$ib].media.image.src)
 
-                            $newPhotoUpload = Invoke-RestMethod -ErrorAction Stop -Method 'Post' -Uri ($photoUploadURL) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
+                            $newPhotoUpload = Invoke-RestMethod -ErrorAction Stop -Method 'Post' -Uri ($photoUploadURL) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner"
 
                             $subImages += "{'media_fbid':" + $newPhotoUpload.id + "},"
                         }
@@ -402,7 +402,7 @@ function CreateNewGroupPosts
                     {
                         $photoUploadURL = "https://graph.workplace.com/me/photos?published=false&url=" + [System.Web.HTTPUtility]::UrlEncode($postToAdd.attachments.data[0].media.image.src)
 
-                        $newPhotoUpload = Invoke-RestMethod -ErrorAction Stop -Method 'Post' -Uri ($photoUploadURL) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
+                        $newPhotoUpload = Invoke-RestMethod -ErrorAction Stop -Method 'Post' -Uri ($photoUploadURL) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner"
 
                         $groupUrl += "&attached_media=[{'media_fbid':'" + $newPhotoUpload.id + "'}]"
                     }
@@ -455,7 +455,7 @@ function createPost
     try
     {
         Write-Host $groupUrl
-        $newPost = Invoke-RestMethod -Method 'Post' -Uri ($groupUrl) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
+        $newPost = Invoke-RestMethod -Method 'Post' -Uri ($groupUrl) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner"
     }
     catch
     {
@@ -477,7 +477,7 @@ function createPost
         {
             $postCommentDate = Get-Date $postToAdd.comments[$ic].created_time -Format ("HH:mm, MMMM dd yyyy")
             $commentUrl = "https://graph.workplace.com/" + $newPost.id + "/comments?message=" + [System.Web.HTTPUtility]::UrlEncode("(Comment created by " + $postToAdd.comments[$ic].from.name + " - " + $postCommentDate + ")" + "`n" + $postToAdd.comments[$ic].message)
-            $newComment = Invoke-RestMethod -ErrorAction Stop -Method 'Post' -Uri ($commentUrl) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
+            $newComment = Invoke-RestMethod -ErrorAction Stop -Method 'Post' -Uri ($commentUrl) -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner"
         }
         catch
         {

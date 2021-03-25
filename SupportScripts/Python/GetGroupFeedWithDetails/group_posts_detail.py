@@ -86,7 +86,7 @@ def getPagedData(access_token, endpoint, data):
     return data
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-GetGroupFeedDetails"}
 
 def exportToCSV(post_list, first):
     keys = post_list[0].keys()

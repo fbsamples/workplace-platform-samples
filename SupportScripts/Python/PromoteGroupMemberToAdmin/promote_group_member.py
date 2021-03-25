@@ -20,9 +20,9 @@ def sendModificationRequest(access_token, endpoint):
     print (endpoint + ' promoting member to admin in group -> ' + result.text)
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-PromoteGroupAdmin"}
 
-def modifyGroupDescription(access_token, group_id, member_user_id):
+def modifyGroupAdmin(access_token, group_id, member_user_id):
     endpoint  = GRAPH_URL_PREFIX + group_id + GRAPH_URL_ADMINS_PARAM + GRAPH_URL_SLASH_SEP + member_user_id
     sendModificationRequest(access_token, endpoint)
 
@@ -36,4 +36,4 @@ file_name = 'group_admin_change.csv'
 with open(file_name, newline='') as f:
     reader = csv.reader(f)
     for row in reader:
-        modifyGroupDescription(access_token, row[0], row[1])
+        modifyGroupAdmin(access_token, row[0], row[1])

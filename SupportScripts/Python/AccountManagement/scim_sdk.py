@@ -82,7 +82,7 @@ ERROR_WITH_MESSAGE_PREFIX = 'Error'
 ERROR_WITHOUT_MESSAGE = "Invalid request, no error message found"
 
 def getHeaders(access_token):
-	headers = {HEADER_AUTH_KEY: HEADER_AUTH_VAL_PREFIX + access_token}
+	headers = {HEADER_AUTH_KEY: HEADER_AUTH_VAL_PREFIX + access_token, "User-Agent": "GithubRep-SCIMAccountManagement"}
 	return headers
 
 #create user

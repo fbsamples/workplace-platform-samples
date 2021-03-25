@@ -30,7 +30,7 @@ SINCE = datetime.datetime.now() - datetime.timedelta(days=DAYS)
 def getFeed(group, name):
 
     # Token-based auth header
-    headers = {'Authorization': 'Bearer ' + TOKEN}
+    headers = {'Authorization': 'Bearer ' + TOKEN, "User-Agent": "GithubRep-DownloadGroupFeed"}
 
     # Get the relevant group post content for each feed item
     # Include a fetch for like and comment summaries to get total count 

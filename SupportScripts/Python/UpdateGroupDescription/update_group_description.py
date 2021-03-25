@@ -20,7 +20,7 @@ def sendModificationRequest(access_token, endpoint, group_description):
     print (endpoint + ' updating description to ' + group_description + ' -> ' + result.text)
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-UpdateGroupDescription"}
 
 def modifyGroupDescription(access_token, group_id, group_description):
     endpoint  = GRAPH_URL_PREFIX + group_id

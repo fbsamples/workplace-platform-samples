@@ -14,7 +14,7 @@ GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
 # Methods
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-ReactivateUsers"}
 
 def reactivateUser(access_token, email):
     endpoint  = GRAPH_URL_PREFIX + email

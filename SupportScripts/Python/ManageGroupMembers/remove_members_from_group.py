@@ -1,4 +1,4 @@
-# Copyright 2017-present, Facebook, Inc.
+# Copyright 2020-present, Facebook, Inc.
 # All rights reserved.
 #
 # This source code is licensed under the license found in the
@@ -40,7 +40,7 @@ def addMemberToGroup(access_token, group_id, email):
     return json.loads(result.text, result.encoding)
 
 def removeMemberFromGroup(access_token, group_id, email):
-    endpoint = GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX 
+    endpoint = GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX
     headers = buildHeader(access_token)
     data = {JSON_KEY_EMAIL: email}
     result = requests.delete(GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX, headers=headers, data=data)
@@ -78,13 +78,19 @@ def getUserIDFromEmail(access_token, community_id, email):
     return None
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-RemoveMembersGroup"}
 
 # Example of creating a CSV of group members
-access_token = raw_input('Enter your access token: ') 
-community_id = raw_input('Enter your community ID: ')
-groupid = raw_input('Enter your group ID: ')
-grouplist = getGroupMembers(access_token, group_id)
+#accessToken = raw_input('Enter your access token: ') 
+#community_id = raw_input('Enter your community ID: ')
+#groupId = raw_input('Enter your group ID: ')
+accessToken = 'replace_with_access_token'
+groupId = 'replace_with_group_id'
+emails = ['email1@domain.com', 'email2@domain.com']
+
+for email in emails:
+    result = removeMemberFromGroup(accessToken, groupId, email)
+    print email + ' -> ' + str(result)
 
 # Example of creating a new group and adding an admin by email
 #access_token = raw_input('Enter your access token: ') 
@@ -107,4 +113,4 @@ grouplist = getGroupMembers(access_token, group_id)
 #    if result["success"]:
 #        print member_email + " was added to the group"
 #    else:
-#        print "Error adding " + member_email + " to the group" 
+#        print "Error adding " + member_email + " to the group"

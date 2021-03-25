@@ -67,7 +67,7 @@ function modify_user_email_address($id_user, $new_email_address, $api_access_tok
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
                 'Content-Type:application/json',
-                'User-Agent:GithubRepCS-WHSec',
+                'User-Agent:GithubRep-WebHookSecurityUserDeactivation',
                 'Authorization:Bearer ' . $api_access_token
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

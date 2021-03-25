@@ -23,7 +23,7 @@ def sendModificationRequest(access_token, endpoint, frontline_status, has_access
     print (endpoint + ' changing frontline status to ' + frontline_status + ' and has_access to ' + has_access + ' -> ' + result.text)
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-UpdateFrontlineStatus"}
 
 def modifyUserFrontlineStatus(access_token, email, frontline_status, has_access):
     endpoint  = GRAPH_URL_PREFIX + email

@@ -43,7 +43,7 @@ def getPagedData(access_token, endpoint, data):
     return data
 
 def buildHeader(access_token):
-    return {'Authorization': 'Bearer ' + access_token}
+    return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-ExportUserMessages"}
 
 def exportToFile(message_list):
     with open('message_export.txt', 'a') as file:
