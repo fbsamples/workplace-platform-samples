@@ -27,7 +27,7 @@ Create two [custom integrations](https://developers.facebook.com/docs/workplace/
 * Run the script by passing the OriginGroupId and `accessToken.js` file as input:
 
    ```powershell
-   ./groupCloner.ps1 -OriginGroupId {GroupId} -WPAccessToken accessToken.js
+   ./groupContentCloner.ps1 -OriginGroupId {GroupId} -WPAccessToken accessToken.js
    ```
 
    Here are the details of the passed params:
