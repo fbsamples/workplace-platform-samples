@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory=$true, Position=0, HelpMessage='Path for your Workplace export file')] [string]$WPExportedUsers,
     [Parameter(Mandatory=$true, Position=1, HelpMessage='Path for your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken,
-	[switch]$Interactive	
+	[switch]$Interactive
 )
 
 #Install ImportExcel Module
@@ -26,7 +26,7 @@ try {
     Write-Host -ForegroundColor Green "OK, Read!"
 }
 catch {
-    #Handle exception when unable to read file	
+    #Handle exception when unable to read file
     Write-Host -ForegroundColor Red "Fatal Error when reading XLSX file. Is it the Workplace users export file?"
     exit;
 }
@@ -82,7 +82,7 @@ Foreach($u in $global:xslxUsers) {
                     } | ConvertTo-Json)
 
                     #Update User via SCIM API
-                    $user = Invoke-RestMethod -Method PUT -URI ("https://www.facebook.com/scim/v1/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -ContentType "application/json" -Body $body
+                    $user = Invoke-RestMethod -Method PUT -URI ("https://www.workplace.com/scim/v1/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -ContentType "application/json" -Body $body
 
                     #Print OK message
                     If($Interactive.IsPresent) {Write-Host -ForegroundColor Green "  *  OK, change reviewed by user and done!"}
