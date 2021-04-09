@@ -8,10 +8,16 @@ Use at your own risk. Once the script is run, emails provided in the CSV will be
 ## DESCRIPTION
 This usecase example shows how to update in bulk a list of [emails](https://developers.facebook.com/docs/workplace/reference/graph-api/member) providing the old and new emails in a CSV file. For example:
 
-exisitng_email@yourdomain.com -> new_email@yourdomain.com
+`existing_email@yourdomain.com,new_email@yourdomain.com`
+
+Alternatively, you can also provide the Workplace user ID instead of the email address:
+
+`wp_user_id,new_email@yourdomain.com`
 
 ## SETUP
-Edit the code to add the required parameters (access token) and then save the code as `update_emails.py`. Also modify the CSV file to include the list of emails to be updated and save the file as `email_list_change.csv`.
+* Edit the code to add the required parameters (access token) and then save the code as `update_emails.py`.
+* Modify the CSV file to include the list of emails/IDs to be updated and save the file as `email_list_change.csv`.
+
 Please find the information about the parameters below. There is an example of the CSV file in the folder too.
 
 ### PARAMETERS
