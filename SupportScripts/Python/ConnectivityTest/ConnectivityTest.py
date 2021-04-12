@@ -25,7 +25,7 @@ for host in urlset:
   command = ['ping', param, '1', host]
   # Run the ping test to the domain. 
   response = subprocess.call(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)   
-  # If ping is successful, print reacheable.
+  # If ping is successful, print reacheable or else print unrecheable.
   if response == 0:
     print(host + ' is reachable!')
   else:
