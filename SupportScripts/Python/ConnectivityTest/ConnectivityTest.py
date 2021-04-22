@@ -15,9 +15,13 @@ with open(sys.argv[1]) as f:
   obj=json.load(f)
 
 # Extract domains found in har file into set.
-for entry in obj["log"]["entries"]:
-  urlset.add(urlparse(entry["request"]["url"]).netloc)
-  urlset.add(urlparse(entry["response"]["url"].netloc)
+for entry in obj['log']['entries']:
+  urlset.add(urlparse(entry['request']['url']).netloc)
+  urlset.add(urlparse(entry['response']['redirectURL']).netloc)
+
+
+# Remove any empty sting from set
+urlset.discard('')
 
 # Ping every domain found in har to check connectivity
 for host in urlset:
