@@ -23,7 +23,7 @@ Note: This script has only been tested on Mac. However it should work with Windo
 
 ## RUN
 
-Open command line terminal of your platform. Change the directory of your command line to where the scipt is present and run the script as follows:
+Open command line terminal of your platform. Change the directory of your command line to where the scipt is present and run the script. <sample_filename.har> is the filename of har file downloaded in Setup Part 1. Incase the script and har file are in different locations, you can also pass the absolute filepath as shown below in example 2.
 
 ```python
 python ConnectivityTest.py sample_filename.har
@@ -33,4 +33,4 @@ or
 python ConnectivityTest.py /Users/testuser/Download/sample_filename.har
 ```
 
-where <sample_filename.har> is the filename of har file downloaded in Setup Part 1. Incase the script and har file are in different locations, you can also pass the absolute filepath.
+

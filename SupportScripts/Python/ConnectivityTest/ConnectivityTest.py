@@ -1,8 +1,8 @@
 #!/usr/bin/python
 import json        # For parsing JSON and run
-import sys         # For running ping command
 import platform    # For getting the operating system name
 import subprocess  # For executing a shell command
+import sys         # For running ping command
 from urllib.parse import urlparse   #For parsing URLs efficiently
 
 # Check platform
