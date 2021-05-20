@@ -93,9 +93,9 @@ try {
                 $global:posts += $post_data
             })
 
-            if($results.paging.cursors.after) {
-                $after = $results.paging.cursors.after
-                $next = "https://graph.workplace.com/$WPGroupId/feed/?fields=created_time,updated_time,from{first_name, last_name, email},to,message,attachments,story,status_type,type$global:startdate&sorting_setting=RECENT_ACTIVITY&after=$after"
+            if($results.paging.next) {
+                $after = $results.paging.next
+                $next = $after
             }
             else {$next = $null}
         }
