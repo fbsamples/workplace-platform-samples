@@ -474,35 +474,6 @@
               "name": "Root Category",
               "item": [
                 {
-                  "name": "Create Root Category",
-                  "id": "4d77fdd7-f44f-44f5-a98a-69745ca7b716",
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "bearer",
-                      "bearer": {
-                        "token": "{{access_token}}"
-                      }
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n    \"title\": \"Category created by API\",\n    \"icon\": \"AIRPLANE\",\n    \"color\": \"Red\",\n    \"json_content\":[\n                    {\n                        \"type\": \"text_block\",\n                        \"children\": [\n                            {\n                                \"type\": \"p\",\n                                \"children\": [\n                                    {\n                                        \"type\": \"text\",\n                                        \"text\": \"Sample Text\"\n                                    }\n                                ]\n                            }\n                        ]\n                    }\n                ]\n                        \n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": "https://graph.workplace.com/community/knowledge_library_categories",
-                    "description": "# Create Knowledge Library Root Category. \nCreates a new Root Category in Knowledge Library.\n\n**Usage**  \n`POST https://graph.workplace.com/community/knowledge_library_categories`\n\n**Parameters**\n* `title`: Title of the root category.\n* `icon`: Icon to be used on the category.\n* `color`: Color of the category.\n* `json_content`: The content to be published on the category in json format.\n* `read_audience`: The audience persmissions for the Category.\n* `status`: The status of the category.\n\n\n**Usage**\n\n```\nPOST https://graph.workplace.com/community/knowledge_library_categories\nBody:\n{\n    \"title\": String,\n    \"icon\": enum {AIRPLANE, PROFILE_CIRCLE, SCALE, HEART, BUILDING_CITY, PRIVACY, RIBBON, DIAGNOSED , BACKPACK, COIN_STACK, BADGE, READING_GLASSES, RUNNING, MENTORSHIP, DOCUMENTS, PIN_LOCAL_BUSINESS, TROPHY, STAR, FOUNDED, QUESTION_CIRCLE, FLASH_DEFAULT, COMPASS, BADGE_CHECKMARK, ROCKET, ARMCHAIR, HEALTH, VOLUNTEER, TOOTH, FAMILY, MORTAR_BOARD },\n    \"color\": enum {LIGHT_GRAY, LIGHT_CYAN, LIGHT_TEAL, LIGHT_YELLOW, LIGHT_ORANGE, LIGHT_ORANGE_RED, LIGHT_RED, LIGHT_PINK, LIGHT_PURPLE, GRAY, CYAN, TEAL, GREEN, YELLOW, ORANGE, ORANGE_RED, RED, PINK, PURPLE, DARK_GRAY, DARK_CYAN, DARK_TEAL, DARK_YELLOW, DARK_ORANGE, DARK_ORANGE_RED, DARK_RED, DARK_PINK, DARK_PURPLE },\n    \"json_content\": JSON\n    \"status\": enum {PUBLISHED,DRAFT}\n    \"read_audience\": JSON\n}\n```"
-                  },
-                  "response": []
-                },
-                {
                   "name": "Get Root Categories",
                   "id": "3b28dfeb-3de4-423b-918b-75648bd2616b",
                   "protocolProfileBehavior": {
@@ -547,6 +518,35 @@
                       ]
                     },
                     "description": "# Get Knowledge Library Root Category. \nGet all Root Categories in Knowledge Library.\n\n**Avilable fields**\n\n`id,title,content,status,last_editor,read_audience,color,icon,last_updated,json_content`\n\n\n**Usage**\n\n`GET https://graph.workplace.com/community/knowledge_library_categories?fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Create Root Category",
+                  "id": "4d77fdd7-f44f-44f5-a98a-69745ca7b716",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "token": "{{access_token}}"
+                      }
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"title\": \"Category created by API\",\n    \"icon\": \"AIRPLANE\",\n    \"color\": \"Red\",\n    \"json_content\":[\n                    {\n                        \"type\": \"text_block\",\n                        \"children\": [\n                            {\n                                \"type\": \"p\",\n                                \"children\": [\n                                    {\n                                        \"type\": \"text\",\n                                        \"text\": \"Sample Text\"\n                                    }\n                                ]\n                            }\n                        ]\n                    }\n                ]\n                        \n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": "https://graph.workplace.com/community/knowledge_library_categories",
+                    "description": "# Create Knowledge Library Root Category. \nCreates a new Root Category in Knowledge Library.\n\n**Usage**  \n`POST https://graph.workplace.com/community/knowledge_library_categories`\n\n**Parameters**\n* `title`: Title of the root category.\n* `icon`: Icon to be used on the category.\n* `color`: Color of the category.\n* `json_content`: The content to be published on the category in json format.\n* `read_audience`: The audience persmissions for the Category.\n* `status`: The status of the category.\n\n\n**Usage**\n\n```\nPOST https://graph.workplace.com/community/knowledge_library_categories\nBody:\n{\n    \"title\": String,\n    \"icon\": enum {AIRPLANE, PROFILE_CIRCLE, SCALE, HEART, BUILDING_CITY, PRIVACY, RIBBON, DIAGNOSED , BACKPACK, COIN_STACK, BADGE, READING_GLASSES, RUNNING, MENTORSHIP, DOCUMENTS, PIN_LOCAL_BUSINESS, TROPHY, STAR, FOUNDED, QUESTION_CIRCLE, FLASH_DEFAULT, COMPASS, BADGE_CHECKMARK, ROCKET, ARMCHAIR, HEALTH, VOLUNTEER, TOOTH, FAMILY, MORTAR_BOARD },\n    \"color\": enum {LIGHT_GRAY, LIGHT_CYAN, LIGHT_TEAL, LIGHT_YELLOW, LIGHT_ORANGE, LIGHT_ORANGE_RED, LIGHT_RED, LIGHT_PINK, LIGHT_PURPLE, GRAY, CYAN, TEAL, GREEN, YELLOW, ORANGE, ORANGE_RED, RED, PINK, PURPLE, DARK_GRAY, DARK_CYAN, DARK_TEAL, DARK_YELLOW, DARK_ORANGE, DARK_ORANGE_RED, DARK_RED, DARK_PINK, DARK_PURPLE },\n    \"json_content\": JSON\n    \"status\": enum {PUBLISHED,DRAFT}\n    \"read_audience\": JSON\n}\n```"
                   },
                   "response": []
                 }
@@ -651,6 +651,50 @@
                 }
               ],
               "id": "de6bafd3-d244-4a69-bed2-9f7f268f8b36"
+            },
+            {
+              "name": "Get Category Content",
+              "id": "4922aa50-1a1d-4874-8751-f4ae5522cf1e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{access_token}}"
+                  }
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.workplace.com/:category_id?fields=id,title,content,status,last_editor,color,icon,last_updated,json_content,read_audience{audience_type,groups,static_users,profile_set_conditions}",
+                  "protocol": "https",
+                  "host": [
+                    "graph",
+                    "workplace",
+                    "com"
+                  ],
+                  "path": [
+                    ":category_id"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "id,title,content,status,last_editor,color,icon,last_updated,json_content,read_audience{audience_type,groups,static_users,profile_set_conditions}"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "bd3db244-a439-4ea0-9f02-115bb0a9a554",
+                      "key": "category_id",
+                      "value": "{{category_id}}"
+                    }
+                  ]
+                },
+                "description": "# Returns details of a category\nGet the content of a category\n\n**Avilable fields**\n\n`id,title,content,status,last_editor,color,icon,last_updated,json_content,read_audience{audience_type,groups,static_users,profile_set_conditions}`\n\n\n**Usage**\n\n`GET https://graph.workplace.com/{{category-id}}/fields={fields}`\n\nReplace `{fields}` with values required above, or remove for defaults."
+              },
+              "response": []
             },
             {
               "name": "Upload Photo",
@@ -908,7 +952,7 @@
                     }
                   ]
                 },
-                "description": "# Update Category/SubCategory Audience. \nUpdates the audience of Category in Knowledge Library.\n\n**Usage**  \n`POST https://graph.workplace.com/{{category-id}}`\n\n**Parameters**\n* `title`: Title of the root category.\n* `icon`: Icon to be used on the category.\n* `color`: Color of the category.\n* `json_content`: The content to be published on the category in json format.\n* `read_audience`: The audience persmissions for the Category.\n\n\n**Usage**\nProvide the details of read_audience to set the permissions.\n```\nPOST https://graph.workplace.com/{{category-id}}\nBody:\n  //Example 1:\n {\n   \"read_audience\": {\n        \"audience_type\": \"PROFILE_FIELDS\",\n        \"profile_set_conditions\": [\n            {\n                \"field\": \"LOCATION\",\n                \"operator\": \"CONTAINS\",\n                \"values\": [\n                    \"London\",\n                    \"San Francisco\"\n                ]\n            },\n            {\n               \"field\": \"TITLE\",\n                \"operator\": \"CONTAINS\",\n                \"values\": [\n                    \"Engineer\"\n                ]\n            }\n        ]\n    }\n}\n \n  //Example 2:\n  {\n \"read_audience\": {\n        \"audience_type\": \"GROUPS\",\n        \"groups\": [{group_id_1},{group_id_2}]\n    }\n}\n  \n  //Example 3:\n  //Only for subcategories to inherit the parent category's audience\n {\n   \"read_audience\": {\n        \"audience_type\": \"INHERIT\" \n    }\n}\n```"
+                "description": "# Update Category/SubCategory Audience. \nUpdates the audience of Category in Knowledge Library.\n\n**Usage**  \n`POST https://graph.workplace.com/{{category-id}}`\n\n**Parameters**\n* `read_audience`: The audience persmissions for the Category.\n\n\n**Usage**\nProvide the details of read_audience to set the permissions.\n```\nPOST https://graph.workplace.com/{{category-id}}\nBody:\n  //Example 1:\n {\n   \"read_audience\": {\n        \"audience_type\": \"PROFILE_FIELDS\",\n        \"profile_set_conditions\": [\n            {\n                \"field\": \"LOCATION\",\n                \"operator\": \"CONTAINS\",\n                \"values\": [\n                    \"London\",\n                    \"San Francisco\"\n                ]\n            },\n            {\n               \"field\": \"TITLE\",\n                \"operator\": \"CONTAINS\",\n                \"values\": [\n                    \"Engineer\"\n                ]\n            }\n        ]\n    }\n}\n \n  //Example 2:\n  {\n \"read_audience\": {\n        \"audience_type\": \"GROUPS\",\n        \"groups\": [{group_id_1},{group_id_2}]\n    }\n}\n  \n  //Example 3:\n  //Only for subcategories to inherit the parent category's audience\n {\n   \"read_audience\": {\n        \"audience_type\": \"INHERIT\" \n    }\n}\n```"
               },
               "response": []
             },
@@ -1187,6 +1231,70 @@
             }
           ],
           "id": "10552d09-eabe-461a-9f69-5fad28750797"
+        },
+        {
+          "name": "Data Export",
+          "item": [
+            {
+              "name": "Initiate Data Export",
+              "id": "a63a1c61-9cd1-4b77-90d0-9151761fe6d0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{access_token}}"
+                  }
+                },
+                "method": "POST",
+                "header": [],
+                "url": "https://graph.workplace.com/community/export_employee_data",
+                "description": "# Initiates the data export job in Workplace.\nInitiates a data export job to export list of employees with their profile activity metrics data. \n\n**Returns**\n\n`id`: ID of the export job initiated by the API call. This ID can be used to fetch the data file once job completes.\n\n\n**Usage**\n\n`POST https://graph.workplace.com/community/export_employee_data`"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Export Data",
+              "id": "2203f5db-363b-484a-9c7a-777288565d57",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{access_token}}"
+                  }
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.workplace.com/:export_job_id",
+                  "protocol": "https",
+                  "host": [
+                    "graph",
+                    "workplace",
+                    "com"
+                  ],
+                  "path": [
+                    ":export_job_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e71d75d8-226e-48a8-b4cf-1c6bb3014781",
+                      "key": "export_job_id",
+                      "value": "{{export_job_id}}"
+                    }
+                  ]
+                },
+                "description": "# Returns the export job status and report data URL.\nReturns the status of data export job created using \"Initiate Data Export\" Script. If the status is complete, a URL is generated to download activity data.\n\n**Avilable fields**\n\n`id,status,type,result`\n\n\n**Usage**\n\n`GET https://graph.workplace.com/community/export_employee_data`"
+              },
+              "response": []
+            }
+          ],
+          "id": "9b37d792-b35e-4789-b0a8-47a09880b6d1"
         }
       ],
       "id": "96f23713-8530-41d0-aef9-f189632fcd96",
