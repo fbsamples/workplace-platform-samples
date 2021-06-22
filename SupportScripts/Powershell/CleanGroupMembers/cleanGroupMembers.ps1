@@ -3,7 +3,8 @@
     [Parameter(Mandatory=$false, HelpMessage='The domain of the users you would like to remove')] [string]$EmailDomain,
     [Parameter(Mandatory=$false, HelpMessage='Path to your file listing users to remove from group')] [string]$WPGroupMembers,
     [Parameter(Mandatory=$true, HelpMessage='Path to your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken,
-    [Parameter(Mandatory=$false, HelpMessage='Mode you would like to run the tool in: {Test (default), Live, Live-Force}')] [string]$Mode = 'Test'
+    [Parameter(Mandatory=$false, HelpMessage='Mode you would like to run the tool in: {Test (default), Live, Live-Force}')] [string]$Mode = 'Test',
+    [Parameter(Mandatory=$false, HelpMessage='Flag to indicate if a CSV file is provided: {True, False (default)}')] [string]$CSVFile = 'False'
     )
 
 #Read JSON Access Token
@@ -18,8 +19,20 @@ catch {
     exit;
 }
 
+#Remove users from group by using a CSV file
+if($CSVFile && $CSVFile -eq 'True') {
+    try {
+        #Read users from CSV file
+        $global:members = Import-Csv -Path $WPGroupMembers
+        Write-Host -NoNewLine "Workplace Group Members File: "
+        Write-Host -ForegroundColor Green "OK, Read!"
+    } catch {
+        #Handle exception when unable to read file
+        Write-Host -ForegroundColor Red "Fatal Error when reading CSV file. Is it the Workplace users export file?"
+        exit;
+    }
 #Remove users from group by using a XLSX file
-if($WPGroupMembers) {
+} elseif($WPGroupMembers) {
     try {
         #Install ImportExcel Module
         If(!(Get-module ImportExcel)){Install-Module ImportExcel -scope CurrentUser}
@@ -28,13 +41,13 @@ if($WPGroupMembers) {
         Write-Host -NoNewLine "Workplace Group Members File: "
         Write-Host -ForegroundColor Green "OK, Read!"
     } catch {
-        #Handle exception when unable to read file	
+        #Handle exception when unable to read file
         Write-Host -ForegroundColor Red "Fatal Error when reading XLSX file. Is it the Workplace users export file?"
         exit;
     }
 #Remove users from group with a specific email domain
 } elseif($EmailDomain) {
-    try {    
+    try {
         $global:members = @()
         #Get members of a group from API calls
         $next = "https://graph.workplace.com/$GroupId/members/?fields=name%2Cid%2Cemail%2Cadministrator"
@@ -50,7 +63,7 @@ if($WPGroupMembers) {
                 else {$next = $null}
             }
             else {$next = $null}
-        } while($next) 
+        } while($next)
     } catch {
         #Handle exception when getting users from API throws an error
         Write-Host -ForegroundColor Red "Fatal Error when getting users via API!"
@@ -88,7 +101,7 @@ ForEach($m in $global:members){
                     #Check user input response
                     if($askRes.length -eq 0) {
                         #Remove Member from Group via Graph API
-                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"} 
+                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         #Check DELETE result
                         if($result.success) {
@@ -107,7 +120,7 @@ ForEach($m in $global:members){
 
                 #Remove member from the group without asking for removal
                 'Live-Force' {
-                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"} 
+                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         #Check DELETE result
                         if($result.success) {
@@ -116,7 +129,7 @@ ForEach($m in $global:members){
                         } else {
                             $errors++
                             Write-Host -ForegroundColor Red "  *  KO, impossible to remove the users. Sure it's still in the group? User ID/Email are correct?"
-                        } 
+                        }
                         }
             }
         }

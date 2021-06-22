@@ -81,3 +81,4 @@ Here are the details of the script parameters:
    | WPGroupMembers    |  Path to the XLSX file with the users to remove            | _String_ | Yes, one between EmailDomain or WPGroupMembers |
    | WPAccessToken     |  Path to the JSON file with the access token               | _String_ | Yes          |
    | Mode              |  Set to 'Live' to apply changes. Defaults to 'Test'        | _String_ | No           |
+   | CSVFile           |  Set to 'True' to input a CSV file. Defaults to 'False'    | _String_ | No           |
