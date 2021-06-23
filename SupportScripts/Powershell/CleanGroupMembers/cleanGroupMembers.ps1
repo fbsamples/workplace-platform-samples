@@ -20,7 +20,7 @@ catch {
 }
 
 #Remove users from group by using a CSV file
-if($CSVFile && $CSVFile -eq 'True') {
+if($CSVFile -and $CSVFile -eq 'True') {
     try {
         #Read users from CSV file
         $global:members = Import-Csv -Path $WPGroupMembers
