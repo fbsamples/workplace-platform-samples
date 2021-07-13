@@ -293,49 +293,55 @@ function CreateNewGroupPosts
                         }
                         else
                         {
-                            $title_obj = $postToAdd.attachments.data[$ib].title
-                            $title = $title_obj -replace "\s[·] version \d", ""
-
-                            try {
+                            if ($postToAdd.attachments.data[$ib].url) {
+                                $title_obj = $postToAdd.attachments.data[$ib].title
+                                $title = $title_obj -replace "\s[·] version \d", ""
+                                if ($postToAdd.attachments.data[$ib].url.EndsWith('/')) {
+                                    continue
+                                }
                                 Invoke-WebRequest $postToAdd.attachments.data[$ib].url -OutFile $title
-
-                                $FilePath = '' + (Get-Location) + '\' + $title;
-                                $File = Get-ChildItem $FilePath
-
-                                $URL = 'https://graph.workplace.com/group_file_revisions';
-
-                                $fileBytes = [IO.File]::ReadAllBytes($FilePath)
-                                $enc = [System.Text.Encoding]::GetEncoding("iso-8859-1")
-                                $fileEnc = $enc.GetString($fileBytes)
-                                $boundary = [System.Guid]::NewGuid().ToString()
-                                $FileMimeType = $ContentTypeMap[$File.Extension.ToLower()]
-                                $fileName = $title
-                                $contentLength = [System.Text.Encoding]::ASCII.GetByteCount($fileBytes)
-
-                                $LF = "`n"
-                                $bodyLines = (
-                                "--$boundary",
-                                "Content-Disposition: form-data; name=`"file`"; filename=$fileName", # filename= is optional
-                                "Content-Type: $FileMimeType$LF",
-                                "Content-Length: $contentLength$LF",
-                                "Transfer-Encoding: `"chunked`"$LF",
-                                $fileEnc,
-                                "--$boundary--$LF"
-                                ) -join $LF
-
-                                $send_file = Invoke-RestMethod -ErrorAction Stop -Uri $URL -Method Post -TimeoutSec 2147483647 -ContentType "multipart/form-data; boundary=`"$boundary`"" -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner" -Body $bodyLines
-
-                                $attachments += $send_file.id + ','
-
-                                Remove-Item $FilePath
-
-                                $filesUploaded = 1
+                            } elseif ($postToAdd.attachments.data[$ib].subattachments) {
+                                $title_obj = $postToAdd.attachments.data[$ib].subattachments.data[0].title
+                                $title = $title_obj -replace "\s[·] version \d", ""
+                                if ($postToAdd.attachments.data[$ib].subattachments.data[0].url.EndsWith('/')) {
+                                    continue
+                                }
+                                Invoke-WebRequest $postToAdd.attachments.data[$ib].subattachments.data[0].url -OutFile $title
+                            } else {
+                                continue
                             }
-                            catch
-                            {
-                                $filesNotUploadedLinks += $postToAdd.attachments.data[$ib].url + "`n"
-                                Write-Host "No file to upload:" + $postToAdd.attachments.data[$ib]
-                            }
+
+                            $FilePath = '' + (Get-Location) + [IO.Path]::DirectorySeparatorChar + $title;
+                            $File = Get-ChildItem $FilePath
+
+                            $URL = 'https://graph.workplace.com/group_file_revisions';
+
+                            $fileBytes = [IO.File]::ReadAllBytes($FilePath)
+                            $enc = [System.Text.Encoding]::GetEncoding("iso-8859-1")
+                            $fileEnc = $enc.GetString($fileBytes)
+                            $boundary = [System.Guid]::NewGuid().ToString()
+                            $FileMimeType = $ContentTypeMap[$File.Extension.ToLower()]
+                            $fileName = $title
+                            $contentLength = [System.Text.Encoding]::ASCII.GetByteCount($fileBytes)
+
+                            $LF = "`n"
+                            $bodyLines = (
+                            "--$boundary",
+                            "Content-Disposition: form-data; name=`"file`"; filename=$fileName", # filename= is optional
+                            "Content-Type: $FileMimeType$LF",
+                            "Content-Length: $contentLength$LF",
+                            "Transfer-Encoding: `"chunked`"$LF",
+                            $fileEnc,
+                            "--$boundary--$LF"
+                            ) -join $LF
+
+                            $send_file = Invoke-RestMethod -ErrorAction Stop -Uri $URL -Method Post -ContentType "multipart/form-data; boundary=`"$boundary`"" -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "GithubRep-GroupCloner" -Body $bodyLines
+
+                            $attachments += $send_file.id + ','
+
+                            Remove-Item $FilePath
+
+                            $filesUploaded = 1
                         }
                     }
                     catch
