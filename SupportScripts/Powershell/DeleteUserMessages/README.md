@@ -1,6 +1,6 @@
 # Delete Chat Messages for a user
 
-This PowerShell script searches the workplace messages sent by a user A and receved by a user B and delete them.
+This PowerShell script searches the workplace messages sent by a user A and received by a user B, and delete them.
 
 ## Setup
 
