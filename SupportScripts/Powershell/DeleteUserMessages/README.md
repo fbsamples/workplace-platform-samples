@@ -28,10 +28,10 @@ This PowerShell script searches the workplace messages sent by a user A and rece
    ./RetrieveMessageInfo.ps1 -WPAccessToken accessToken.js -WPSenderUser <Sender User ID> -WPReceiverUser <Receiver User ID>
    ```
    </br>
-   *Note : When you run the script and confirm that you want to go ahead with the deletion, all messages sent from the sender to the receiver will be deleted for the receiver, no matter if they happened in a 1to1 chat conversation or in a group.
-   </br>
-   </br>
-   Here are the details of the params that need to be passed:
+* When you run the script and confirm that you want to go ahead with the deletion, all messages sent from the sender to the receiver will be deleted for the receiver, no matter if they happened in a 1to1 chat conversation or in a group.
+
+## Parameters
+Here are the details of the params that need to be passed:
 
    | Parameter         | Description                                                |  Type    |  Required    |
    |:-----------------:|:----------------------------------------------------------:|:--------:|:------------:|
