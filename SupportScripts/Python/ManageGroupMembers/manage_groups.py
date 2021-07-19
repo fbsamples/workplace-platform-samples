@@ -8,8 +8,8 @@ import requests
 import json
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
-FIELDS_CONJ = '?fields=' 
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
+FIELDS_CONJ = '?fields='
 GROUPS_SUFFIX = '/groups'
 GROUP_FIELDS = 'id,name,members,privacy,description,updated_time'
 MEMBERS_SUFFIX = '/members'
@@ -33,14 +33,14 @@ def getGroupMembers(access_token, group_id):
     return getPagedData(access_token, endpoint, [])
 
 def addMemberToGroup(access_token, group_id, email):
-    endpoint = GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX 
+    endpoint = GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX
     headers = buildHeader(access_token)
     data = {JSON_KEY_EMAIL: email}
     result = requests.post(GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX, headers=headers, data=data)
     return json.loads(result.text, result.encoding)
 
 def removeMemberFromGroup(access_token, group_id, email):
-    endpoint = GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX 
+    endpoint = GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX
     headers = buildHeader(access_token)
     data = {JSON_KEY_EMAIL: email}
     result = requests.delete(GRAPH_URL_PREFIX + group_id + MEMBERS_SUFFIX, headers=headers, data=data)
@@ -81,13 +81,13 @@ def buildHeader(access_token):
     return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-ManageGroupMembers"}
 
 # Example of creating a CSV of group members
-access_token = raw_input('Enter your access token: ') 
+access_token = raw_input('Enter your access token: ')
 community_id = raw_input('Enter your community ID: ')
 groupid = raw_input('Enter your group ID: ')
 grouplist = getGroupMembers(access_token, group_id)
 
 # Example of creating a new group and adding an admin by email
-#access_token = raw_input('Enter your access token: ') 
+#access_token = raw_input('Enter your access token: ')
 #community_id = raw_input('Enter your community ID: ')
 #name = raw_input('Choose a group name: ')
 #description = raw_input('Choose a group description: ')
@@ -107,4 +107,4 @@ grouplist = getGroupMembers(access_token, group_id)
 #    if result["success"]:
 #        print member_email + " was added to the group"
 #    else:
-#        print "Error adding " + member_email + " to the group" 
+#        print "Error adding " + member_email + " to the group"

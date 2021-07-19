@@ -9,8 +9,8 @@ import json
 import csv
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
-FIELDS_CONJ = '?fields=' 
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
+FIELDS_CONJ = '?fields='
 SEEN_SUFFIX = '/seen'
 USER_FIELDS = 'id,name,email,department,division,organization,title'
 JSON_KEY_DATA = 'data'

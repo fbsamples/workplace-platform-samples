@@ -10,7 +10,7 @@ import urllib
 import csv
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
 
 # Methods
 def sendModificationRequest(access_token, endpoint, group_description):

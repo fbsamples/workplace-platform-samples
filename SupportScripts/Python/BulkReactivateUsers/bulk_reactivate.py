@@ -9,7 +9,7 @@ import requests
 import csv
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
 
 # Methods
 

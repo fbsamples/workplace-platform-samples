@@ -15,7 +15,7 @@ TOKEN = "YOURTOKEN"
 DAYS = 14
 
 # No need to modify these
-GRAPH_URL_PREFIX = "https://graph.facebook.com/"
+GRAPH_URL_PREFIX = "https://graph.workplace.com/"
 GROUPS_SUFFIX = "/groups"
 
 # Default paging limit for Graph API# No need to modify, unless you're seeing timeouts
@@ -33,7 +33,7 @@ def getFeed(group, name):
     headers = {'Authorization': 'Bearer ' + TOKEN, "User-Agent": "GithubRep-DownloadGroupFeed"}
 
     # Get the relevant group post content for each feed item
-    # Include a fetch for like and comment summaries to get total count 
+    # Include a fetch for like and comment summaries to get total count
     # No need to fetch actual likes &amp; comments, so set the limit to 0
     params = "?fields=permalink_url,from,story,type,message,link,created_time,updated_time,likes.limit(0).summary(total_count),comments.limit(0).summary(total_count)"
 
@@ -68,13 +68,13 @@ def getFeed(group, name):
     return feed
 
 # Recursively gets groups if pagination exists. In instances with a significant number of groups this
-# may overflow the stack. 
+# may overflow the stack.
 def getGroups(after=None):
 
     # Token-based auth header
     headers = {'Authorization': 'Bearer ' + TOKEN}
 
-    # Fetch feed for each group, since a given time, but only get 1 feed item. 
+    # Fetch feed for each group, since a given time, but only get 1 feed item.
     # We'll use this later to check if there's fresh content in the group
     params = "?fields=feed.since(" + SINCE.strftime("%s") + ").limit(1),name,updated_time&amp;"
 

@@ -9,8 +9,8 @@ import requests
 import json
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
-FIELDS_CONJ = '?fields=' 
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
+FIELDS_CONJ = '?fields='
 CONVERSATIONS_SUFFIX = '/conversations'
 MESSAGES_FIELDS = 'messages{created_time,message,to,from}'
 JSON_KEY_DATA = 'data'

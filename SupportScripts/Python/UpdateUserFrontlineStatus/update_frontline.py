@@ -9,7 +9,7 @@ import requests
 import csv
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
 
 # Variables
 access_token = 'replace_with_your_access_token'
@@ -38,4 +38,4 @@ with open(file_name, newline='') as f:
     next(reader) #Skip header
     for row in reader:
         #replace row[2] with string 'true' if not using 'has_access' column in csv.
-        modifyUserFrontlineStatus(access_token, row[0], row[1], row[2])  
+        modifyUserFrontlineStatus(access_token, row[0], row[1], row[2])

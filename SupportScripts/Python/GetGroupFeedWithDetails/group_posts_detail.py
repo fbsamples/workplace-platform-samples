@@ -10,9 +10,9 @@ import json
 import csv
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
-FIELDS_CONJ = '?fields=' 
-SINCE_CONJ = '&since=' 
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
+FIELDS_CONJ = '?fields='
+SINCE_CONJ = '&since='
 GROUPS_SUFFIX = '/groups'
 GROUP_FIELDS = 'id,name,members,privacy,description,updated_time'
 MEMBERS_SUFFIX = '/members'

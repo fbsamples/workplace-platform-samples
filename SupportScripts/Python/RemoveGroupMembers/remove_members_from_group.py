@@ -8,8 +8,8 @@ import requests
 import csv
 
 # Constants
-GRAPH_URL_PREFIX = 'https://graph.facebook.com/'
-FIELDS_CONJ = '?fields=' 
+GRAPH_URL_PREFIX = 'https://graph.workplace.com/'
+FIELDS_CONJ = '?fields='
 GROUPS_SUFFIX = '/groups'
 GROUP_FIELDS = 'id,name,members,privacy,description,updated_time'
 MEMBERS_SUFFIX = '/members'
@@ -31,7 +31,7 @@ def buildHeader(access_token):
     return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-RemoveMembersGroup"}
 
 # Example of creating a CSV of group members
-#accessToken = raw_input('Enter your access token: ') 
+#accessToken = raw_input('Enter your access token: ')
 #groupId = raw_input('Enter your group ID: ')
 #fileName = raw_input('Enter the name of the CSV file with the members emails: ')
 accessToken = 'replace_with_access_token'
