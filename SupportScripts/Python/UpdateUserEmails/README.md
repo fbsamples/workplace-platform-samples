@@ -1,5 +1,5 @@
 # Update a list of user emails
-  
+
 **Language:** Python v3.7
 
 ## DISCLAIMER
@@ -15,6 +15,7 @@ Alternatively, you can also provide the Workplace user ID instead of the email a
 `wp_user_id,new_email@yourdomain.com`
 
 ## SETUP
+* Make sure that the field Email address is marked as modifiable by the Identity Provider within the [Profile Settings](https://work.workplace.com/work/admin/profile_settings) of the Admin panel.
 * Edit the code to add the required parameters (access token) and then save the code as `update_emails.py`.
 * Modify the CSV file to include the list of emails/IDs to be updated and save the file as `email_list_change.csv`.
 
@@ -23,7 +24,7 @@ Please find the information about the parameters below. There is an example of t
 ### PARAMETERS
 Here are the details of the script parameters to be replaced:
 
-   | Parameter         | Description                                                |  Type           |  Required    | 
+   | Parameter         | Description                                                |  Type           |  Required    |
    |:-----------------:|:----------------------------------------------------------:|:---------------:|:------------:|
    | access_token      |  The access token of the Workplace integration             | _String_ | Yes |
 
