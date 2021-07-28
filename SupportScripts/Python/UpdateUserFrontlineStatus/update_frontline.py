@@ -26,6 +26,7 @@ def sendModificationRequest(access_token, endpoint, frontline_status, has_access
     result_console = endpoint + ' changing frontline status to ' + frontline_status
     if ('' != has_access):
         result_console += ' and has_access to ' + has_access + ' -> ' + result.text
+    result_console += ' -> ' + result.text
     print (result_console)
 
 def buildHeader(access_token):
