@@ -25,7 +25,7 @@ This PowerShell script searches the workplace messages sent by a user A and rece
 * Run the script by passing the `accessToken.js` file as input:
 
    ```powershell
-   ./RetrieveMessageInfo.ps1 -WPAccessToken accessToken.js -WPSenderUser <Sender User ID> -WPReceiverUser <Receiver User ID>
+   ./DeleteUserMessages.ps1 -WPAccessToken accessToken.js -WPSenderUser <Sender User ID> -WPReceiverUser <Receiver User ID>
    ```
    </br>
 * When you run the script and confirm that you want to go ahead with the deletion, all messages sent from the sender to the receiver will be deleted for the receiver, no matter if they happened in a 1to1 chat conversation or in a group.
