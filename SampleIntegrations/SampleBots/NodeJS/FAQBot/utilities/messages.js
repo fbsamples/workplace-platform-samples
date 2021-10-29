@@ -1,4 +1,4 @@
-var GoogleSpreadsheet = require('google-spreadsheet');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 var creds = require('./client_secret.json')
 
 
@@ -23,7 +23,7 @@ require('dotenv').config(); //Configuration values like workplace ID, Google She
 
 //Variable declaration for getting all the value from the config value again
 
-var doc = new GoogleSpreadsheet(process.env.Google_sheet_bot_queries);
+const doc = new GoogleSpreadsheet(process.env.Google_sheet_bot_queries);
 var newquerydoc = new GoogleSpreadsheet(process.env.Google_sheet_new_queries);
 var AdminworkplaceId = process.env.Admin_workplace_id;
 var Google_sheet_bot_queries_link= process.env.Google_sheet_bot_queries_link;
@@ -49,21 +49,21 @@ module.exports = function (graph_api) {
     }
 
     //Handle received message
-    module._handleMessage = function (message) {
-
+    module._handleMessage = async function (message) {
 
         let senderID = message.sender.id;
-        doc.useServiceAccountAuth(creds, function (err) {
+        doc.useServiceAccountAuth(creds)
+        await doc.loadInfo()
+        console.log(doc.title)
 
-            // Get all of the rows from the spreadsheet
-            doc.getRows(1, function (err, rows) {
-                console.log("console message")
-                rows.forEach(function (rowValue) {
-                    eachRow.set(rowValue.tag, rowValue.index)
-                    rowsval = rows;
-                })
-            });
-        });
+        const sheet = doc.sheetsByIndex[0];
+        const rows = await sheet.getRows()
+        
+        rows.forEach(function (rowValue) {
+            console.log(rowValue)
+            eachRow.set(rowValue.tag, rowValue.index)
+            rowsval = rows;
+            })
 
 
         //getting the message from the user
@@ -95,7 +95,7 @@ module.exports = function (graph_api) {
 
                 each_word.forEach(function (element) {
 
-//                    console.log("word is " + element)
+                    console.log("word is " + element)
 
                     if (eachRow.has(element)) {
                         found_word_flag=true;
@@ -106,9 +106,9 @@ module.exports = function (graph_api) {
 
                 //Get the details from google sheet if the any word is same as any of the tag in the sheet
 
-                if(found_word_flag)
+            if(found_word_flag)
                 {
-//                  console.log('item present in index ' + eachRow.get(found_word))
+                  console.log('item present in index ' + eachRow.get(found_word))
 
                     //row number for the sheet
                     index = eachRow.get(found_word) - 1;
