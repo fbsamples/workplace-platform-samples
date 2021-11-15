@@ -41,6 +41,22 @@ def getPagedData(access_token, endpoint, data):
             getPagedData(access_token, next, data)
     return data
 
+def processAdminsAndMembers(group_data):
+    for idx, group in enumerate(group_data):
+        group_data[idx]['members'] = group['members']['summary']['total_count']
+        admins = ''
+        try:
+            for admin in group['admins']['data']:
+                admins += admin['id'] + '-' + admin['name']
+                try:
+                    admins += ' (' + admin['email'] + ')|'
+                except:
+                    admins += '|'
+            group_data[idx]['admins'] = admins
+        except:
+            return group_data
+    return group_data
+
 def buildHeader(access_token):
     return {'Authorization': 'Bearer ' + access_token, "User-Agent": "GithubRep-GroupsWithDetails"}
 
@@ -55,7 +71,7 @@ def exportToCSV(group_list):
 ## START
 access_token = 'access_token'
 
-group_data = getAllGroups(access_token)
+group_data = processAdminsAndMembers(getAllGroups(access_token))
 print (group_data)
 
 exportToCSV(group_data);
