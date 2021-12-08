@@ -36,18 +36,14 @@ function AnonymiseWorkplaceUserProfile
 
         #Requesting data of the user to Workplace
         $results = Invoke-RestMethod -Uri ($userDataUrl) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "GithubRep-ProfileAnonymiser"
-		
+
 		if ($results -and !$results.error)
-        {	
+        {
 			#Formatting data to be sent for the anonymisation
 			$emailParts = $results.userName.Split("@")
-			if ($results.externalId) {
-				$newUsername = $results.externalId + "_" + $todayDate + "@" + $emailParts[1]
-			} else {
-				$randomString = -join ((65..90) + (97..122) | Get-Random -Count 10 | % {[char]$_})
-				$newUsername = $randomString + "_" + $todayDate + "@" + $emailParts[1]
-			}
-			        
+			$randomString = -join ((65..90) + (97..122) | Get-Random -Count 10 | % {[char]$_})
+			$newUsername = $randomString + "_" + $todayDate + "@" + $emailParts[1]
+
 			$requestBody = '{
 				"schemas" : ["urn:scim:schemas:core:1.0", "urn:scim:schemas:extension:enterprise:1.0", "urn:scim:schemas:extension:facebook:starttermdates:1.0"],
 				"userName" : "' + $newUsername + '",
