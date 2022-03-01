@@ -7,14 +7,14 @@ param(
 $SCIMPageSize = 100
 
 $defJobs = {
-    
+
     $origin = New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0
     function Get-Status {
         If(-Not $_.active) {return "Deactivated"}
         Else {
-            If($_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".invited -eq $False) {return "Not Invited"} 
+            If($_."urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User".invited -eq $False) {return "Not Invited"}
             Else {
-                If($_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimed -eq $False) {return "Invited"} 
+                If($_."urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User".claimed -eq $False) {return "Invited"}
                 Else {return "Claimed"}
             }
         }
@@ -28,9 +28,9 @@ $defJobs = {
         For($i = 0; $i -lt $pageNumber; $i++){
             $offset = $startIndex + $i * $SCIMPageSize
             #$count = $offset + $SCIMPageSize - 1
-            $next = "https://www.workplace.com/scim/v1/Users?startIndex=$offset&count=$SCIMPageSize"
+            $next = "https://scim.workplace.com/Users?startIndex=$offset&count=$SCIMPageSize"
             #Write-Host "Calling GET $next"
-            #Write-Host "Getting users from $offset to $count..." 
+            #Write-Host "Getting users from $offset to $count..."
             $retries = 2
             $SCIMSuccess = $False
             do {
@@ -45,15 +45,15 @@ $defJobs = {
                             @{N='Email';E={$_.username}}, `
                             @{N='User Id';E={$_.id}}, `
                             @{N='Job Title';E={$_.title}}, `
-                            @{N='Department';E={$_."urn:scim:schemas:extension:enterprise:1.0".department}}, `
-                            @{N='Division';E={$_."urn:scim:schemas:extension:enterprise:1.0".division}}, `
+                            @{N='Department';E={$_."urn:ietf:params:scim:schemas:extension:enterprise:2.0:User".department}}, `
+                            @{N='Division';E={$_."urn:ietf:params:scim:schemas:extension:enterprise:2.0:User".division}}, `
                             @{N='Status';E={$_ | Get-Status}}, `
-                            @{N='Claimed';E={$_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimed}}, `
-                            @{N='Claimed Date';E={Get-Timestamp $_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".claimDate $origin}}, `
-                            @{N='Invited';E={$_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".invited}}, `
-                            @{N='Invited Date';E={Get-Timestamp $_."urn:scim:schemas:extension:facebook:accountstatusdetails:1.0".inviteDate $origin}}, `
-                            @{N='Manager Employee ID';E={$_."urn:scim:schemas:extension:enterprise:1.0".manager.managerID}}, `
-                            @{N='Manager Full Name';E={$_."urn:scim:schemas:extension:enterprise:1.0".manager.displayName}}
+                            @{N='Claimed';E={$_."urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User".claimed}}, `
+                            @{N='Claimed Date';E={Get-Timestamp $_."urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User".claimDate $origin}}, `
+                            @{N='Invited';E={$_."urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User".invited}}, `
+                            @{N='Invited Date';E={Get-Timestamp $_."urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User".inviteDate $origin}}, `
+                            @{N='Manager Employee ID';E={$_."urn:ietf:params:scim:schemas:extension:enterprise:2.0:User".manager.managerID}}, `
+                            @{N='Manager Full Name';E={$_."urn:ietf:params:scim:schemas:extension:enterprise:2.0:User".manager.displayName}}
                     $pagesResult += $pageUsers
                     }
                 } catch {
@@ -82,7 +82,7 @@ catch {
 
 #Setup multi-threading options
 $jobs = @()
-$totalUsers = [int](Invoke-RestMethod -Uri "https://www.workplace.com/scim/v1/Users" -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportUsersSCIM").totalResults
+$totalUsers = [int](Invoke-RestMethod -Uri "https://scim.workplace.com/Users" -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportUsersSCIM").totalResults
 $paral = [math]::Min($ParallelGrade, [math]::Ceiling($totalUsers/$SCIMPageSize))
 $pages = [math]::Ceiling($totalUsers/$SCIMPageSize)
 

@@ -32,7 +32,7 @@ function AnonymiseWorkplaceUserProfile
     try
     {
 		$todayDate = Get-Date -Format "yyyyMMdd"
-		$userDataUrl = "https://www.workplace.com/scim/v1/Users/$userId"
+		$userDataUrl = "https://scim.workplace.com/Users/$userId"
 
         #Requesting data of the user to Workplace
         $results = Invoke-RestMethod -Uri ($userDataUrl) -Headers @{ Authorization = "Bearer " + $global:token } -UserAgent "GithubRep-ProfileAnonymiser"
@@ -43,9 +43,8 @@ function AnonymiseWorkplaceUserProfile
 			$emailParts = $results.userName.Split("@")
 			$randomString = -join ((65..90) + (97..122) | Get-Random -Count 10 | % {[char]$_})
 			$newUsername = $randomString + "_" + $todayDate + "@" + $emailParts[1]
-
 			$requestBody = '{
-				"schemas" : ["urn:scim:schemas:core:1.0", "urn:scim:schemas:extension:enterprise:1.0", "urn:scim:schemas:extension:facebook:starttermdates:1.0"],
+				"schemas" : ["urn:ietf:params:scim:schemas:core:2.0:User", "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User", "urn:scim:schemas:extension:facebook:starttermdates:1.0"],
 				"userName" : "' + $newUsername + '",
 				"displayName" : "Default User",
 				"name" : {
@@ -59,7 +58,7 @@ function AnonymiseWorkplaceUserProfile
 					"primary" : false,
 					"value" : "' + $newUsername + '"
 				}],
-				"urn:scim:schemas:extension:enterprise:1.0" : {
+				"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" : {
 					"organization" : "Default Org",
 					"division" : "Default Region",
 					"department" : "Default Department"

@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory=$true, HelpMessage='Path of the user export with the list of the users you would like to activate')] [string]$WPExportedUsers,
     [Parameter(Mandatory=$true, HelpMessage='Path for your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken,
-    [switch]$Interactive	
+    [switch]$Interactive
     )
 
 #Install ImportExcel Module
@@ -27,7 +27,7 @@ try {
     Write-Host -ForegroundColor Green "OK, Read!"
 }
 catch {
-    #Handle exception when unable to read file	
+    #Handle exception when unable to read file
     Write-Host -ForegroundColor Red "Fatal Error when reading XLSX file. Is it the Workplace users export file?"
     exit;
 }
@@ -49,13 +49,13 @@ Foreach($u in $global:xslxUsers) {
 
     #Craft a Body
     $body = (@{
-        schemas=@("urn:scim:schemas:core:1.0");
+        schemas=@("urn:ietf:params:scim:schemas:core:2.0:User");
         active=$true
         } | ConvertTo-Json)
 
     try {
         #Update User via SCIM API
-        $fbuser = Invoke-RestMethod -Method PUT -URI ("https://www.workplace.com/scim/v1/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ActivateInBulk" -ContentType "application/json" -Body $body
+        $fbuser = Invoke-RestMethod -Method PUT -URI ("https://scim.workplace.com/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ActivateInBulk" -ContentType "application/json" -Body $body
         If($Interactive.IsPresent) {
             Write-Host -ForegroundColor Green " Activated"
         }
@@ -70,7 +70,7 @@ Foreach($u in $global:xslxUsers) {
         If($Interactive.IsPresent) {
             Write-Host -ForegroundColor Red " KO ($status): $err - $msg"
         } Else {
-            Write-Host -NoNewLine [$uid/$uname] ->   
+            Write-Host -NoNewLine [$uid/$uname] ->
             Write-Host -ForegroundColor Red " KO ($status): $err - $msg"
         }
     }

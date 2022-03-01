@@ -51,7 +51,7 @@ Foreach($u in $global:xslxUsers) {
         try {
 
             #Get User via SCIM API
-            $results = Invoke-RestMethod -Uri ("https://www.workplace.com/scim/v1/Users/?filter=userName%20eq%20%22$uemail%22") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ChangeBulkEmail"
+            $results = Invoke-RestMethod -Uri ("https://scim.workplace.com/Users/?filter=userName%20eq%20%22$uemail%22") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ChangeBulkEmail"
 
             If($results.Resources) {
 
@@ -75,14 +75,14 @@ Foreach($u in $global:xslxUsers) {
 
                     #Craft a Body
                     $body = (@{
-                    schemas=@("urn:scim:schemas:core:1.0","urn:scim:schemas:extension:enterprise:1.0","urn:scim:schemas:extension:facebook:starttermdates:1.0","urn:scim:schemas:extension:facebook:accountstatusdetails:1.0","urn:scim:schemas:extension:facebook:auth_method:1.0");
+                    schemas=@("urn:ietf:params:scim:schemas:core:2.0:User","urn:ietf:params:scim:schemas:extension:enterprise:2.0:User","urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User","urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User","urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User");
                     id=$uid;
                     userName=$unewemail;
                     active=$true
                     } | ConvertTo-Json)
 
                     #Update User via SCIM API
-                    $user = Invoke-RestMethod -Method PUT -URI ("https://www.workplace.com/scim/v1/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -ContentType "application/json" -Body $body
+                    $user = Invoke-RestMethod -Method PUT -URI ("https://scim.workplace.com/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -ContentType "application/json" -Body $body
 
                     #Print OK message
                     If($Interactive.IsPresent) {Write-Host -ForegroundColor Green "  *  OK, change reviewed by user and done!"}

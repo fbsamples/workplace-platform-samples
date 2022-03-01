@@ -111,11 +111,11 @@ Function CreateGroupMembers
         $users = $users.Substring(0, $users.Length - 1)
         $groupName = $global:gMetadata.name
 
-        $body = "{`"schemas`": [`"urn:scim:schemas:core:1.0`"],
+        $body = "{`"schemas`": [`"urn:ietf:params:scim:schemas:core:2.0:Group`"],
                     `"displayName`": `"$groupName`",
                     `"members`": [ $users ]}"
 
-        Invoke-WebRequest -Uri https://www.workplace.com/scim/v1/Groups -Method POST -Body $body -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
+        Invoke-WebRequest -Uri https://scim.workplace.com/Groups -Method POST -Body $body -Headers @{ Authorization = "Bearer " + $global:destToken } -UserAgent "WorkplaceScript/GroupCloner"
 
         Write-Host -ForegroundColor Green "New group members added."
     }
@@ -134,4 +134,3 @@ CheckAccessToken
 GetGroupMetaData -groupId $OriginGroupId
 GetGroupMembers -groupId $OriginGroupId
 CreateGroupMembers
-
