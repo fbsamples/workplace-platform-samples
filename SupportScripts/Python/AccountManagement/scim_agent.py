@@ -70,7 +70,7 @@ FILE_DELIM = ','
 FILE_QUOTE = '"'
 
 #scim url constants for validating SCIM url param
-SCIM_URL = 'https://www.workplace.com/scim/v1/'
+SCIM_URL = 'https://scim.workplace.com/'
 
 #command base functions
 def updateUsers(filename, access_token, scim_url):

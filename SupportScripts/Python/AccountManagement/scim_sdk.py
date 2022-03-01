@@ -60,8 +60,8 @@ ESCAPED_EMAIL_LOOKUP_SUFFIX = '\"'
 START_INDEX = "?startIndex="
 
 #request json constants
-SCHEME_CORE = 'urn:scim:schemas:core:1.0'
-SCHEME_NTP = 'urn:scim:schemas:extension:enterprise:1.0'
+SCHEME_CORE = 'urn:ietf:params:scim:schemas:core:2.0:User'
+SCHEME_NTP = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User'
 SCHEME_TERMDATES = 'urn:scim:schemas:extension:facebook:starttermdates:1.0'
 
 #response status code constants
@@ -271,7 +271,7 @@ def buildUserJSONObj(userObj):
 		data[FIELD_ACTIVE] = userObj.get(FIELD_ACTIVE, None)
 	if FIELD_MANAGER_ID in keys:
 		ent[FIELD_MANAGER] = {FIELD_MANAGER_ID:userObj.get(FIELD_MANAGER_ID, None)}
-	if len(ent) > 0:		
+	if len(ent) > 0:
 		data[SCHEME_NTP] = ent
 		schemas.append(SCHEME_NTP)
 
