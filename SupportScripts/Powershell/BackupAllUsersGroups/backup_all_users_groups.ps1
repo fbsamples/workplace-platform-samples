@@ -51,13 +51,13 @@ foreach($uurl in $users_urls){
                 try {
                     #Get User Groups via Graph API
                     $first_group_url = "https://graph.facebook.com/"+$user_id+"/groups?limit="+$groups_query_limit
-                    $group_results = Invoke-RestMethod -Uri ($first_group_url) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/BackupAllUsersGroups" 
+                    $group_results = Invoke-RestMethod -Uri ($first_group_url) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/BackupAllUsersGroups"
                     $group_urls = @($first_group_url)
                     #Collect all group pages in an array
                     while($group_results.paging.next){
                         $group_urls += $group_results.paging.next
                         $group_results = Invoke-RestMethod -Uri ($group_results.paging.next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/BackupAllUsersGroups"
-                    }            
+                    }
                     foreach($gurl in $group_urls){
                         if(($group_results.data.id) -ne ''){
                             foreach($g in $group_results.data){
@@ -66,10 +66,10 @@ foreach($uurl in $users_urls){
                         }else{
                             Write-Host -ForegroundColor Yellow 'No Groups found for: '$user_id
                             $notapplicable++
-                        } 
+                        }
                     }
                     $updated++
-                    Write-Host -ForegroundColor Green "Backed up groups for: "$user_id" Total backed up users: "$updated" out of total: "$estimated_users" Skipped: "$skipped" Errors :"$errors    
+                    Write-Host -ForegroundColor Green "Backed up groups for: "$user_id" Total backed up users: "$updated" out of total: "$estimated_users" Skipped: "$skipped" Errors :"$errors
                     Write-Progress -Activity "Backing-Up User Groups" -Status "Progress:" -PercentComplete ($updated/$estimated_users*100)
                 }
                 catch {
@@ -79,7 +79,7 @@ foreach($uurl in $users_urls){
                     $err = $_.Exception.Response.StatusCode
                     $msg = $_.Exception.Message
                     Write-Host -ForegroundColor Red "KO ($status): $err - $msg"
-                } 
+                }
             }
 }
 Write-Host "---------------------------------------------------------------------------------------------------------"

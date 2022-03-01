@@ -28,7 +28,7 @@ If($StartDate) {
     catch {
         #Handle exception when having errors from Graph API
         Write-Host -ForegroundColor Red "Fatal Error when reading date. Is the StartDate you passed a valid one?"
-        exit;  
+        exit;
     }
 } Else {
     $global:startdate = [int](Get-Date -UFormat %s -Millisecond 0)
@@ -78,7 +78,7 @@ try {
         $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportPostStats"
         if ($results) {
             $results.data.ForEach({
-                $_ | Add-Member -NotePropertyName "Interaction" -NotePropertyValue "Comment" 
+                $_ | Add-Member -NotePropertyName "Interaction" -NotePropertyValue "Comment"
                 $global:comments += $_
                 $global:stats.total_post_comments++
                 $nextReply = "https://graph.workplace.com/" + $_.id + "/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological"
@@ -104,7 +104,7 @@ try {
             else {$next = $null}
         }
         else {$next = $null}
-    } while($next) 
+    } while($next)
 } catch {
     #Handle exception when having errors from Graph API
     Write-Host -ForegroundColor Red "Fatal Error when getting post comments from API. Is the PostId you passed correct? Are API permissions correct?"
@@ -113,8 +113,8 @@ try {
 
 #Add comments to XLSX
 try {
-    
-    $xlsxFile = "./stats-$PostId.xlsx" 
+
+    $xlsxFile = "./stats-$PostId.xlsx"
     $reportTitle = "Post Analytics ($PostId)"
 
     $xlp = $global:stats | `
@@ -153,7 +153,7 @@ try {
         @{N='Angrys';E={$_.reactions_angry.summary.total_count}}, `
         @{N='Date';E={$_.created_time}} |`
         Export-Excel -ExcelPackage $xlp -NoNumberConversion * -WorkSheetname PostAnalytics -StartRow 8 -Show
-    
+
     Write-Host -NoNewLine "Analytics written to XLSX: "
     Write-Host -ForegroundColor Green "OK, Written!"
 } catch {

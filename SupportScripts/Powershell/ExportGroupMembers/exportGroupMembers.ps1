@@ -33,7 +33,7 @@ try {
             else {$next = $null}
         }
         else {$next = $null}
-    } while($next) 
+    } while($next)
 } catch {
     #Handle exception when having errors from Graph API
     Write-Host -ForegroundColor Red "Fatal Error when getting group members from API. Is the GroupId you passed correct? Are API permissions correct?"

@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory=$true, HelpMessage='Path of the user export with the list of group ids you would like to archive')] [string]$WPExportedGroupIDs,
     [Parameter(Mandatory=$true, HelpMessage='Path for your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken,
-    [switch]$Interactive	
+    [switch]$Interactive
     )
 
 #Install ImportExcel Module
@@ -27,7 +27,7 @@ try {
     Write-Host -ForegroundColor Green "OK, Read!"
 }
 catch {
-    #Handle exception when unable to read file	
+    #Handle exception when unable to read file
     Write-Host -ForegroundColor Red "Fatal Error when reading XLSX file. Is it correctly formatted?"
     exit;
 }
@@ -73,7 +73,7 @@ Foreach($g in $global:xslxGroups) {
         $body = (@{
             archive=$true
             } | ConvertTo-Json)
-    
+
         try {
             #Update User via SCIM API
             $archivedGroup = Invoke-RestMethod -Method POST -URI ("https://graph.workplace.com/" + $gid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ArchiveGroupsInBulk" -ContentType "application/json" -Body $body

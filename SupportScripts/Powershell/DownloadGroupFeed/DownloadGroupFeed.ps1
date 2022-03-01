@@ -36,7 +36,7 @@ If($StartDate) {
 }
 
 #Export posts
-try {    
+try {
     $global:posts = @()
     #Get posts of a group from API calls
     $next = "https://graph.workplace.com/$WPGroupId/feed/?fields=created_time,updated_time,from{first_name, last_name, email},to,message,attachments,story,status_type,type$global:startdate&sorting_setting=RECENT_ACTIVITY"
@@ -63,14 +63,14 @@ try {
                         angry = 0;
                     };
                 }
-                
+
                 #Get post stats
                 If($Interactive.IsPresent) {
                 Write-Host "Retrieving post stats from Workplace for $PostId..."
                 }
-            
+
                 try {
-                
+
                     $statsURL = "https://graph.workplace.com/$PostId/?fields=seen.limit(0).summary(total_count),reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)"
                     $results_engagement = Invoke-RestMethod -Uri ($statsURL) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/DownloadGroupFeed"
                         if ($results_engagement) {
@@ -88,7 +88,7 @@ try {
                     Write-Host -ForegroundColor Red "Fatal Error when getting post stats from API. Is the PostId you passed correct? Are API permissions correct?"
                     exit;
                 }
-                
+
                 $post_data | Add-Member -NotePropertyName "stats" -NotePropertyValue $post_stats
                 $global:posts += $post_data
             })
@@ -100,7 +100,7 @@ try {
             else {$next = $null}
         }
         else {$next = $null}
-    } while($next) 
+    } while($next)
 } catch {
     #Handle exception when getting users from API throws an error
     Write-Host -ForegroundColor Red "Fatal Error when getting posts via API!"
@@ -108,10 +108,10 @@ try {
 }
 
 try {
-    
-    $xlsxFile = "./feed-$WPGroupId.xlsx" 
-    
-    #$xlp = 
+
+    $xlsxFile = "./feed-$WPGroupId.xlsx"
+
+    #$xlp =
     $global:posts | `
     ForEach-Object -Process {$_} | `
     Select-Object -property `
@@ -134,7 +134,7 @@ try {
     @{N='Total Post Sad';E={$_.stats.total_post_reactions.sad}}, `
     @{N='Total Post Angry';E={$_.stats.total_post_reactions.angry}}, `
     @{N='Total Post Comments';E={$_.stats.total_post_comments}} |`
-    Export-Excel -Path $xlsxFile -NoNumberConversion * 
+    Export-Excel -Path $xlsxFile -NoNumberConversion *
 
     Write-Host -NoNewLine "Analytics written to XLSX: "
     Write-Host -ForegroundColor Green "OK, Written!"

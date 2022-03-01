@@ -19,7 +19,7 @@ catch {
 }
 
 #Export last activity date for each group based on latest post date
-try {    
+try {
     $global:groups = @()
     #Get posts of a group from API calls
     $next = "https://graph.workplace.com/community/groups/?fields=id,name,owner{first_name, last_name, email},privacy,updated_time,archived"
@@ -57,7 +57,7 @@ try {
             else {$next = $null}
         }
         else {$next = $null}
-    } while($next) 
+    } while($next)
 } catch {
     #Handle exception when getting users from API throws an error
     Write-Host -ForegroundColor Red "Fatal Error when getting posts via API!"
@@ -65,10 +65,10 @@ try {
 }
 
 try {
-    
-    $xlsxFile = "./last-activity-stats.xlsx" 
-    
-    #$xlp = 
+
+    $xlsxFile = "./last-activity-stats.xlsx"
+
+    #$xlp =
     $global:groups | `
     ForEach-Object -Process {$_} | `
     Select-Object -property `
@@ -84,7 +84,7 @@ try {
     @{N='Active last 6mo';E={$_.stats.active_last_180d}}, `
     @{N='Active last 1y';E={$_.stats.active_last_365d}}, `
     @{N='Active last 2y';E={$_.stats.active_last_730d}} |`
-    Export-Excel -Path $xlsxFile -NoNumberConversion * 
+    Export-Excel -Path $xlsxFile -NoNumberConversion *
 
     Write-Host -NoNewLine "Analytics written to XLSX: "
     Write-Host -ForegroundColor Green "OK, Written!"

@@ -82,7 +82,7 @@ $global:campaignAnalytics = @();
 foreach ($groupId in $GroupIds) {
 
     try {
-    
+
     $groupMembersCount = $(Invoke-RestMethod -Uri "https://graph.workplace.com/$groupId/?fields=members.limit(0).summary(true)" -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportCampaignActivity").members.summary.total_count
     $next = "https://graph.workplace.com/$groupId/feed?fields=id,message,created_time&since=$global:startdate"
     do {
@@ -122,7 +122,7 @@ foreach ($groupId in $GroupIds) {
                         #Extract stats
                         $statsURL = "https://graph.workplace.com/$($campaignPostAnalytics.id)/?fields=seen.limit(0).summary(total_count),reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(CARE).limit(0).summary(total_count).as(reactions_care),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),shares"
                         $sentimentResults = Invoke-RestMethod -Uri ($statsURL) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportCampaignActivity"
-                            
+
                             if ($sentimentResults) {
                                 $campaignPostAnalytics.total_post_seen_by = $sentimentResults.seen.summary.total_count;
                                 $campaignPostAnalytics.total_post_shares = $sentimentResults.shares.count;
@@ -138,14 +138,14 @@ foreach ($groupId in $GroupIds) {
                             try {
                                 $impressions = $(Iterate-On -Url "https://graph.workplace.com/$($campaignPostAnalytics.id)/comments/?fields=created_time,from{name,id,email,primary_address,department},message,id,reactions.type(LIKE).limit(0).summary(total_count).as(reactions_like),reactions.type(CARE).limit(0).summary(total_count).as(reactions_care),reactions.type(LOVE).limit(0).summary(total_count).as(reactions_love),reactions.type(WOW).limit(0).summary(total_count).as(reactions_wow),reactions.type(HAHA).limit(0).summary(total_count).as(reactions_haha),reactions.type(SAD).limit(0).summary(total_count).as(reactions_sad),reactions.type(ANGRY).limit(0).summary(total_count).as(reactions_angry),comments.limit(0).summary(total_count)&order=chronological&since=$global:startdate" -JobItem $function:SumComments)
                                 $campaignPostAnalytics.total_post_comments = $impressions.count
-                                $campaignPostAnalytics.total_post_replies = ($impressions | Measure-Object -sum ).sum  
-                            } 
+                                $campaignPostAnalytics.total_post_replies = ($impressions | Measure-Object -sum ).sum
+                            }
                             catch {
                                 Write-Host -ForegroundColor Red "Fatal Error when getting post stats from API. Is the PostId you passed correct? Are API permissions correct?"
                             }
-                    
+
                         $campaignPostAnalytics.total_post_reach = $campaignPostAnalytics.total_post_seen_by / $groupMembersCount
-                        
+
                         $global:campaignAnalytics += $campaignPostAnalytics
 
                 }
@@ -171,8 +171,8 @@ foreach ($groupId in $GroupIds) {
 
 #Add comments to XLSX
 try {
-    
-    $xlsxFile = "./campaign-analytics-$($Hashtags -Join '').xlsx" 
+
+    $xlsxFile = "./campaign-analytics-$($Hashtags -Join '').xlsx"
 
     $global:campaignAnalytics | `
     ForEach-Object -Process {$_} | `
@@ -194,8 +194,8 @@ try {
         @{N='Cares';E={$_.total_post_reactions.care}}, `
         @{N='Sads';E={$_.total_post_reactions.sad}}, `
         @{N='Angrys';E={$_.total_post_reactions.angry}} |`
-        Export-Excel $xlsxFile -NoNumberConversion * 
-    
+        Export-Excel $xlsxFile -NoNumberConversion *
+
     Write-Host -NoNewLine "Analytics written to XLSX: "
     Write-Host -ForegroundColor Green "OK, Written!"
 } catch {
