@@ -24,7 +24,7 @@
             },
             "method": "GET",
             "header": [],
-            "url": "https://www.facebook.com/scim/v1/Schemas/Users",
+            "url": "https://scim.workplace.com/Schemas/Users",
             "description": "To get Workplace SCIM schema."
           },
           "response": []
@@ -44,7 +44,7 @@
             },
             "method": "GET",
             "header": [],
-            "url": "https://www.workplace.com/scim/v1/ServiceProviderConfigs",
+            "url": "https://scim.workplace.com/ServiceProviderConfigs",
             "description": "To get list of supported operations on your instance via SCIM API."
           },
           "response": []
@@ -70,7 +70,7 @@
             },
             "method": "GET",
             "header": [],
-            "url": "https://www.workplace.com/scim/v1/Groups",
+            "url": "https://scim.workplace.com/Groups",
             "description": "To get list of all the peoplesets on your instance."
           },
           "response": []
@@ -91,7 +91,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Groups/:peopleset_Id",
+              "raw": "https://scim.workplace.com/Groups/:peopleset_Id",
               "protocol": "https",
               "host": [
                 "www",
@@ -135,14 +135,14 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n   \"schemas\": [\n        \"urn:scim:schemas:core:1.0\"\n   ],\n   \"displayName\": \"Created By Postman\",\n   \"members\": [\n     {\n        \"type\": \"user\",\n        \"value\": {{user_id}}\n      }\n    ]\n}",
+              "raw": "{\n   \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n   ],\n   \"displayName\": \"Created By Postman\",\n   \"members\": [\n     {\n        \"type\": \"user\",\n        \"value\": {{user_id}}\n      }\n    ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
                 }
               }
             },
-            "url": "https://www.workplace.com/scim/v1/Groups",
+            "url": "https://scim.workplace.com/Groups",
             "description": "To create peopleset using SCIM API. \nBody:\ndisplayName - required.\nvalue       - required"
           },
           "response": []
@@ -164,11 +164,11 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n   \"schemas\": [\n      \"urn:scim:schemas:core:1.0\"\n   ],\n   \"displayName\": \"Created By Postman\",\n   \"members\": [\n      {\n\t     \"type\": \"user\",\n\t     \"value\": {{user_id}}\n      },\n      {\n\t     \"type\": \"user\",\n\t     \"value\": {{user_id2}}\n      }\n    ]\n}",
+              "raw": "{\n   \"schemas\": [\n      \"urn:ietf:params:scim:schemas:core:2.0:User\"\n   ],\n   \"displayName\": \"Created By Postman\",\n   \"members\": [\n      {\n\t     \"type\": \"user\",\n\t     \"value\": {{user_id}}\n      },\n      {\n\t     \"type\": \"user\",\n\t     \"value\": {{user_id2}}\n      }\n    ]\n}",
               "options": {}
             },
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Groups/:peopleset_Id",
+              "raw": "https://scim.workplace.com/Groups/:peopleset_Id",
               "protocol": "https",
               "host": [
                 "www",
@@ -216,7 +216,7 @@
               "options": {}
             },
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Groups/:peopleset_Id",
+              "raw": "https://scim.workplace.com/Groups/:peopleset_Id",
               "protocol": "https",
               "host": [
                 "www",
@@ -265,7 +265,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users?startIndex=1",
+              "raw": "https://scim.workplace.com/Users?startIndex=1",
               "protocol": "https",
               "host": [
                 "www",
@@ -313,7 +313,7 @@
               }
             ],
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users/:user_id",
+              "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
                 "www",
@@ -355,7 +355,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users?filter=userName%20eq%20%22{{user_email}}%22",
+              "raw": "https://scim.workplace.com/Users?filter=userName%20eq%20%22{{user_email}}%22",
               "protocol": "https",
               "host": [
                 "www",
@@ -394,7 +394,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users?filter=externalId%20eq%20%22{{external_id}}%22",
+              "raw": "https://scim.workplace.com/Users?filter=externalId%20eq%20%22{{external_id}}%22",
               "protocol": "https",
               "host": [
                 "www",
@@ -440,13 +440,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n   \"schemas\": [\n      \"urn:scim:schemas:core:1.0\"\n   ],\n   \"active\": false\n}",
+              "raw": "{\n   \"schemas\": [\n      \"urn:ietf:params:scim:schemas:core:2.0:User\"\n   ],\n   \"active\": false\n}",
               "options": {
                 "raw": {}
               }
             },
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users/:user_id",
+              "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
                 "www",
@@ -495,12 +495,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t \"schemas\": [\n\t\t\"urn:scim:schemas:core:1.0\",\n\t\t\"urn:scim:schemas:extension:enterprise:1.0\",\n\t\t\"urn:scim:schemas:extension:facebook:starttermdates:1.0\",\n\t\t\"urn:scim:schemas:extension:facebook:accountstatusdetails:1.0\",\n\t\t\"urn:scim:schemas:extension:facebook:auth_method:1.0\"\n\t ],\n\t \"userName\": \"{{user_email}}\",\n\t \"name\": {\n\t\t\"formatted\": \"Joe1 Bloggs\",\n\t\t\"familyName\": \"Bloggs\",\n\t\t\"givenName\": \"Joe\",\n\t\t\"middleName\": \"Peter\",\n\t\t\"honorificPrefix\": \"Mr\",\n\t\t\"honorificSuffix\": \"III\"\n\t },\n\t \"preferredLanguage\": \"en_GB\",\n\t \"title\": \"Solutions Architect\",\n\t \"locale\": \"en_GB\",\n\t \"active\": true,\n\t \"phoneNumbers\": [\n\t\t{\n\t\t   \"primary\": false,\n\t\t   \"type\": \"home\",\n\t\t   \"value\": \"+44-7723-098712\"\n\t\t},\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"work\",\n\t\t   \"value\": \"+44-7712-345634;ext=12345\"\n\t\t}\n\t ],\n\t \"photos\": [\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"profile\",\n\t\t   \"value\": \"https://pbs.twimg.com/profile_images/980681269859241984/-4cD6ouV_400x400.jpg\"\n\t\t}\n\t ],\n\t \"addresses\": [\n\t\t{\n\t\t   \"type\": \"work\",\n\t\t   \"formatted\": \"London, W1T 1FB\",\n\t\t   \"streetAddress\": \"1 Rathbone Square\",\n\t\t   \"locality\": \"London\",\n\t\t   \"region\": \"Greater London\",\n\t\t   \"postalCode\": \"W1T 1FB\",\n\t\t   \"country\": \"United Kingdom\",\n\t\t   \"primary\": true\n\t\t}\n\t ],\n\t \"urn:scim:schemas:extension:enterprise:1.0\": {\n\t\t\"employeeNumber\": \"12345\",\n\t\t\"costCenter\": \"98765\",\n\t\t\"division\": \"Partnerships\",\n\t\t\"department\": \"Workplace\",\n\t\t\"manager\": {\n\t\t   \"managerId\": 100012764418780,\n\t\t   \"displayName\": \"Jennie\"\n\t\t}\n\t },\n\t \"urn:scim:schemas:extension:facebook:starttermdates:1.0\": {\n\t\t\"startDate\": 1514764800,\n\t\t\"termDate\": 0\n\t },\n\t \"urn:scim:schemas:extension:facebook:accountstatusdetails:1.0\": {\n\t\t\"claimed\": false,\n\t\t\"claimLink\": \"https://fb.me/aczICYbN9VU4yg\",\n\t\t\"invited\": true,\n\t\t\"inviteDate\": 1454587629\n\t },\n\t \"urn:scim:schemas:extension:facebook:auth_method:1.0\": {\n\t\t\"auth_method\": \"password\"\n\t }\n}",
+              "raw": "{\n\t \"schemas\": [\n\t\t\"urn:ietf:params:scim:schemas:core:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User\"\n\t ],\n\t \"userName\": \"{{user_email}}\",\n\t \"name\": {\n\t\t\"formatted\": \"Joe1 Bloggs\",\n\t\t\"familyName\": \"Bloggs\",\n\t\t\"givenName\": \"Joe\",\n\t\t\"middleName\": \"Peter\",\n\t\t\"honorificPrefix\": \"Mr\",\n\t\t\"honorificSuffix\": \"III\"\n\t },\n\t \"preferredLanguage\": \"en_GB\",\n\t \"title\": \"Solutions Architect\",\n\t \"locale\": \"en_GB\",\n\t \"active\": true,\n\t \"phoneNumbers\": [\n\t\t{\n\t\t   \"primary\": false,\n\t\t   \"type\": \"home\",\n\t\t   \"value\": \"+44-7723-098712\"\n\t\t},\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"work\",\n\t\t   \"value\": \"+44-7712-345634;ext=12345\"\n\t\t}\n\t ],\n\t \"photos\": [\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"profile\",\n\t\t   \"value\": \"https://pbs.twimg.com/profile_images/980681269859241984/-4cD6ouV_400x400.jpg\"\n\t\t}\n\t ],\n\t \"addresses\": [\n\t\t{\n\t\t   \"type\": \"work\",\n\t\t   \"formatted\": \"London, W1T 1FB\",\n\t\t   \"streetAddress\": \"1 Rathbone Square\",\n\t\t   \"locality\": \"London\",\n\t\t   \"region\": \"Greater London\",\n\t\t   \"postalCode\": \"W1T 1FB\",\n\t\t   \"country\": \"United Kingdom\",\n\t\t   \"primary\": true\n\t\t}\n\t ],\n\t \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n\t\t\"employeeNumber\": \"12345\",\n\t\t\"costCenter\": \"98765\",\n\t\t\"division\": \"Partnerships\",\n\t\t\"department\": \"Workplace\",\n\t\t\"manager\": {\n\t\t   \"managerId\": 100012764418780,\n\t\t   \"displayName\": \"Jennie\"\n\t\t}\n\t },\n\t \"urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User\": {\n\t\t\"startDate\": 1514764800,\n\t\t\"termDate\": 0\n\t },\n\t \"urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User\": {\n\t\t\"claimed\": false,\n\t\t\"claimLink\": \"https://fb.me/aczICYbN9VU4yg\",\n\t\t\"invited\": true,\n\t\t\"inviteDate\": 1454587629\n\t },\n\t \"urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User\": {\n\t\t\"auth_method\": \"password\"\n\t }\n}",
               "options": {
                 "raw": {}
               }
             },
-            "url": "https://www.workplace.com/scim/v1/Users/",
+            "url": "https://scim.workplace.com/Users/",
             "description": "To create a user.\nuserName   -required, email ID of the user, the email Id should be from a verified domain, mandatory unless using externalID for a emailless user.\nname       -required."
           },
           "response": []
@@ -527,12 +527,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t \"schemas\": [\n\t\t\"urn:scim:schemas:core:1.0\",\n\t\t\"urn:scim:schemas:extension:enterprise:1.0\",\n\t\t\"urn:scim:schemas:extension:facebook:starttermdates:1.0\",\n\t\t\"urn:scim:schemas:extension:facebook:accountstatusdetails:1.0\",\n\t\t\"urn:scim:schemas:extension:facebook:auth_method:1.0\"\n\t ],\n\t \"externalId\": \"{{external_Id}}\",\n\t \"name\": {\n\t\t\"formatted\": \"Joe1 Bloggs\",\n\t\t\"familyName\": \"Bloggs\",\n\t\t\"givenName\": \"Joe\",\n\t\t\"middleName\": \"Peter\",\n\t\t\"honorificPrefix\": \"Mr\",\n\t\t\"honorificSuffix\": \"III\"\n\t },\n\t \"preferredLanguage\": \"en_GB\",\n\t \"title\": \"Solutions Architect\",\n\t \"locale\": \"en_GB\",\n\t \"active\": true,\n\t \"phoneNumbers\": [\n\t\t{\n\t\t   \"primary\": false,\n\t\t   \"type\": \"home\",\n\t\t   \"value\": \"+44-7723-098712\"\n\t\t},\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"work\",\n\t\t   \"value\": \"+44-7712-345634;ext=12345\"\n\t\t}\n\t ],\n\t \"photos\": [\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"profile\",\n\t\t   \"value\": \"https://pbs.twimg.com/profile_images/980681269859241984/-4cD6ouV_400x400.jpg\"\n\t\t}\n\t ],\n\t \"addresses\": [\n\t\t{\n\t\t   \"type\": \"work\",\n\t\t   \"formatted\": \"London, W1T 1FB\",\n\t\t   \"streetAddress\": \"1 Rathbone Square\",\n\t\t   \"locality\": \"London\",\n\t\t   \"region\": \"Greater London\",\n\t\t   \"postalCode\": \"W1T 1FB\",\n\t\t   \"country\": \"United Kingdom\",\n\t\t   \"primary\": true\n\t\t}\n\t ],\n\t \"urn:scim:schemas:extension:enterprise:1.0\": {\n\t\t\"employeeNumber\": \"12345\",\n\t\t\"costCenter\": \"98765\",\n\t\t\"division\": \"Partnerships\",\n\t\t\"department\": \"Workplace\",\n\t\t\"manager\": {\n\t\t   \"managerId\": 100012764418780,\n\t\t   \"displayName\": \"Jennie\"\n\t\t}\n\t },\n\t \"urn:scim:schemas:extension:facebook:starttermdates:1.0\": {\n\t\t\"startDate\": 1514764800,\n\t\t\"termDate\": 0\n\t },\n\t \"urn:scim:schemas:extension:facebook:accountstatusdetails:1.0\": {\n\t\t\"claimed\": false,\n\t\t\"claimLink\": \"https://fb.me/aczICYbN9VU4yg\",\n\t\t\"invited\": true,\n\t\t\"inviteDate\": 1454587629\n\t },\n\t \"urn:scim:schemas:extension:facebook:auth_method:1.0\": {\n\t\t\"auth_method\": \"password\"\n\t }\n}",
+              "raw": "{\n\t \"schemas\": [\n\t\t\"urn:ietf:params:scim:schemas:core:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User\",\n\t\t\"urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User\"\n\t ],\n\t \"externalId\": \"{{external_Id}}\",\n\t \"name\": {\n\t\t\"formatted\": \"Joe1 Bloggs\",\n\t\t\"familyName\": \"Bloggs\",\n\t\t\"givenName\": \"Joe\",\n\t\t\"middleName\": \"Peter\",\n\t\t\"honorificPrefix\": \"Mr\",\n\t\t\"honorificSuffix\": \"III\"\n\t },\n\t \"preferredLanguage\": \"en_GB\",\n\t \"title\": \"Solutions Architect\",\n\t \"locale\": \"en_GB\",\n\t \"active\": true,\n\t \"phoneNumbers\": [\n\t\t{\n\t\t   \"primary\": false,\n\t\t   \"type\": \"home\",\n\t\t   \"value\": \"+44-7723-098712\"\n\t\t},\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"work\",\n\t\t   \"value\": \"+44-7712-345634;ext=12345\"\n\t\t}\n\t ],\n\t \"photos\": [\n\t\t{\n\t\t   \"primary\": true,\n\t\t   \"type\": \"profile\",\n\t\t   \"value\": \"https://pbs.twimg.com/profile_images/980681269859241984/-4cD6ouV_400x400.jpg\"\n\t\t}\n\t ],\n\t \"addresses\": [\n\t\t{\n\t\t   \"type\": \"work\",\n\t\t   \"formatted\": \"London, W1T 1FB\",\n\t\t   \"streetAddress\": \"1 Rathbone Square\",\n\t\t   \"locality\": \"London\",\n\t\t   \"region\": \"Greater London\",\n\t\t   \"postalCode\": \"W1T 1FB\",\n\t\t   \"country\": \"United Kingdom\",\n\t\t   \"primary\": true\n\t\t}\n\t ],\n\t \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n\t\t\"employeeNumber\": \"12345\",\n\t\t\"costCenter\": \"98765\",\n\t\t\"division\": \"Partnerships\",\n\t\t\"department\": \"Workplace\",\n\t\t\"manager\": {\n\t\t   \"managerId\": 100012764418780,\n\t\t   \"displayName\": \"Jennie\"\n\t\t}\n\t },\n\t \"urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User\": {\n\t\t\"startDate\": 1514764800,\n\t\t\"termDate\": 0\n\t },\n\t \"urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User\": {\n\t\t\"claimed\": false,\n\t\t\"claimLink\": \"https://fb.me/aczICYbN9VU4yg\",\n\t\t\"invited\": true,\n\t\t\"inviteDate\": 1454587629\n\t },\n\t \"urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User\": {\n\t\t\"auth_method\": \"password\"\n\t }\n}",
               "options": {
                 "raw": {}
               }
             },
-            "url": "https://www.workplace.com/scim/v1/Users/",
+            "url": "https://scim.workplace.com/Users/",
             "description": "To create an emailless user.\nUpdate body as needed.\nexternalId   -required, unique ID for the user, mandatory unless using userName for a user with email.\nname         -required."
           },
           "response": []
@@ -559,13 +559,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n   \"schemas\": [\n      \"urn:scim:schemas:core:1.0\",\n      \"urn:scim:schemas:extension:enterprise:1.0\",\n      \"urn:scim:schemas:extension:facebook:starttermdates:1.0\",\n      \"urn:scim:schemas:extension:facebook:accountstatusdetails:1.0\",\n      \"urn:scim:schemas:extension:facebook:auth_method:1.0\"\n   ],\n   \"userName\": \"{{user_email}}\",\n   \"name\": {\n   \t\t\"familyName\": \"Bloggs\",\n   \t\t\"givenName\": \"Joe\",\n   \t\t\"middleName\": \"Peter\",\n   \t\t\"honorificPrefix\": \"Mr\",\n   \t\t\"honorificSuffix\": \"III\",\n   \t\t\"formatted\": \"Joe Bloggs\"\n   },\n   \"displayName\": \"jbloggs\",\n   \"title\": \"Solutions Architect\",\n   \"locale\": \"en_GB\",\n   \"preferredLanguage\": \"en_GB\",\n   \"active\": true,\n   \"photos\": [\n   \t\t{\n   \t\t\t\"value\": \"https://pbs.twimg.com/profile_images/980681269859241984/-4cD6ouV_400x400.jpg\",\n   \t\t\t\"type\": \"profile\",\n   \t\t\t\"primary\": true\n   \t\t}\n   \t],\n   \"email\": [\n\t   \t{\n\t   \t\t\"primary\": true,\n\t   \t\t\"type\": \"work\",\n\t   \t\t\"value\": \"email@domain.com\"\n\t   \t}\n   \t],\n   \"phoneNumbers\": [\n      {\n         \"primary\": true,\n         \"type\": \"work\",\n         \"value\": \"+4407712345634;ext=12345\"\n      },\n      {\n         \"primary\": false,\n         \"type\": \"home\",\n         \"value\": \"+447723098712\"\n      }\n   ],\n   \"addresses\": [\n   \t\t{\n   \t\t\t\"primary\": true,\n   \t\t\t\"type\": \"work\",\n   \t\t\t\"formatted\": \"London, W1T 1FB\",\n   \t\t\t\"streetAddress\": \"1 Rathbone Square\",\n   \t\t\t\"locality\": \"London\",\n   \t\t\t\"region\": \"Greater London\",\n   \t\t\t\"postalCode\": \"W1T 1FB\",\n   \t\t\t\"country\": \"United Kingdom\"\n   \t\t}\n   \t],\n   \t\"urn:scim:schemas:extension:enterprise:1.0\": {\n    \t\"department\": \"Workplace\",\n    \t\"division\": \"Partnerships\",\n    \t\"employeeNumber\":\"12345\", \n        \"costCenter\":\"98765\", \n    \t\"manager\": {\n    \t\t\"managerId\": 100012764418780,\n    \t\t\"displayName\": \"manager@domain.com\"\n    \t}\n   \t},\n   \"urn:scim:schemas:extension:facebook:starttermdates:1.0\": {\n      \"startDate\": 1514764800,\n      \"termDate\": 0\n   },\n   \"urn:scim:schemas:extension:facebook:auth_method:1.0\": {\n      \"auth_method\": \"password\"\n   },\n   \"urn:scim:schemas:extension:facebook:accountstatusdetails:1.0\":{ \n        \"claimed\":false,\n        \"invited\":false\n    } \n}",
+              "raw": "{\n   \"schemas\": [\n      \"urn:ietf:params:scim:schemas:core:2.0:User\",\n      \"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\",\n      \"urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User\",\n      \"urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User\",\n      \"urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User\"\n   ],\n   \"userName\": \"{{user_email}}\",\n   \"name\": {\n   \t\t\"familyName\": \"Bloggs\",\n   \t\t\"givenName\": \"Joe\",\n   \t\t\"middleName\": \"Peter\",\n   \t\t\"honorificPrefix\": \"Mr\",\n   \t\t\"honorificSuffix\": \"III\",\n   \t\t\"formatted\": \"Joe Bloggs\"\n   },\n   \"displayName\": \"jbloggs\",\n   \"title\": \"Solutions Architect\",\n   \"locale\": \"en_GB\",\n   \"preferredLanguage\": \"en_GB\",\n   \"active\": true,\n   \"photos\": [\n   \t\t{\n   \t\t\t\"value\": \"https://pbs.twimg.com/profile_images/980681269859241984/-4cD6ouV_400x400.jpg\",\n   \t\t\t\"type\": \"profile\",\n   \t\t\t\"primary\": true\n   \t\t}\n   \t],\n   \"email\": [\n\t   \t{\n\t   \t\t\"primary\": true,\n\t   \t\t\"type\": \"work\",\n\t   \t\t\"value\": \"email@domain.com\"\n\t   \t}\n   \t],\n   \"phoneNumbers\": [\n      {\n         \"primary\": true,\n         \"type\": \"work\",\n         \"value\": \"+4407712345634;ext=12345\"\n      },\n      {\n         \"primary\": false,\n         \"type\": \"home\",\n         \"value\": \"+447723098712\"\n      }\n   ],\n   \"addresses\": [\n   \t\t{\n   \t\t\t\"primary\": true,\n   \t\t\t\"type\": \"work\",\n   \t\t\t\"formatted\": \"London, W1T 1FB\",\n   \t\t\t\"streetAddress\": \"1 Rathbone Square\",\n   \t\t\t\"locality\": \"London\",\n   \t\t\t\"region\": \"Greater London\",\n   \t\t\t\"postalCode\": \"W1T 1FB\",\n   \t\t\t\"country\": \"United Kingdom\"\n   \t\t}\n   \t],\n   \t\"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User\": {\n    \t\"department\": \"Workplace\",\n    \t\"division\": \"Partnerships\",\n    \t\"employeeNumber\":\"12345\", \n        \"costCenter\":\"98765\", \n    \t\"manager\": {\n    \t\t\"managerId\": 100012764418780,\n    \t\t\"displayName\": \"manager@domain.com\"\n    \t}\n   \t},\n   \"urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User\": {\n      \"startDate\": 1514764800,\n      \"termDate\": 0\n   },\n   \"urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User\": {\n      \"auth_method\": \"password\"\n   },\n   \"urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User\":{ \n        \"claimed\":false,\n        \"invited\":false\n    } \n}",
               "options": {
                 "raw": {}
               }
             },
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users/:user_id",
+              "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
                 "www",
@@ -611,7 +611,7 @@
               "raw": ""
             },
             "url": {
-              "raw": "https://www.workplace.com/scim/v1/Users/:user_id",
+              "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
                 "www",
