@@ -6,7 +6,7 @@
 This example shows how to deploy a Helpdesk sample bot in your web server. [Information about the bot can be found here](https://www.workplace.com/resources/tech/integrations/helpdesk-bot).
 
 ## SETUP
-The instructions to set it up can be found [here](https://www.workplace.com/resources/tech/integrations/helpdesk-bot).
+The instructions to set it up can be found [here](https://www.workplace.com/resources/tech/integrations/helpdesk-bot). Additional documentation to modify the bot using the Workplace Messaging APIs can be found in [this link](https://developers.facebook.com/docs/messenger-platform/send-messages).
 
 ### PARAMETERS
 Here are the details of the script parameters to be replaced:

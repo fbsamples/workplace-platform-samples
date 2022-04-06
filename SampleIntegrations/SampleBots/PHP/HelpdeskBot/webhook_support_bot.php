@@ -58,59 +58,59 @@ if ("support" == $received_text) { // When the word support is received
 					"image_url" => "https://img.icons8.com/computer-support"
 				),
 				array(
-          "content_type" => "text",
-          "title" => "Report Incidence",
-          "payload" => "report_incidence",
-          "image_url" => "https://img.icons8.com/solve"
+					"content_type" => "text",
+					"title" => "Report Incidence",
+					"payload" => "report_incidence",
+					"image_url" => "https://img.icons8.com/solve"
 				),
 				array(
-          "content_type" => "text",
-          "title" => "Request Access to Tool",
-          "payload" => "request_access",
-          "image_url" => "https://img.icons8.com/lock"
-        )
+					"content_type" => "text",
+					"title" => "Request Access to Tool",
+					"payload" => "request_access",
+					"image_url" => "https://img.icons8.com/lock"
+        		)
 			)
 		),
-    "recipient" => array("id" => $recipient),
-    "messaging_type" => "RESPONSE"
-  );
+	    "recipient" => array("id" => $recipient),
+	    "messaging_type" => "RESPONSE"
+	);
 } else {
 	if (isset($data['entry'][0]['messaging'][0]['message']['quick_reply']['payload'])) { // We check if a payload was received from the webhook, i.e. if any quick reply button was pushed
 		$quick_reply = $data['entry'][0]['messaging'][0]['message']['quick_reply']['payload'];
 		if ("device_issue" == $quick_reply) { // When the quick reply button is that of the device issue
 			$fields = array(
 				"message" => array(
-        		"text" => "Could you tell us which device is affected?",
-        		"quick_replies" => array(
-                		array(
-                  		"content_type" => "text",
-                  		"title" => "Computer Issue",
-                  		"payload" => "computer_issue",
-                  		"image_url" => "https://img.icons8.com/computer"
-                		),
-                		array(
-                  		"content_type" => "text",
-                  		"title" => "Mobile Phone Issue",
-											"payload" => "mobile_issue",
-											"image_url" => "https://img.icons8.com/mobile"
-                    )
-              )
-      	),
-      	"recipient" => array("id" => $recipient),
-      	"messaging_type" => "RESPONSE"
-    	);
+	        		"text" => "Could you tell us which device is affected?",
+	        		"quick_replies" => array(
+	                		array(
+	                  		"content_type" => "text",
+	                  		"title" => "Computer Issue",
+	                  		"payload" => "computer_issue",
+	                  		"image_url" => "https://img.icons8.com/computer"
+	                		),
+	                		array(
+	                  		"content_type" => "text",
+	                  		"title" => "Mobile Phone Issue",
+							"payload" => "mobile_issue",
+							"image_url" => "https://img.icons8.com/mobile"
+	                    )
+					)
+	      		),
+		      	"recipient" => array("id" => $recipient),
+		      	"messaging_type" => "RESPONSE"
+    		);
 		} else if ("computer_issue" == $quick_reply) { // When the quick reply button is that of the computer issue
 			$fields = array(
-      	"message" => array("text" => "A ticket has been opened and someone from Helpdesk should be contacting you shortly to fix it"),
-      	"recipient" => array("id" => $recipient),
-      	"messaging_type" => "RESPONSE"
-    	);
+		      	"message" => array("text" => "A ticket has been opened and someone from Helpdesk should be contacting you shortly to fix it"),
+		      	"recipient" => array("id" => $recipient),
+		      	"messaging_type" => "RESPONSE"
+    		);
 		} else if ("mobile_issue" == $quick_reply) { // When the quick reply button is that of the mobile issue
 			$fields = array(
-        "message" => array("text" => "A ticket has been opened and someone from Helpdesk should be contacting you shortly to replace your mobile device"),
-        "recipient" => array("id" => $recipient),
-        "messaging_type" => "RESPONSE"
-      );
+		        "message" => array("text" => "A ticket has been opened and someone from Helpdesk should be contacting you shortly to replace your mobile device"),
+		        "recipient" => array("id" => $recipient),
+		        "messaging_type" => "RESPONSE"
+			);
 		
 		}
 	} else {
