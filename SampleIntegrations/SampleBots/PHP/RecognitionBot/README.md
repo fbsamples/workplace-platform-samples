@@ -15,3 +15,5 @@ Here are the details of the script parameters to be replaced:
    |:-----------------:|:----------------------------------------------------------:|:---------------:|:------------:|
    | access_token      |  The access token of the Workplace integration             | _String_ | Yes |
    | verify_token      |  The keyword that you set as the verify token when you are about to save the webhook of your integration          | _String_ | Yes |
+      | app_secret      |  The app secret of the Workplace integration            | _String_ | Yes |
+
