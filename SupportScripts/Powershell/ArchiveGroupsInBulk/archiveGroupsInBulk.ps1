@@ -44,7 +44,7 @@ Foreach($g in $global:xslxGroups) {
     $total++
 
     try {
-        #Update User via SCIM API
+        #Update User via Graph API
         $groupAPI = Invoke-RestMethod -Method GET -URI ("https://graph.workplace.com/" + $gid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ArchiveGroupsInBulk" -ContentType "application/json" -Body $body
         $gname = $groupAPI.name
     }
@@ -75,7 +75,7 @@ Foreach($g in $global:xslxGroups) {
             } | ConvertTo-Json)
 
         try {
-            #Update User via SCIM API
+            #Update User via Graph API
             $archivedGroup = Invoke-RestMethod -Method POST -URI ("https://graph.workplace.com/" + $gid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ArchiveGroupsInBulk" -ContentType "application/json" -Body $body
             If($Interactive.IsPresent) {
                 Write-Host -ForegroundColor Green "  *  Archived!"

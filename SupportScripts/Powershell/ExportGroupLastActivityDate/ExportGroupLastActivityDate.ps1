@@ -24,7 +24,7 @@ try {
     #Get posts of a group from API calls
     $next = "https://graph.workplace.com/community/groups/?fields=id,name,owner{first_name, last_name, email},privacy,updated_time,archived"
     do {
-        #Get specific group in the community via SCIM API
+        #Get specific group in the community via Graph API
         $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ExportGroupLastActivityDate"
         if ($results) {
 

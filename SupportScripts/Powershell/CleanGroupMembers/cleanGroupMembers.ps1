@@ -52,7 +52,7 @@ if($CSVFile -and $CSVFile -eq 'True') {
         #Get members of a group from API calls
         $next = "https://graph.workplace.com/$GroupId/members/?fields=name%2Cid%2Cemail%2Cadministrator"
         do {
-            #Get specific group in the community via SCIM API
+            #Get specific group in the community via Graph API
             $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"
             if ($results) {
                 $global:members += $results.data

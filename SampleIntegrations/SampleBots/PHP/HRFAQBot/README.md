@@ -1,5 +1,5 @@
 # HR FAQ Chat Bot
-  
+
 **Language:** PHP 8.0
 
 ## DESCRIPTION
@@ -11,9 +11,8 @@ The instructions to set it up can be found [here](https://www.workplace.com/reso
 ### PARAMETERS
 Here are the details of the script parameters to be replaced:
 
-   | Parameter         | Description                                                |  Type           |  Required    | 
+   | Parameter         | Description                                                |  Type           |  Required    |
    |:-----------------:|:----------------------------------------------------------:|:---------------:|:------------:|
    | access_token      |  The access token of the Workplace integration             | _String_ | Yes |
    | verify_token      |  The keyword that you set as the verify token when you are about to save the webhook of your integration          | _String_ | Yes |
-      | app_secret      |  The app secret of the Workplace integration            | _String_ | Yes |
-
+   | app_secret      |  The app secret of the Workplace integration            | _String_ | Yes |

@@ -41,7 +41,7 @@ try {
     #Get posts of a group from API calls
     $next = "https://graph.workplace.com/$WPGroupId/feed/?fields=created_time,updated_time,from{first_name, last_name, email},to,message,attachments,story,status_type,type$global:startdate&sorting_setting=RECENT_ACTIVITY"
     do {
-        #Get specific group in the community via SCIM API
+        #Get specific group in the community via Graph API
         $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/DownloadGroupFeed"
         if ($results) {
 

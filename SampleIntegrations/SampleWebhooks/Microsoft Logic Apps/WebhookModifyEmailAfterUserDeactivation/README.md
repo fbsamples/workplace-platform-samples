@@ -1,5 +1,7 @@
+# This code is now deprecated since Ms Logic Apps is not part of the thid-app directory of Workplace
+--
 # Webhook that modifies the user email address following their deactivation on Workplace
-  
+
 **Language:** JSON
 
 ## DESCRIPTION
@@ -21,7 +23,7 @@ It could solve for situations of email collision where new users inherit email a
 ### PARAMETERS
 Here are the details of the script parameters to be replaced:
 
-   | Parameter         | Description                                                |  Type           |  Required    | 
+   | Parameter         | Description                                                |  Type           |  Required    |
    |:-----------------:|:----------------------------------------------------------:|:---------------:|:------------:|
    | ACCESS_TOKEN      |  The access token of the Workplace integration             | _String_ | Yes |
 
@@ -34,4 +36,3 @@ More information on how to generate an access token on Workplace can be found in
 
 ## RUN
 Once the webhook is configured in MS Azure Logic Apps and registered on Workplace, its code will run every time a user is deactivated on Workplace. It will trigger the change of email address for that user.
-

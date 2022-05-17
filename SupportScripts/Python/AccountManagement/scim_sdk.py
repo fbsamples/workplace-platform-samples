@@ -62,7 +62,7 @@ START_INDEX = "?startIndex="
 #request json constants
 SCHEME_CORE = 'urn:ietf:params:scim:schemas:core:2.0:User'
 SCHEME_NTP = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User'
-SCHEME_TERMDATES = 'urn:scim:schemas:extension:facebook:starttermdates:1.0'
+SCHEME_TERMDATES = 'urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User'
 
 #response status code constants
 RESPONSE_OK = 200
