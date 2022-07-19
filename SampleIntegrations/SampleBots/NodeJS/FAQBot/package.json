@@ -21,7 +21,7 @@
     "dotenv": "^8.1.0",
     "express": "^4.16.3",
     "google-spreadsheet": "^3.1.15",
-    "properties-reader": "^0.3.1",
+    "properties-reader": "^2.2.0",
     "request": "^2.87.0"
   }
 }
