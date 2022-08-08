@@ -94,13 +94,11 @@
               "raw": "https://scim.workplace.com/Groups/:peopleset_Id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Groups",
                 ":peopleset_Id"
               ],
@@ -171,13 +169,11 @@
               "raw": "https://scim.workplace.com/Groups/:peopleset_Id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Groups",
                 ":peopleset_Id"
               ],
@@ -219,13 +215,11 @@
               "raw": "https://scim.workplace.com/Groups/:peopleset_Id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Groups",
                 ":peopleset_Id"
               ],
@@ -268,13 +262,11 @@
               "raw": "https://scim.workplace.com/Users?startIndex=1",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users"
               ],
               "query": [
@@ -316,13 +308,11 @@
               "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users",
                 ":user_id"
               ],
@@ -358,13 +348,11 @@
               "raw": "https://scim.workplace.com/Users?filter=userName%20eq%20%22{{user_email}}%22",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users"
               ],
               "query": [
@@ -397,13 +385,11 @@
               "raw": "https://scim.workplace.com/Users?filter=externalId%20eq%20%22{{external_id}}%22",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users"
               ],
               "query": [
@@ -449,13 +435,11 @@
               "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users",
                 ":user_id"
               ],
@@ -568,13 +552,11 @@
               "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users",
                 ":user_id"
               ],
@@ -614,13 +596,11 @@
               "raw": "https://scim.workplace.com/Users/:user_id",
               "protocol": "https",
               "host": [
-                "www",
+                "scim",
                 "workplace",
                 "com"
               ],
               "path": [
-                "scim",
-                "v1",
                 "Users",
                 ":user_id"
               ],
