@@ -1,0 +1,24 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "nonew": true,
+    "plusplus": false,
+    "undef": true,
+    "unused": true,
+    "strict": true,
+    "trailing": true,
+    "browser": true,
+    "browserify": true,
+    "node": true,
+    "globals": {
+        "define": true,
+        "require": true,
+        "console": true,
+        "alert": true,
+        "module": true
+    }
+}
