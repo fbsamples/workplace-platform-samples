@@ -35,7 +35,7 @@ def getFeed(group, name):
     # Get the relevant group post content for each feed item
     # Include a fetch for like and comment summaries to get total count
     # No need to fetch actual likes &amp; comments, so set the limit to 0
-    params = "?fields=permalink_url,from,story,type,message,link,created_time,updated_time,likes.limit(0).summary(total_count),comments.limit(0).summary(total_count)"
+    params = "?fields=permalink_url,from,story,type,message,link,created_time,updated_time,reactions.limit(0).summary(total_count),comments.limit(0).summary(total_count)"
 
     # Default paging limit
     params += "&amp;limit=" + DEFAULT_LIMIT
@@ -135,11 +135,11 @@ for group in getGroups():
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         # CSV Header
-        header = ["Post ID", "Permalink", "Create Time", "Updated Time", "Author", "Author ID", "Message", "Link", "Likes", "Comments"]
+        header = ["Post ID", "Permalink", "Create Time", "Updated Time", "Author", "Author ID", "Message", "Link", "reactions", "Comments"]
         writer.writerow(header)
 
         for item in feed:
-            row = [ item["id"], item["permalink_url"], item["created_time"], item["updated_time"], encode(item["from"]["name"]), item["from"]["id"], encode(item["message"]), encode(item["link"]), item["likes"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
+            row = [ item["id"], item["permalink_url"], item["created_time"], item["updated_time"], encode(item["from"]["name"]), item["from"]["id"], encode(item["message"]), encode(item["link"]), item["reactions"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
             if VERBOSE:
                 print row
             writer.writerow(row)
