@@ -38,10 +38,10 @@ def getFeed(group, name):
     params = "?fields=permalink_url,from,story,type,message,link,created_time,updated_time,reactions.limit(0).summary(total_count),comments.limit(0).summary(total_count)"
 
     # Default paging limit
-    params += "&amp;limit=" + DEFAULT_LIMIT
+    params += "&limit=" + DEFAULT_LIMIT
 
     # Time-based limit
-    params += "&amp;since=" + SINCE.strftime("%s")
+    params += "&since=" + SINCE.strftime("%s")
 
     graph_url = GRAPH_URL_PREFIX + group + "/feed" + params
 
@@ -76,14 +76,14 @@ def getGroups(after=None):
 
     # Fetch feed for each group, since a given time, but only get 1 feed item.
     # We'll use this later to check if there's fresh content in the group
-    params = "?fields=feed.since(" + SINCE.strftime("%s") + ").limit(1),name,updated_time&amp;"
+    params = "?fields=feed.since(" + SINCE.strftime("%s") + ").limit(1),name,updated_time"
 
     # Default paging limit
-    params += "&amp;limit=" + DEFAULT_LIMIT
+    params += "&limit=" + DEFAULT_LIMIT
 
     # Are we paging? Get the next page of data
     if after:
-        params += "&amp;after=" + after
+        params += "&after=" + after
 
     graph_url = GRAPH_URL_PREFIX + "community" + GROUPS_SUFFIX + params
 
@@ -104,7 +104,7 @@ def getGroups(after=None):
                 groups.append(group_obj)
 
     # Is there more data to page through? Recursively fetch the next page
-    if json.dumps('"paging"') in result_json:
+    if "next" in result_json["paging"]:
         getGroups(after=result_json["paging"]["cursors"]["after"])
 
     # Return an array of group IDs which have fresh content
@@ -125,7 +125,7 @@ for group in getGroups():
     feed = getFeed(group["id"], group["name"])
 
     # Create a new CSV named after the timestamp / group id / group name, to ensure uniqueness
-    csv_filename = SINCE.strftime("%Y-%m-%d %H:%M:%S") + " " + group["id"] + " " + strip(group["name"]) + ".csv"
+    csv_filename = SINCE.strftime("%Y-%m-%d %H-%M-%S") + " " + group["id"] + " " + strip(group["name"]) + ".csv"
     if VERBOSE:
         print csv_filename
     else:
