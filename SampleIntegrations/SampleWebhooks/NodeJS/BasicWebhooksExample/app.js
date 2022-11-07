@@ -15,7 +15,7 @@ const
   crypto = require('crypto'),
   express = require('express');
 // Using dotenv to allow local running with environment variables
-require('dotenv').load();
+require('dotenv').config();
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
