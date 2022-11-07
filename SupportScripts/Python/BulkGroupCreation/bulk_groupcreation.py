@@ -39,6 +39,4 @@ with open(file_name,  newline='') as f:
             "post_permissions":row[4]
 
         }
-        print(row[0],row[1])
-        print(payload)
         creategroup(access_token, payload)
