@@ -1,0 +1,3 @@
+name,description,privacy,join_setting,post_permissions
+TEST 1G,Create TEST 1G via API.,OPEN,NONE,ADMIN_ONLY
+TEST 2G,Create TEST 2G via API.,,,
