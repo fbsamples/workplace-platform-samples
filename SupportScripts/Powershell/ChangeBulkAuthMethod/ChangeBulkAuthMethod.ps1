@@ -75,16 +75,21 @@ Foreach($u in $global:xslxUsers) {
                 if($askRes.length -eq 0) {
 
                     #Craft a Body
-                    $body = (@{
-                    schemas=@("urn:ietf:params:scim:schemas:core:2.0:User","urn:ietf:params:scim:schemas:extension:enterprise:2.0:User","urn:ietf:params:scim:schemas:extension:facebook:starttermdates:2.0:User","urn:ietf:params:scim:schemas:extension:facebook:accountstatusdetails:2.0:User","urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User");
-                    id=$uid;
-					authMethod=$unewauth;
-                    userName=$uemail;
-                    active=$true
-                    } | ConvertTo-Json)
+                    $body = @('{
+                        "schemas": [
+                            "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+                        ],
+                        "Operations": [
+                            {
+                                "op": "replace",
+                                "path": "urn:ietf:params:scim:schemas:extension:facebook:authmethod:2.0:User:authMethod",
+                                "value": "'+$unewauth+'"
+                            }
+                        ]
+                    }')
 					Write-Host "$body"
                     #Update User via SCIM API
-					$user = Invoke-RestMethod -Method PUT -URI ("https://scim.workplace.com/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ChangeBulkAuthMethod" -ContentType "application/json" -Body $body
+					$user = Invoke-RestMethod -Method PATCH -URI ("https://scim.workplace.com/Users/" + $uid) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/ChangeBulkAuthMethod" -ContentType "application/json" -Body $body
                     Write-Host "$user"
                     #Print OK message
                     If($Interactive.IsPresent) {Write-Host -ForegroundColor Green "  *  OK, change reviewed by user and done!"}
