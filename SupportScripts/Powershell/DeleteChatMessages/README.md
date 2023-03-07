@@ -25,7 +25,7 @@ This PowerShell script searches the workplace messages sent or received by a spe
 * Run the script by passing the `accessToken.js` file as input:
 
    ```powershell
-   ./RetrieveMessageInfo.ps1 -WPAccessToken accessToken.js -WPUser <User ID> -MessageContent "test message"
+   ./delete_chat_messages.ps1 -WPAccessToken accessToken.js -WPUser <User ID> -MessageContent "test message"
    ```
 
    For example if I sent a message stating "This is a test, please ignore" <br/>
@@ -34,7 +34,7 @@ This PowerShell script searches the workplace messages sent or received by a spe
    It is also possible to search by date instead by running the script as:
 
    ```powershell
-   ./RetrieveMessageInfo.ps1 -WPAccessToken accessToken.js -WPUser <User ID> -MessageDate <YYYY-MM-DD>
+   ./delete_chat_messages.ps1 -WPAccessToken accessToken.js -WPUser <User ID> -MessageDate <YYYY-MM-DD>
    ```
    This will retrieve all messages sent by a specific user on the specified date. This search method is recommended when searching for pictures/gifs.
    </br>
