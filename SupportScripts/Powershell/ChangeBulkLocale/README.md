@@ -14,7 +14,7 @@ This PowerShell script allows to change the locale and preferred language fields
    }
    ``` 
  
- * Export your users' profile data: As an admin, you can export profile data by going to the People Tab in the Admin Portal > ... > Export Employee information (with Insights).
+ * Export your users' profile data: As an admin, you can export profile data by going to the People Tab in the Admin Portal > ... > Export Employee information.
  
  * Add a `NewLocale` column in the XLSX file and fill it with the new email address for the users you would like to update profile data.
  
