@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace User Creator</title>
+</head>
+
+<body>
+    <pre>Ensure your integration has the `Provision user accounts` permission checked</pre>
+    <label for="access_token">Access Token:</label>
+    <input type="text" id="access_token" name="access_token">
+    <br><br>
+
+    <pre> Use {{index}} for an ascending number for each account created</pre>
+
+
+    <label for="name">*Name:</label>
+    <input type="text" id="name" name="name" value="Generated User {{index}}"> <br>
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" value="generate_user+{{index}}@someemail.com"> <br>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title"> <br>
+    <label for="department">Department:</label>
+    <input type="text" id="department" name="department"> <br>
+    <label for="organization">Organization:</label>
+    <input type="text" id="organization" name="organization"> <br>
+    <label for="division">Division:</label>
+    <input type="text" id="division" name="division"> <br>
+    <label for="cost_center">Cost Center:</label>
+    <input type="text" id="cost_center" name="cost_center"> <br>
+    <label for="external_id">External Id:</label>
+    <input type="text" id="external_id" name="external_id"> <br>
+    <label for="invited">Invited:</label>
+    <input type="checkbox" id="invited" name="invited"> <br>
+    <label for="work_locale">Work Locale:</label>
+    <input type="text" id="work_locale" name="work_locale"> <br>
+    <label for="auth_method">Auth Method:</label>
+    <select name="auth_method" id="auth_method">
+
+        <option selected></option>
+        <option value="SSO">SSO</option>
+        <option value="PASSWORD">Password</option>
+    </select>
+
+    <br><br><br>
+    <hr>
+    <label for="create_number">Number of users to create:</label>
+    <input type="number" min="1" id="create_number" name="create_number" value="10">
+    <button id="create-users-button" onclick={createUsers()}>Start</button>
+    <br>
+    <label for="progress">Creation progress:</label>
+    <progress id="progress" value="0" max="100"></progress>
+    <span id="numerical-progress"></span>
+    <br><br>
+    <button id="clear-errors" style="display: none;" onclick={clearErrors()}>Clear Errors</button>
+    <ul id="error" style="color: red;">
+    </ul>
+    <label id="created-users-label" style="display: none;" for="created-users">Created user ids:</label>
+    <ol id="created-users">
+    </ol>
+
+
+</body>
+
+<script>
+    const showCreatedUser = (id) => {
+        document.getElementById('created-users-label').setAttribute('style', "display: block;");
+
+        const node = document.createElement("li");
+        const textnode = document.createTextNode(id);
+        node.appendChild(textnode);
+        document.getElementById('created-users').appendChild(node);
+    }
+
+    const showError = (message) => {
+        document.getElementById('clear-errors').setAttribute('style', "display: block;");
+
+        const node = document.createElement("li");
+        const textnode = document.createTextNode(message);
+        node.appendChild(textnode);
+        document.getElementById('error').appendChild(node);
+    };
+    const clearErrors = () => {
+        document.getElementById('clear-errors').setAttribute('style', "display: none;");
+        document.getElementById('error').innerHTML = "";
+    }
+
+    const updateProgress = (current, max) => {
+        document.getElementById("progress").value = current;
+        document.getElementById("numerical-progress").innerHTML = `[${current}/${max}]`
+    }
+
+    const getCreationTemplate = () => ({
+        name: document.getElementById("name").value || "",
+        email: document.getElementById("email").value || "",
+        title: document.getElementById("title").value || "",
+        department: document.getElementById("department").value || "",
+        organization: document.getElementById("organization").value || "",
+        division: document.getElementById("division").value || "",
+        cost_center: document.getElementById("cost_center").value || "",
+        external_id: document.getElementById("external_id").value || "",
+        invited: document.getElementById("invited").checked,
+        work_locale: document.getElementById("work_locale").value || "",
+        auth_method: document.getElementById("auth_method").value || ""
+    })
+
+    const createUsers = () => {
+        document.getElementById("create-users-button").disabled = true;
+        document.getElementById("create-users-button").innerHTML = "Creating...";
+        const accessToken = document.getElementById("access_token").value;
+        if (!accessToken) {
+            return alert("Please add the access token of your integration instance");
+        }
+        const numberOfUsers = document.getElementById("create_number").value;
+        callApi(getCreationTemplate(), 1, numberOfUsers, accessToken);
+        document.getElementById("progress").max = numberOfUsers;
+    }
+
+    const callApi = (template, index, limit, accessToken) => {
+        const currentTemplate = {};
+        for (i in template) {
+            if (template[i] === null || template[i] === undefined || template[i] === "") {
+                continue;
+            };
+
+            if (typeof template[i] === "string") {
+                currentTemplate[i] = template[i].replace("{{index}}", index);
+                continue;
+            }
+            currentTemplate[i] = template[i];
+        }
+
+        const url = `https://graph.facebook.com/community/accounts`
+
+        setTimeout(() => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.setRequestHeader("Authorization", `Bearer ${accessToken}`);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== 4) return;
+                const status = xhr.status;
+                if (status === 0 || (status >= 200 && status < 400)) {
+                    showCreatedUser(JSON.parse(xhr.response).id);
+                    updateProgress(++document.getElementById("progress").value, limit);
+                    if (index < limit) {
+                        callApi(template, ++index, limit, accessToken);
+                    } else {
+                        // Completed
+                        document.getElementById("create-users-button").innerHTML = "Start";
+                        document.getElementById("create-users-button").disabled = false;
+                    }
+                } else {
+                    document.getElementById("create-users-button").innerHTML = "Start";
+                    document.getElementById("create-users-button").disabled = false;
+                    // Failed request
+                    showError(xhr.responseText);
+                }
+            };
+            xhr.send(JSON.stringify(currentTemplate));
+        }, 100)
+    }
+
+</script>
+
+</html>
