@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Post Creator</title>
+</head>
+
+<body>
+    <pre>Ensure your integration has the `Manage group content` permission checked</pre>
+    <label for="access_token">Access Token:</label>
+    <input type="text" id="access_token" name="access_token">
+    <br><br>
+    <label for="group_id">Group Id:</label>
+    <input type="text" id="group_id" name="group_id"> <br><br>
+    <label for="message">Message:</label>
+    <textarea type="text" id="message" name="message">**Post generated:** {{index}}</textarea>
+    <pre>You can use <a target="_blank" href="https://www.markdownguide.org/basic-syntax/">markdown</a> and {{index}} for an ascending number when each post is created</pre>
+
+    <br><br><br>
+    <hr>
+    <label for="create_number">Number of posts to create:</label>
+    <input type="number" min="1" id="create_number" name="create_number" value="10">
+    <button id="create-posts-button" onclick={createPosts()}>Start</button>
+    <br>
+    <label for="progress">Creation progress:</label>
+    <progress id="progress" value="0" max="100"></progress>
+    <span id="numerical-progress"></span>
+    <br><br>
+    <button id="clear-errors" style="display: none;" onclick={clearErrors()}>Clear Errors</button>
+    <ul id="error" style="color: red;">
+    </ul>
+    <label id="created-posts-label" style="display: none;" for="created-posts">Created post ids:
+        (groupId_postId)</label>
+    <ol id="created-posts">
+    </ol>
+</body>
+
+<script>
+    const showCreatedposts = (id) => {
+        document.getElementById('created-posts-label').setAttribute('style', "display: block;");
+
+        const node = document.createElement("li");
+        const textnode = document.createTextNode(id);
+        node.appendChild(textnode);
+        document.getElementById('created-posts').appendChild(node);
+    }
+
+    const showError = (message) => {
+        document.getElementById('clear-errors').setAttribute('style', "display: block;");
+
+        const node = document.createElement("li");
+        const textnode = document.createTextNode(message);
+        node.appendChild(textnode);
+        document.getElementById('error').appendChild(node);
+    };
+
+    const clearErrors = () => {
+        document.getElementById('clear-errors').setAttribute('style', "display: none;");
+        document.getElementById('error').innerHTML = "";
+    }
+
+    const updateProgress = (current) => {
+        let max = document.getElementById("progress").max;
+        document.getElementById("progress").value = current;
+        document.getElementById("numerical-progress").innerHTML = `[${current}/${max}]`
+
+        if (current === max) {
+            document.getElementById("create-posts-button").disabled = false;
+            document.getElementById("create-posts-button").innerHTML = "Start";
+        }
+    }
+
+    const postRequest = async (groupId, message, accessToken) => new Promise((resolve, reject) => {
+        const url = `https://graph.facebook.com/${groupId}/feed?message=${message}&formatting=MARKDOWN&access_token=${accessToken}`;
+
+        const post = JSON.stringify({})
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+        xhr.send(post);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                showCreatedposts(JSON.parse(xhr.response).id);
+                updateProgress(++document.getElementById("progress").value);
+                resolve(true);
+            } else {
+                updateProgress(++document.getElementById("progress").value);
+                showError(xhr.responseText);
+                reject(false);
+            }
+        }
+    });
+
+    const createPosts = () => {
+        document.getElementById("create-posts-button").disabled = true;
+        document.getElementById("create-posts-button").innerHTML = "Creating...";
+
+        const accessToken = document.getElementById("access_token").value;
+        if (!accessToken) return alert("Enter integration access token")
+
+        const groupId = document.getElementById("group_id").value;
+        const template = document.getElementById("message").value;
+        const numberOfPost = document.getElementById("create_number").value;
+
+        document.getElementById("progress").max = numberOfPost;
+        document.getElementById("progress").value = 0;
+        document.getElementById("numerical-progress").innerHTML = `[0/${numberOfPost}]`;
+
+        for (let index = 1; index <= numberOfPost; index++) {
+            postRequest(groupId, template.replace("{{index}}", index), accessToken).catch((err) => {
+                showError(err);
+            });
+        }
+
+    }
+
+</script>
+
+</html>
