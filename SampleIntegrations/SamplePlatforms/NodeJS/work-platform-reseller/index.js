@@ -1,4 +1,3 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; //Only needed for testing on sandbox
 const baseURI = 'https://graph.work.meta.com/'
 const appID = '<replace-with-app-id>'
 const appSecret = '<replace-with-app-secret>'
