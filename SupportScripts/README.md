@@ -1,4 +1,4 @@
-# Workplace From Facebook Platform Samples: Custom Integrations
+# Workplace From Meta Platform Samples: Custom Integrations
 
 This is a collection of sample scripts that show how you can interact with Workplace data using the Graph API.
 
