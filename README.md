@@ -1,4 +1,4 @@
-# Workplace From Facebook Platform Samples
+# Workplace From Meta Platform Samples
 
 This is a collection of samples containing examples of Graph API doc, integrations and support scripts.
 
