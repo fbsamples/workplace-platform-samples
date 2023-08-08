@@ -1,4 +1,4 @@
-# Workplace From Facebook Platform Samples in Powershell: Custom Integrations in Powershell
+# Workplace From Meta Platform Samples in Powershell: Custom Integrations in Powershell
 
 This is a collection of sample scripts in Powershell that show how you can interact with Workplace data using the Graph API.
 
