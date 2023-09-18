@@ -50,7 +50,7 @@ if($CSVFile -and $CSVFile -eq 'True') {
     try {
         $global:members = @()
         #Get members of a group from API calls
-        $next = "https://graph.workplace.com/$GroupId/members/?fields=name%2Cid%2Cemail%2Cadministrator"
+        $next = "https://graph.workplace.com/"+$GroupId+"/members/?fields=name%2Cid%2Cemail%2Cadministrator"
         do {
             #Get specific group in the community via Graph API
             $results = Invoke-RestMethod -Uri ($next) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"
@@ -58,7 +58,7 @@ if($CSVFile -and $CSVFile -eq 'True') {
                 $global:members += $results.data
                 if($results.paging.cursors.after) {
                     $after = $results.paging.cursors.after
-                    $next = "https://graph.workplace.com/$GroupId/members/?fields=name%2Cid%2Cemail%2Cadministrator&after=%24after"
+                    $next = "https://graph.workplace.com/"+$GroupId+"/members/?fields=name%2Cid%2Cemail%2Cadministrator&after="+$after
                 }
                 else {$next = $null}
             }
@@ -101,8 +101,8 @@ ForEach($m in $global:members){
                     #Check user input response
                     if($askRes.length -eq 0) {
                         #Remove Member from Group via Graph API
-                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
-                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
+                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/"+$GroupId+"/members/"+$($m.Id)) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
+                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/"+$GroupId+"/members?email="+$([System.Web.HttpUtility]::UrlEncode($m.Email))) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         #Check DELETE result
                         if($result.success) {
                             $removed++
@@ -120,8 +120,8 @@ ForEach($m in $global:members){
 
                 #Remove member from the group without asking for removal
                 'Live-Force' {
-                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members/$($m.Id)") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
-                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/$GroupId/members?email=$([System.Web.HttpUtility]::UrlEncode($m.Email))") -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
+                        $result = if($m.Id) {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/"+$GroupId+"/members/"+$($m.Id)) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
+                        else {Invoke-RestMethod -Method DELETE -URI ("https://graph.workplace.com/"+$GroupId+"/members?email="+$([System.Web.HttpUtility]::UrlEncode($m.Email))) -Headers @{Authorization = "Bearer " + $global:token} -UserAgent "WorkplaceScript/CleanGroupMembers"}
                         #Check DELETE result
                         if($result.success) {
                             $removed++
