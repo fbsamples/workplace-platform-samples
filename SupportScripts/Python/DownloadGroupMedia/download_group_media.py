@@ -28,10 +28,10 @@ params = {
 }
 
 directory_counter = 1
-save_directory = os.path.join(os.getcwd(), f'workplace_group_images')
+save_directory = os.path.join(os.getcwd(), f'workplace_group_media')
 while os.path.exists(save_directory):
     save_directory = os.path.join(
-        os.getcwd(), f'workplace_group_images_{directory_counter}')
+        os.getcwd(), f'workplace_group_media_{directory_counter}')
     directory_counter += 1
 
 os.makedirs(save_directory)
