@@ -54,17 +54,30 @@ def urlBase():
     return furl(GRAPH_URL_BASE)
 
 def buildHeader(accessToken):
-    return {'Authorization': 'Bearer ' + accessToken, "User-Agent": "GithubRep-BulkGroupCreation"}
+    return {'Authorization': f'Bearer {accessToken}', "User-Agent": "GithubRep-BulkGroupCreation"}
 
 def sendPayloadRequest(accessToken, endpoint, payload, log_msg):
     headers = buildHeader(accessToken)
     result = requests.post(endpoint, headers=headers, data = payload)
-    return (endpoint + log_msg + result.text)
+    return f'{endpoint} + {log_msg} + {result.text}'
 
 def sendModificationRequest(accessToken, endpoint, log_msg):
     headers = buildHeader(accessToken)
     result = requests.post(endpoint, headers=headers)
-    return (endpoint + log_msg + result.text)
+    return f'{endpoint} + {log_msg} + {result.text}'
+
+def getPagedData(accessToken, endpoint, data):
+    headers = buildHeader(accessToken)
+    result = requests.get(endpoint,headers=headers)
+    result_json = json.loads(result.text)
+    json_keys = result_json.keys()
+    if JSON_KEY_DATA in json_keys and len(result_json[JSON_KEY_DATA]):
+        data.extend(result_json[JSON_KEY_DATA])
+    if JSON_KEY_PAGING in json_keys and JSON_KEY_NEXT in result_json[JSON_KEY_PAGING]:
+        next = result_json[JSON_KEY_PAGING][JSON_KEY_NEXT]
+        if next:
+            getPagedData(accessToken, next, data)
+    return data
 
 ## End Points
 
@@ -77,15 +90,15 @@ def getCommunity(accessToken):
     uri = urlBase()
     uri.path.segments = [COMMUNITY_COL]
     headers = buildHeader(accessToken)
-    result = requests.post(uri.url, headers=headers)
-    return (' Get community -> ' + result.text)
+    result = requests.get(uri.url, headers=headers)
+    return json.loads(result.text)
 
 def createGroup(accessToken, payload):
     uri = urlBase()
     uri.path.segments = [COMMUNITY_COL, GROUPS_COL]
     headers = buildHeader(accessToken)
     result = requests.post(uri.url, headers=headers, data = payload)
-    return (' Create group -> ' + result.text)
+    return f' Create group -> {result.text}'
 
 def modifyGroupProperties(accessToken, group_id, properties = {}):
     log_msg = f'modifying group properties -> {group_id}'
@@ -116,8 +129,8 @@ def getGroupAdmin(accessToken, group_id):
     uri.path.segments = [group_id, ADMIN_COL]
     uri.args['fields'] = GROUP_ADMIN_FIELDS
     url = uri.tostr(query_dont_quote=True)
-    result = requests.delete(url, headers=headers, data=data)
-    return json.loads(result.text, result.encoding)
+    result = requests.post(url, headers=headers)
+    return json.loads(result.text)
 
 def modifyGroupAdmin(accessToken, group_id, member_user_id, log_msg='promoting member to admin in group -> '):
     uri = urlBase()
@@ -134,17 +147,18 @@ def removeAdminsFromGroup(accessToken, groupId, adminsToRetain):
         None
     for email in groupAdmins:
         result = removeMemberFromGroup(accessToken, groupId, email)
-        return ('Removing ' + str(email) + ' -> ' + result.text)
+        return f'Removing {str(email)} -> {result}'
 
 
 
-def makeAdminPost(accessToken, group_id, member_user_id, message, log_msg):
+def makeAdminPost(accessToken, group_id, member_user_id, message, log_msg=''):
+    log_msg = f'archive group {group_id}'
     uri = urlBase()
     uri.path.segments = [group_id, 'feed']
     postPayload = {
         "message": message
     }
-    sendPayloadRequest(accessToken, uri.url, log_msg, postPayload)
+    sendPayloadRequest(accessToken, uri.url, postPayload, log_msg)
 
 
 def getAllMembers(accessToken, community_id):
@@ -152,7 +166,7 @@ def getAllMembers(accessToken, community_id):
     uri.path.segments = [community_id, MEMBERS_SUFFIX]
     uri.args['fields'] = MEMBER_FIELDS
     url = uri.tostr(query_dont_quote=True)
-    return getPagedData(access_token, url, [])
+    return getPagedData(accessToken, url, [])
 
 def getUserIDFromEmail(access_token, community_id, email):
     members = getAllMembers(access_token, community_id)
@@ -221,7 +235,7 @@ accessToken = os.environ['WP_ACCESS_TOKEN'] or 'replace_with_your_access_token'
 # new_group_file_name = 'group_list.csv'
 
 # groupId = 'replace_with_group_id'
-groupsToArchiveFileName = os.environ['WP_GROUPS_TO_ARCHIVE_FILENAME'] or 'groups_to_archive.csv'
+groupsToArchiveFileName = os.environ['WP_GROUPS_TO_ARCHIVE_FILENAME'] or r'groups_to_archive.csv'
 defaultArchivalMessage = 'This group is being archived.'
 
 maintenaceAdminEmail = os.environ['WP_MAINT_ADMIN_EMAIL']
