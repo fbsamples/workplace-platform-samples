@@ -38,7 +38,7 @@
     "gulp": "^4.0.0",
     "gulp-eslint": "^4.0.0",
     "gulp-livereload": "^4.0.1",
-    "gulp-nodemon": "^2.0.2",
+    "gulp-nodemon": "^2.5.0",
     "gulp-plumber": "^1.0.0",
     "gulp-stylus": "^2.0.0",
     "localtunnel": "^1.8.3"
