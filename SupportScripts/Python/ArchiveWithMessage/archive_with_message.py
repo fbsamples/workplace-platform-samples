@@ -23,6 +23,7 @@
 
 
 import requests
+import json
 import csv
 from furl import furl
 import os
@@ -49,7 +50,7 @@ JSON_KEY_EMAIL = 'email'
 # Methods
 
 ## base methods
-def urlBase()
+def urlBase():
     return furl(GRAPH_URL_BASE)
 
 def buildHeader(accessToken):
@@ -67,10 +68,10 @@ def sendModificationRequest(accessToken, endpoint, log_msg):
 
 ## End Points
 
-def getAllGroups(access_token, community_id):
+def getAllGroups(accessToken, community_id):
     uri = urlBase()
     uri.path.segments = [community_id, GROUPS_COL]
-    return getPagedData(access_token, uri.url, [])
+    return getPagedData(accessToken, uri.url, [])
 
 def getCommunity(accessToken):
     uri = urlBase()
@@ -86,12 +87,13 @@ def createGroup(accessToken, payload):
     result = requests.post(uri.url, headers=headers, data = payload)
     return (' Create group -> ' + result.text)
 
-def modifyGroupProperties(access_token, group_id, properties = {}):
+def modifyGroupProperties(accessToken, group_id, properties = {}):
+    log_msg = f'modifying group properties -> {group_id}'
     endpoint  = GRAPH_URL_BASE + group_id
     field_names = GROUP_ALL_FIELDS.split(', ')
     field_names.remove('id')
     filtered_properties = {k: v for k, v in properties.items() if k in field_names}
-    sendPayloadRequest(access_token, endpoint, filtered_properties)
+    sendPayloadRequest(accessToken, endpoint, filtered_properties, log_msg)
 
 
 def addMemberToGroup(access_token, group_id, email=None, userId=None):
@@ -109,6 +111,7 @@ def removeMemberFromGroup(access_token, group_id, email):
     return json.loads(result.text, result.encoding)
 
 def getGroupAdmin(accessToken, group_id):
+    headers = buildHeader(accessToken)
     uri = urlBase()
     uri.path.segments = [group_id, ADMIN_COL]
     uri.args['fields'] = GROUP_ADMIN_FIELDS
@@ -116,20 +119,20 @@ def getGroupAdmin(accessToken, group_id):
     result = requests.delete(url, headers=headers, data=data)
     return json.loads(result.text, result.encoding)
 
-def modifyGroupAdmin(accessToken, group_id, member_user_id, log_msg):
+def modifyGroupAdmin(accessToken, group_id, member_user_id, log_msg='promoting member to admin in group -> '):
     uri = urlBase()
     uri.path.segments = [group_id, ADMIN_COL, member_user_id]
     payload = {"uid": member_user_id}
-    sendPayloadRequest(accessToken, uri.url, payload,' promoting member to admin in group -> ')
+    sendPayloadRequest(accessToken, uri.url, payload, log_msg)
 
-def removeAdminsFromGroup(accessToken, groupId, adminsToRetain=[maintenaceAdminEmail]):
+def removeAdminsFromGroup(accessToken, groupId, adminsToRetain):
     groupAdmins = getGroupAdmin(accessToken, groupId)
     try:
         for admin in adminsToRetain:
-            existingAdmins.remove(admin)
+            groupAdmins.remove(admin)
     except:
         None
-    for email in existingAdmins:
+    for email in groupAdmins:
         result = removeMemberFromGroup(accessToken, groupId, email)
         return ('Removing ' + str(email) + ' -> ' + result.text)
 
@@ -144,7 +147,7 @@ def makeAdminPost(accessToken, group_id, member_user_id, message, log_msg):
     sendPayloadRequest(accessToken, uri.url, log_msg, postPayload)
 
 
-def getAllMembers(access_token, community_id):
+def getAllMembers(accessToken, community_id):
     uri = urlBase()
     uri.path.segments = [community_id, MEMBERS_SUFFIX]
     uri.args['fields'] = MEMBER_FIELDS
@@ -173,11 +176,11 @@ def dedupeEntries(entries):
             deduped.append(entry)
     return deduped
 
-def load_modifyGroupAdmin(new_group_admins_file_name)
-with open(new_group_admins_file_name, newline='') as f:
-    reader = csv.reader(f)
-    for row in reader:
-        modifyGroupAdmin(accessToken, row[0], row[1])
+def load_modifyGroupAdmin(new_group_admins_file_name):
+    with open(new_group_admins_file_name, newline='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            modifyGroupAdmin(accessToken, row[0], row[1])
 
 def load_createGroup(new_group_file_name):
     with open(new_group_file_name,  newline='') as f:
@@ -234,17 +237,17 @@ logs = []
 # Remove other admins from all groups being archived
 # Archive all groups
 
-community_id = getCommunity(accessToken)
+community_id = getCommunity(accessToken)['id']
 targetGroups = load_groupsWithMessage(groupsToArchiveFileName)
-newAdminId = maintenanceAdminId(accessToken, community_id, maintenanceAdminEmail)
-dedupedTargetGroups = dedupeEntries(targetGroups)
-for groupId, groupName, archivalMessage in dedupedTargetGroups:
+newAdminId = getUserIDFromEmail(accessToken, maintenanceAdminEmail)
+for groupInfo in targetGroups:
+    groupName, groupId, archivalMessage = groupInfo['name'], groupInfo['id'], groupInfo['message']
     archivalMessage = archivalMessage.strip() or defaultArchivalMessage
-    logs.append( addMemberToGroup(accessToken, groupId, newAdminId) )
-    logs.append( modifyGroupAdmin(accessToken, groupId, newAdminId) )
-    logs.append( removeAdminsFromGroup(accessToken, groupId) )
-    logs.append( makeAdminPost(accessToken, groupId, newAdminId, archivalMessage) )
-    logs.append( modifyGroupProperties(accessToken, groupId, {'archive': True}) )
+    logs.append( ['addMemberToGroup', groupId, newAdminId, addMemberToGroup(accessToken, groupId, newAdminId)] )
+    logs.append( ['modifyGroupAdmin', groupId, newAdminId, modifyGroupAdmin(accessToken, groupId, newAdminId)] )
+    logs.append( ['removeAdminsFromGroup', groupId, maintenanceAdminEmail, removeAdminsFromGroup(accessToken, groupId, [maintenanceAdminEmail])] )
+    logs.append( ['makeAdminPost', groupId, newAdminId, makeAdminPost(accessToken, groupId, newAdminId, archivalMessage)] )
+    logs.append( ['modifyGroupProperties', groupId, modifyGroupProperties(accessToken, groupId, {'archive': True})] )
 
 print('\n\n')
 print('Log of all actions taken:')
