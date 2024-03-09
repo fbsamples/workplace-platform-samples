@@ -109,19 +109,27 @@ def modifyGroupProperties(accessToken, group_id, properties = {}):
     sendPayloadRequest(accessToken, endpoint, filtered_properties, log_msg)
 
 
-def addMemberToGroup(access_token, group_id, email=None, userId=None):
-    endpoint = GRAPH_URL_BASE + group_id + MEMBERS_SUFFIX
-    headers = buildHeader(access_token)
-    data = (userId !== None) ? {JSON_KEY_USER_ID: userId} : {JSON_KEY_EMAIL: email}
-    result = requests.post(GRAPH_URL_BASE + group_id + MEMBERS_SUFFIX, headers=headers, data=data)
-    return json.loads(result.text, result.encoding)
+def addMemberToGroup(accessToken, group_id, email=None, userId=None):
+    # endpoint = GRAPH_URL_BASE + group_id + MEMBERS_SUFFIX
+    headers = buildHeader(accessToken)
+    uri = urlBase()
+    uri.path.segments = [group_id, MEMBERS_SUFFIX]
+    uri.args[JSON_KEY_EMAIL] = email
+    endpoint = uri.tostr()
+    # data = {JSON_KEY_EMAIL: email} # if (userId != None) else {JSON_KEY_USER_ID: userId}
+    result = requests.post(endpoint, headers=headers) #, data=data)
+    return json.loads(result.text)
 
-def removeMemberFromGroup(access_token, group_id, email):
-    endpoint = GRAPH_URL_BASE + group_id + MEMBERS_SUFFIX
-    headers = buildHeader(access_token)
-    data = {JSON_KEY_EMAIL: email}
-    result = requests.delete(GRAPH_URL_BASE + group_id + MEMBERS_SUFFIX, headers=headers, data=data)
-    return json.loads(result.text, result.encoding)
+def removeMemberFromGroup(accessToken, group_id, email):
+    # endpoint = GRAPH_URL_BASE + group_id + MEMBERS_SUFFIX
+    uri = urlBase()
+    uri.path.segments = [group_id, MEMBERS_SUFFIX]
+    uri.args[JSON_KEY_EMAIL] = email
+    endpoint = uri.tostr()
+    headers = buildHeader(accessToken)
+    # data = {JSON_KEY_EMAIL: email}
+    result = requests.delete(endpoint, headers=headers) #, data=data)
+    return json.loads(result.text)
 
 def getGroupAdmin(accessToken, group_id):
     headers = buildHeader(accessToken)
@@ -168,15 +176,19 @@ def getAllMembers(accessToken, community_id):
     url = uri.tostr(query_dont_quote=True)
     return getPagedData(accessToken, url, [])
 
-def getUserIDFromEmail(access_token, community_id, email):
-    members = getAllMembers(access_token, community_id)
+def getUserIDFromEmail(accessToken, email):
+    uri = urlBase()
+    uri.path.segments = [email]
+    result = requests.get(uri.url, headers=headers)
+    return json.loads(result.text)['id']
+
+def searchUserIDFromEmail(accessToken, community_id, email):
+    members = getAllMembers(accessToken, community_id)
     for member in members:
+        print(member)
         if "email" in member and member["email"] == email:
             return member["id"]
     return None
-
-def maintenanceAdminId(accessToken, community_id, maintenanceAdminEmail):
-    return getUserIDFromEmail(accessToken, community_id, maintenanceAdminEmail)
 
 
 ## loaders
@@ -223,8 +235,13 @@ def load_groupsWithMessage(file_path):
     groups = []
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
+        next(reader)
+        seen_ids = set()
         for row in reader:
-            groups.append({'name': row[0], 'id': row[1], 'message': row[2]})
+            group_id = row[1]
+            if group_id not in seen_ids:
+                groups.append({'name': row[0], 'id': group_id, 'message': row[2]})
+                seen_ids.add(group_id)
     return groups
 
 
