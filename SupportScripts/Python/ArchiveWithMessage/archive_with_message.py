@@ -238,7 +238,7 @@ accessToken = os.environ['WP_ACCESS_TOKEN'] or 'replace_with_your_access_token'
 groupsToArchiveFileName = os.environ['WP_GROUPS_TO_ARCHIVE_FILENAME'] or r'groups_to_archive.csv'
 defaultArchivalMessage = 'This group is being archived.'
 
-maintenaceAdminEmail = os.environ['WP_MAINT_ADMIN_EMAIL']
+maintenanceAdminEmail = os.environ['WP_MAINT_ADMIN_EMAIL']
 
 logs = []
 
