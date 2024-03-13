@@ -139,7 +139,18 @@ for group in getGroups():
         writer.writerow(header)
 
         for item in feed:
-            row = [ item["id"], item["permalink_url"], item["created_time"], item["updated_time"], encode(item["from"]["name"]), item["from"]["id"], encode(item["message"]), encode(item["link"]), item["reactions"]["summary"]["total_count"], item["comments"]["summary"]["total_count"]]
+            row = [
+                item["id"],
+                item["permalink_url"],
+                item["created_time"],
+                item["updated_time"],
+                encode(item["from"]["name"]),
+                item["from"]["id"],
+                encode(item["message"]),
+                encode(item["link"]),
+                item["reactions"]["summary"]["total_count"],
+                item["comments"]["summary"]["total_count"]
+            ]
             if VERBOSE:
                 print row
             writer.writerow(row)
