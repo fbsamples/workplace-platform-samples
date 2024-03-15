@@ -31,14 +31,14 @@
     "pg": "^7.8.2",
     "request": "^2.72.0",
     "request-promise": "^3.0.0",
-    "sequelize": "^6.21.3",
+    "sequelize": "^6.29.0",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
     "gulp-eslint": "^4.0.0",
     "gulp-livereload": "^4.0.1",
-    "gulp-nodemon": "^2.0.2",
+    "gulp-nodemon": "^2.5.0",
     "gulp-plumber": "^1.0.0",
     "gulp-stylus": "^2.0.0",
     "localtunnel": "^1.8.3"

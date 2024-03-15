@@ -19,8 +19,8 @@
   "homepage": "https://github.com/Bikashforworkplacenew/Acronym-Bot#readme",
   "dependencies": {
     "dotenv": "^8.1.0",
-    "express": "^4.16.3",
-    "google-spreadsheet": "^3.1.15",
+    "express": "^4.17.3",
+    "google-spreadsheet": "^4.1.1",
     "properties-reader": "^0.3.1",
     "request": "^2.87.0"
   }
