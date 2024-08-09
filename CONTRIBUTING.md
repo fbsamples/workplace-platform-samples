@@ -3,7 +3,7 @@ We want to make contributing to this project as easy and transparent as
 possible.
 
 ## Our Development Process
-... (in particular how this is synced with internal changes to the project)
+We maintain this repo to help Workplace customers maintain their Workplace communities via Graph API. The sample code in this repo is updated manually as needed by members of the Workplace team.
 
 ## Pull Requests
 We actively welcome your pull requests.
