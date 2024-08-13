@@ -1,1 +1,0 @@
-CREATE TABLE employees(id bigint PRIMARY KEY, employee_id VARCHAR (50) UNIQUE NOT NULL, answer1 VARCHAR (50) NOT NULL,answer2 VARCHAR (50) NOT NULL); 
