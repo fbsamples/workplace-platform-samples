@@ -1,26 +1,8 @@
-
-# MIT license
-# contributors: Zachary Jones
-
-# using this file
-# The file requires setting some variables before running.
-# This can be done by att them to your terminal environemnt.
-# In MacOS, this would be opening the terminal and typing
-# ```
-# export <variableName>=<value>
-# ```
-# related variable names are in ALL_CAPS, after each `os.environ`
-# then run the script from that same terminal window
-#
-# reminder to run this script from a terminal, rather than double clicking on the file after updating code inline to include your own values
-# the latter can result in the log output being lost, if the window auto-closes after completion.
-#
-# This script uses a CSV file as input. By dault, it's name should be groups_to_archive.csv
-# The first row should contain column headers.
-# The following rows should contain Group Name, Group ID, and the Message to send to the group as notification of its archival
-# only group ids and messages will be used, the name is for human readability
-# When the Message field is blank, a default archival message can be configured in the code below
-
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+# 
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 import requests
 import json

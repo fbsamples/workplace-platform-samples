@@ -1,3 +1,9 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+# 
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
 param(
     [Parameter(Mandatory=$true, HelpMessage='The ID of the Workplace Group you would like to export feed from')] [string]$WPGroupId,
     [Parameter(Mandatory=$false, HelpMessage='Specify this date to export posts that were updated (or created) only after it. Format: DD-MM-YYYY, will default to all posts in a group (no date)')] [string]$StartDate,

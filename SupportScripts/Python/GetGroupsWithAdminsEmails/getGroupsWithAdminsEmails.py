@@ -1,3 +1,9 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+# 
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
 #Demonstrates how to follow pagination to scroll through all group results with group name, admins, and emails
 #This script requires the access token to be placed in a file named accessToken
 

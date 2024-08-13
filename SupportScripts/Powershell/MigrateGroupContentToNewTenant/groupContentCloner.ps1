@@ -1,3 +1,9 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+# 
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
 param(
     [Parameter(Mandatory = $true, HelpMessage = 'The ID of the group in Workplace you would like to clone FROM (Origin)')] [string]$OriginGroupId,
     [Parameter(Mandatory = $true, HelpMessage = 'Path for your Workplace access token in .json format {"accessToken" : "123xyz", "destAccessToken" : "123xyz"}')] [string]$WPAccessToken

@@ -1,4 +1,10 @@
-﻿param(
+﻿# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+# 
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
+param(
     [Parameter(Mandatory=$true, HelpMessage='The ID of the Workplace Group you would like to remove users from')] [string]$GroupId,
     [Parameter(Mandatory=$false, HelpMessage='The domain of the users you would like to remove')] [string]$EmailDomain,
     [Parameter(Mandatory=$false, HelpMessage='Path to your file listing users to remove from group')] [string]$WPGroupMembers,

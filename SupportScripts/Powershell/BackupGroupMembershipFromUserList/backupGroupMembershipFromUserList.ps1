@@ -1,3 +1,9 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+# 
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
 param(
     [Parameter(Mandatory=$true, HelpMessage='Path of the list of users (with ID or email address) from whom you want to retain and backup their group membership')] [string]$WPUserIDFile,
     [Parameter(Mandatory=$true, Position=0, HelpMessage='Path for your Workplace access token in .json format {"accessToken" : 123xyz}')] [string]$WPAccessToken
